@@ -4,11 +4,47 @@
     border-color: black;
 }
 .btn-primary:hover{
-    background-color:  #728f23; 
+    background-color:  #8C5125; 
     border-color: black;
 }
 
+.btn-outline-dark {
+    color: #8C5125;
+    border-color: #8C5125;
+}
+
+.btn-outline-dark:hover {
+    background-color: #8C5125;
+}
+
+/* TOPBAR */
+.top-bar
+{
+  max-height: 28px;
+  padding: 4px 4px;
+  font-size: small;
+  color: white;
+  background-color:  #728f23; 
+}
+
 /* NAVBAR */
+.nav-lateral{
+    margin: 0 auto;
+}
+
+.nav-centro{
+
+}
+
+.nav-link{
+    text-decoration: none;
+    color: #8C5125 !important;
+}
+
+.nav-link:hover{
+    text-decoration: none;
+    color:#83A32C;
+}
 
 nav{
     background-color:  #ffffff;
@@ -16,6 +52,7 @@ nav{
     /*background-color:  #8C5125;*/ /*MARRON OSCURO*/
     background-size: cover;
 }
+
 
 /* MASTHEAD (Banner principal) */
 .banner {
@@ -84,16 +121,25 @@ nav{
     color: aliceblue;
 }
 
-
-ul > a{
-    color: aliceblue;
-}
-
-ul > a :hover{
-    color: red;
-}
-
 .data-fiscal {
     width: 128px;
     height: auto;
+}
+
+/* COLORES */
+/* background-color:  #728f23; */  /* VERDE */
+/* background-color:  #E0AD46; */ /*AMARILLO*/
+/* background-color:  #8C5125; */ /*MARRON OSCURO*/
+.bg-acento{
+    background-color:  #728f23; 
+}
+.bg-mostaza{
+    background-color:  #E0AD46; 
+}
+.bg-marron{
+    background-color:  #8C5125;
+}
+
+.text-acento {
+    color:  #8C5125;
 }

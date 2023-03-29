@@ -19,23 +19,65 @@
 
     <body>
 
+        <!-- Top Bar -->
+        <section>
+            <div class="row justify-content-center top-bar bg-mostaza text-dark">
+                    <div class="col-4 text-center">Compra Minima $5.000</div>
+            </div>
+        </section>
+
         <!-- Pre-header -->
         <div class="container-fluid text-center banner-logo-marca">
             <img src="img/marca/logo-semillares-simple.png " alt="Logo de semillares">
+            
         </div>    
-
 
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg shadow sticky-top navbar-light ">
-            <div class="container px-5">
+            <div class="container-fluid row mx-4 justify-content-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class=" col col-5 collapse navbar-collapse nav-lateral">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li><a class="nav-link" href="#">Inicio</a></li>
+                        <li><a class="nav-link" href="#">Nosotros</a></li>
+                        <li><a class="nav-link" href="#">Item 3</a></li>
+                      </ul>
+                </div>
+                <div class="nav-centro  col col-2 banner-logo-marca">
+
+                </div>
+                <div class="nav-derecha col col-5 collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item "><a class="nav-link" href="#!">Contacto</a></li>
+                        <li class="nav-item "><a class="nav-link" href="#!">Envíos</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="tienda.html">Todos</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="tienda.html">Populares</a></li>
+                                <li><a class="dropdown-item" href="tienda.html">Sin TACC</a></li>
+                                <li><a class="dropdown-item" href="tienda.html">Nuevos</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            <span class="badge bg-marron text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!--<div class="container px-5">
                 <a class="navbar-brand" href="#!">Semillares</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Envíos</a></li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item text-acento"><a class="nav-link active" aria-current="page" href="#!">Inicio</a></li>
+                        <li class="nav-item text-acento"><a class="nav-link" href="#!">Contacto</a></li>
+                        <li class="nav-item text-acento"><a class="nav-link" href="#!">Envíos</a></li>
+                        <li class="nav-item text-acento dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="tienda.html">Todos</a></li>
@@ -54,6 +96,7 @@
                     </form>
                 </div>
             </div>
+            -->
         </nav>
 
         <!-- Header-->
@@ -64,7 +107,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <div class="text-center my-5">
-                            <h1 class="display-5 fw-bolder text-dark mb-2">Semillares</h1>
+                            <!-- <img src="img/marca/logo-semillares-simple.png " alt="Logo de semillares"> -->
+                            <!--<h1 class="display-5 fw-bolder text-dark mb-2">Semillares</h1> -->
                             <p class="lead text-dark-50 mb-4">🌱 Almacén saludable.</p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Venta Mayorista</a>
@@ -83,7 +127,7 @@
             <div class="container px-5 my-5">
                 <div class="row gx-5">
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-truck"></i></div>
+                        <div class="feature bg-acento bg-gradient text-white rounded-3 mb-3"><i class="bi bi-truck"></i></div>
                         <h2 class="h4 fw-bolder">Envios</h2>
                         <p> Enviamos a toda la Argentina, desde nuestro local en La Plata, Buenos Aires. Si querés saber los costos de envíos a tu zona, consulta nuestra sección de Envíos. </p>
                         <a class="text-decoration-none" href="#!">
@@ -92,7 +136,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-credit-card"></i></div>
+                        <div class="feature bg-marron  text-white rounded-3 mb-3"><i class="bi bi-credit-card"></i></div>
                         <h2 class="h4 fw-bolder">Medios de Pago</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                         <a class="text-decoration-none" href="#!">
@@ -101,7 +145,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                        <div class="feature bg-mostaza text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
                         <h2 class="h4 fw-bolder">Featured title</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                         <a class="text-decoration-none" href="#!">
@@ -413,15 +457,16 @@
             <div class="container px-5">
                 <div class=" row-cols-lg-4 row row-cols-md-2 row-cols-sm-1 text-white">
                     <div class="col">
-                        <h4>Informacion</h4>
+                        <h4>Información</h4>
                         <p>Direccion: ....</p>
                         <p>La Plata, Buenos Aires</p>
                         <p>Telefono: (221) 123-456</p>
                         <p>Email: ....@gmail.com</p>
                     </div>
                     <div class="col">
-                        <h4>Columna</h4>
+                        <h4>Columna de links</h4>
                         <li class="list-group ">
+                            <ul><a class="">link 1</a></ul>
                             <ul><a class="">link 2</a></ul>
                             <ul><a class="">link 3</a></ul>
                         </li>
@@ -441,7 +486,7 @@
                         <img class="data-fiscal" src="img/Data-fiscal-Ejemplo.jpg" alt="Data Fiscal">
                     </div>
                 </div>
-                <p class="m-0 text-center text-white">Copyright &copy; Semillares 2022</p>
+                <p class="m-0 text-center text-white">Copyright &copy; Semillares 2023</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

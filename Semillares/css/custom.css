@@ -7,6 +7,10 @@
     background-color:  #8C5125; 
     border-color: black;
 }
+.btn-primary:disabled{
+    background-color:  #b97847;
+    border-color: black;
+}
 
 .btn-outline-dark {
     color: #8C5125;
@@ -15,6 +19,15 @@
 
 .btn-outline-dark:hover {
     background-color: #8C5125;
+}
+.dropdown-item
+{
+    color: #8C5125;
+}
+.dropdown-item:hover
+{
+    color: #74411b;
+    background-color:  #dbaa47; 
 }
 
 /* TOPBAR */
@@ -27,6 +40,9 @@
   background-color:  #728f23; 
 }
 
+
+
+/*------------------------------------------------------------*/
 /* NAVBAR */
 .nav-lateral{
     margin: 0 auto;
@@ -54,6 +70,8 @@ nav{
 }
 
 
+
+/*------------------------------------------------------------*/
 /* MASTHEAD (Banner principal) */
 .banner {
     position: relative;
@@ -95,15 +113,15 @@ nav{
     z-index: 9998;
 }
 
-.banner-logo-marca > img{
+.banner-logo-marca > a > img{
     width: 200px; 
     height: auto;
     position: relative;
-    top: 8px;
+    top: -28px;
     z-index: 9999;
 }
 
-
+/*------------------------------------------------------------*/
 /* LOGOS */
 
 .logos-pago{
@@ -115,6 +133,7 @@ nav{
     height: 36px;
 }
 
+/*------------------------------------------------------------*/
 /* GENERICO */
 
 .list-group-item {
@@ -126,6 +145,15 @@ nav{
     height: auto;
 }
 
+
+/*------------------------------------------------------------*/
+/* FOOTER */
+footer a {
+    color: #fff;
+    font-style: normal;
+}
+
+/*------------------------------------------------------------*/
 /* COLORES */
 /* background-color:  #728f23; */  /* VERDE */
 /* background-color:  #E0AD46; */ /*AMARILLO*/
@@ -134,10 +162,16 @@ nav{
     background-color:  #728f23; 
 }
 .bg-mostaza{
-    background-color:  #E0AD46; 
+    background-color:  #d1a03e; 
+}
+.bg-oro{
+    background-color:  #dbaa47; 
 }
 .bg-marron{
     background-color:  #8C5125;
+}
+.bg-marron-oscuro{
+    background-color:  #6b3f1d;
 }
 
 .text-acento {

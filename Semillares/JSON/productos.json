@@ -1,0 +1,55 @@
+[{
+    "id":"01",
+    "nombre": "almendras",
+    "categoria":"frutos-secos",
+    "cantidad":"1",
+    "precio":"1500",
+    "presentacion":"granel",
+    "imagen":"./img/img productos/almendras.jpg"
+},
+
+{
+    "id":"02",
+    "nombre": "nueces",
+    "categoria":"frutos-secos",
+    "cantidad":"1",
+    "precio":"2000",
+    "presentacion":"granel",
+    "imagen":"./img/img productos/nueces.webp"
+},
+
+{
+    "id":"03",
+    "nombre": "pasas de uva",
+    "categoria":"frutos-deshidratados",
+    "cantidad":"1",
+    "precio":"1000",
+    "presentacion":"granel",
+    "imagen":"./img/img productos/pasas de uva.jpg"
+},
+
+
+{
+    "id":"04",
+    "nombre": "avena",
+    "categoria":"cereal",
+    "cantidad":"1",
+    "precio":"900",
+    "presentacion":"envase x 500 grs",
+    "imagen":"./img/img productos/avena.jpg"
+},
+
+
+{
+    "id":"05",
+    "nombre": "aceite de oliva",
+    "categoria":"aceites",
+    "cantidad":"1",
+    "precio":"2500",
+    "presentacion":"envase x 250 cc",
+    "imagen":"./img/img productos/aceite-oliva.jpg"
+}
+
+
+
+]

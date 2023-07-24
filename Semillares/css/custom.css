@@ -1,7 +1,12 @@
 /* TEMA */
+body {
+    font-family: 'Montserrat';
+}
+
 .btn-primary{
     background-color:  #83A32C;/*VERDE*/
-    border-color: black;
+    border: none;
+    border-radius: 360px;
 }
 .btn-primary:hover{
     background-color:  #8C5125; 
@@ -30,10 +35,13 @@
     background-color:  #dbaa47; 
 }
 
+.resaltado-verde { color: #83A32C;  }
+
+
 /* TOPBAR */
 .top-bar
 {
-  max-height: 28px;
+  max-height: 64px;
   padding: 4px 4px;
   font-size: small;
   color: white;
@@ -44,42 +52,103 @@
 
 /*------------------------------------------------------------*/
 /* NAVBAR */
-.nav-lateral{
-    margin: 0 auto;
-}
 
-.nav-centro{
-
-}
-
-.nav-link{
+.nav-link {
     text-decoration: none;
-    color: #8C5125 !important;
+    color: #000000 !important;
 }
 
 .nav-link:hover{
     text-decoration: none;
-    color:#83A32C;
+    color:#83A32C!important;
+}
+
+nav .active {
+    background-color: #83A32C!important;
+    color:aliceblue!important;
+    border-radius: 0%!important;
+}
+
+nav .active:hover {
+    background-color: #83A32C!important;
+    color:aliceblue!important;
+    border-radius: 0%!important;
+    text-decoration: underline;
+}
+
+nav li:hover{
+    text-decoration: underline;
+    color:#83A32C!important;
+}
+
+nav .disabled {
+    color: #c0c0c0!important;
 }
 
 nav{
     background-color:  #ffffff;
-    /*background-color:  #E0AD46;*/ /*AMARILLO*/
-    /*background-color:  #8C5125;*/ /*MARRON OSCURO*/
     background-size: cover;
 }
 
+.nav-superior{
+    font-size: large;
+}
 
+
+.nav-inferior{
+    font-size: 18pt;
+}
+
+.nav-logo {
+    height: 128px;
+    width: auto;
+}
+
+button::after {
+    background-color: #ffffff!important;
+    color: brown!important;
+}
+
+.texto-cuenta {
+    text-shadow: 2px 2px #74747448;
+    margin: 0px 8px;
+}
 
 /*------------------------------------------------------------*/
 /* MASTHEAD (Banner principal) */
 .banner {
     position: relative;
-    height: 100vh;
-    background-image: url('https://media.gq.com.mx/photos/5f3f4f7f4545293c7ebf8ad9/master/pass/cereales.jpg');
+    height: 60vh;
+    background: linear-gradient(90deg, rgba(227,170,3,1) 48%, rgba(255,255,255,1) 100%);
+    /*background-image: url('https://media.gq.com.mx/photos/5f3f4f7f4545293c7ebf8ad9/master/pass/cereales.jpg');*/
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+  }
+
+  .al-fondo {
+    vertical-align: bottom;
+    border: 0;
+    width: 60vh;
+  }
+
+  .banner  p {
+    font-family: 'Montserrat';
+    font-weight:normal;
+    font-size: x-large;
+  }
+
+  .banner strong {
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: x-large;
+    color: #ffffff;
+  }
+
+  .banner button {
+    font-weight: normal;
+    font-size: large;
+    color: #ffffff;
   }
   
   .overlay {
@@ -107,19 +176,6 @@ nav{
   }
 
 
-.banner-logo-marca {
-    background-color: rgb(243, 243, 243);
-    height: 0;
-    z-index: 9998;
-}
-
-.banner-logo-marca > a > img{
-    width: 200px; 
-    height: auto;
-    position: relative;
-    top: -28px;
-    z-index: 9999;
-}
 
 /*------------------------------------------------------------*/
 /* LOGOS */
@@ -134,23 +190,304 @@ nav{
 }
 
 /*------------------------------------------------------------*/
+/* FEAUTRES */
+
+#features p {
+    font-family: 'Montserrat';
+    font-size: medium;
+    margin: 0%;
+}
+
+/*------------------------------------------------------------*/
 /* GENERICO */
 
 .list-group-item {
     color: aliceblue;
 }
 
-.data-fiscal {
-    width: 128px;
-    height: auto;
+.caja-mix > img {
+    width: 256px;
 }
 
+.caja-mix > div > h3 {
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.caja-mix > p {
+    font-size: 20pt;
+    font-family: 'Montserrat';
+    font-weight:normal;
+    font-size: medium;
+}
+
+#wraper {
+    
+    transition: all 0.3s;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.bold{
+    font-weight: bolder;
+}
 
 /*------------------------------------------------------------*/
 /* FOOTER */
+footer {
+    margin-top: 64px;
+    padding: 16px;
+}
+
 footer a {
     color: #fff;
     font-style: normal;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #dbaa47;
+}
+
+footer ul {
+    /* quitar indentacion (sangria) */
+    padding: 0;
+    list-style-type: none;
+}
+
+footer h4 {
+    padding-bottom: 16px;
+}
+
+.data-fiscal {
+    width: 120px;
+    height: 165px;
+}
+
+/*------------------------------------------------------------*/
+/* TIENDA */
+
+.lateral-tienda {
+    height: 100%;
+    border-color: #000000;
+    border-right: solid;
+    border-width: 1px;
+    
+}
+
+.lateral-tienda li {
+    padding: 4px;
+}
+
+.lateral-tienda ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.lateral-tienda img {
+    width: 200px;
+    max-width: 100%;
+    margin-bottom: 32px;
+}
+
+.lateral-tienda a {
+    color: #4b4b4b;
+    font-style: normal;
+    text-decoration: none;
+    font-size: large;
+}
+
+.lateral-tienda a:hover {
+    color:#204222;
+    text-decoration: underline;
+}
+
+.header-tienda{
+    min-height: 128px;
+}
+
+.header-tienda div {
+    padding: 4px;
+}
+
+.header-tienda button {
+    height: 100%;
+}
+
+.header-tienda input{
+    background-color: #ebebeb;
+    border-radius: 360px;
+    padding: 16px 16px;
+}
+
+.header-tienda .dropdown{
+    border-color: #4b4b4b;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 16px;
+    padding: 8px 24px;
+    height: 100%;
+    width: min-content;
+    margin: 0px;
+}
+
+#grilla-tienda {
+    
+}
+
+/*------------------------------------------------------------*/
+/* PRODUCTOS */
+.carta-producto{
+    padding: 24px;
+    margin: 8px;
+    max-height: 200px;
+    width: 300px;
+}
+
+.carta-producto h5{
+    font-size: large;
+}
+
+.carta-producto img{
+    width: 100%;
+}
+
+.carta-producto button {
+    border: none;
+    background-color: #83A32C;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.carta-producto button:hover {
+    background-color: #d1a03e!important;
+    color: #ffffff;
+}
+
+.botonera-suma {
+    background-color: #ffffff!important;
+    font-weight: bolder;
+}
+
+.botonera-suma button {
+    text-decoration: none;
+    font-weight: bolder;
+    border-radius: 10%;
+    padding: 0;
+    margin: 0;
+}
+
+.input-group input {
+    height: 46px;
+    text-align: center;
+}
+
+.input-group-btn button .disabled {
+    background-color: #d10a0a!important;
+    
+}
+
+/*------------------------------------------------------------*/
+/* TRABAJO */
+
+#trabajo p {
+    font-size: medium;
+    inline-size:auto;
+}
+
+#trabajo i {
+    height: 100%;
+    font-size: xx-large;
+    color:#728f23;
+}
+
+/*------------------------------------------------------------*/
+/* LOGIN - REGISTRO */
+
+#main-login a{
+    text-decoration: none;
+}
+
+#main-login a:hover{
+    text-decoration: none;
+}
+
+.ingreso-derecha{
+    width: fit-content;
+}
+
+.logo-login img{
+    width: auto;
+    max-width: 512px;
+    align-self: center;
+}
+
+.col-login-izq {
+    padding: 16px;
+    font-size: x-large!important;
+}
+
+.input_text
+{
+    background-color: #D9D9D9;
+    border-radius: 360px;
+    padding-right:  24px;
+    padding-left:  16px;
+
+}
+.input_text input
+{
+    background-color: #D9D9D9;
+    border: 0;
+    padding: 16px 0px;
+    min-height: fit-content;
+}
+
+.input_text i
+{
+    color:#83A32C;
+}
+
+.social-login
+{
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    row-gap: 8px;
+    
+}
+
+
+.social-login a
+{
+    text-decoration: none;
+    position: relative;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 8px;
+    vertical-align: middle;
+}
+
+.social-login a.facebook{
+    background: #3b5998;
+}
+
+.social-login a.google{
+    background: #ea4335;
+}
+
+.login_btn button{
+    height: 48px;
+    width: 100%;
+    padding: 4px 48px;
 }
 
 /*------------------------------------------------------------*/
@@ -173,7 +510,25 @@ footer a {
 .bg-marron-oscuro{
     background-color:  #6b3f1d;
 }
+.bg-gris-claro{
+    background-color:  #e6e6e6;
+}
+.bg-verde-claro { background-color:  #83A32C; }
+
+.bg-verde-oscuro { background-color:  #204222; }
+
+.bg-gradiente-amarillo-blanco { 
+    background: linear-gradient(90deg, rgba(227,170,3,1) 48%, rgba(255,255,255,1) 100%);
+}
 
 .text-acento {
     color:  #8C5125;
+}
+
+.enlace-simple {
+    color: #83A32C;
+}
+
+.enlace-simple:hover {
+    color:#d1a03e;
 }

@@ -201,6 +201,7 @@ button::after {
 /*------------------------------------------------------------*/
 /* GENERICO */
 
+
 .list-group-item {
     color: aliceblue;
 }
@@ -208,6 +209,7 @@ button::after {
 .caja-mix > img {
     width: 256px;
 }
+
 
 .caja-mix > div > h3 {
     font-family: 'Montserrat';
@@ -489,6 +491,31 @@ footer h4 {
     width: 100%;
     padding: 4px 48px;
 }
+
+/*------------------------------------------------------------*/
+/* PEDIDOS - TARJETA DE PEDIDO GUARDADO */
+
+.pedido-guardado {
+    background-color:  #d1a03e; 
+    border-radius: 10%;
+    padding: 24px 24px;
+}
+
+/*------------------------------------------------------------*/
+/* CUENTA */
+
+.lista-items-comprados {
+    list-style: none;
+}
+
+.lista-montos-comprados {
+    list-style: none;
+}
+
+
+
+
+
 
 /*------------------------------------------------------------*/
 /* COLORES */

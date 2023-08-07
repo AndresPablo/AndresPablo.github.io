@@ -501,6 +501,20 @@ footer h4 {
     padding: 24px 24px;
 }
 
+/*------------------------------------------------------------*/
+/* CUENTA */
+
+.lista-items-comprados {
+    list-style: none;
+}
+
+.lista-montos-comprados {
+    list-style: none;
+}
+
+
+
+
 
 
 /*------------------------------------------------------------*/

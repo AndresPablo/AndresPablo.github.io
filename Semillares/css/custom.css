@@ -17,6 +17,21 @@ body {
     border-color: black;
 }
 
+.btn-secondary{
+    color: #000000;
+    background-color:  #ffffff;/*BLANCO*/
+    border: none;
+    border-radius: 360px;
+}
+.btn-secondary:hover{
+    background-color:  #8C5125; 
+    border-color: black;
+}
+.btn-secondary:disabled{
+    background-color:  #b97847;
+    border-color: black;
+}
+
 .btn-outline-dark {
     color: #8C5125;
     border-color: #8C5125;
@@ -418,26 +433,31 @@ footer h4 {
     text-decoration: none;
 }
 
+
+
 .ingreso-derecha{
     color: #000000;
+    text-decoration: none;
 }
 .ingreso-derecha a {
     color: #000000;
+    text-decoration: none;
 }
 .ingreso-derecha a:hover {
     color: #000000;
+    text-decoration: underline;
 }
-
 
 .logo-login img{
     width: auto;
-    max-width: 512px;
+    max-width: 300px;
     align-self: center;
 }
 
 .ingreso-izquierda {
     padding: 16px;
     font-size: x-large!important;
+    text-align: center;
 }
 
 .input_text
@@ -509,6 +529,26 @@ footer h4 {
     background-color:  #d1a03e; 
     border-radius: 10%;
     padding: 24px 24px;
+}
+
+
+/*------------------------------------------------------------*/
+/* COMPRA */
+
+.lista-carrito {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.lista-carrito-item {
+    position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 /*------------------------------------------------------------*/

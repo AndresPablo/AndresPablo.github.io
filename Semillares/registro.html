@@ -23,23 +23,65 @@
 
     <body>
 
-        
-
-        <!-- Contenido -->
-        <section id="main-login" class="">
-            <div class="content-fluid text-center">
+        <section>
+            <div class="container-fluid">
                 <div class="row vh-100">
                     <!-- Columna izquierda -->
-                    <div class="col-lg-6 ingreso-izquierda d-sm-none d-md-inline-flex flex-column align-items-center justify-content-center ">
+                    <div class="ingreso-izquierda col-md-6 d-sm-none d-md-flex flex-column align-items-center justify-content-center">
                         <div class="row logo-login">
-                            <img class="" src="img/marca/logo-semillares.png" alt="">
+                            <img class="logo-login" src="img/marca/logo-semillares.png" alt="">
                         </div>
                             <div class="row my-3">
                                 <p>Distribuidora y fraccionadora<br>de productos naturales</p>
                             </div>
+                    </div>
+                    <!-- Columna derecha -->
+                    <div class="col-md-6 ingreso-derecha d-flex flex-column align-items-center justify-content-center">
+                        <div class="row">
+                            <div class="col-sm-6"><a class="" href="login.html">Iniciar Sesión</a></div>
+                            <div class="col-sm-6"><a class="active bold" href="registro.html">Registrarme</a></div>
+                        </div>
+                        <div class="signin_form s_form d-grid justify-content-center p-3 "> 
+                            <div class="input_text my-1"> 
+                                <i class="bi bi-person"></i> 
+                                <input type="text" placeholder="Nombre de usuario"> 
+                            </div> 
+                            <div class="input_text my-1"> 
+                                <i class="bi bi-envelope"></i> <i class="fa fa-eye-slash"></i>
+                                <input class="signin_email" type="email" name="email" placeholder="Correo electrónico"> 
+                            </div> 
+                            <div class="input_text my-1"> 
+                                <i class="bi bi-lock"></i> <i class="fa fa-eye-slash"></i> 
+                                <input class="signin_pass" type="password" name="password" placeholder="Contraseña"> 
+                            </div>
+                            <div class="login_btn d-flex align-items-center justify-content-center my-3">
+                                <a href="cuenta.html"> <button class="btn-primary">Resgistrarme</button></a>
+                            </div>
+                            <div class="text-center">O registrate con</div>
+                            <div class="social-login">
+                                <a href="#" class="facebook">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" class="google">
+                                    <i class="bi bi-google"></i>
+                                </a>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenido -->
+        <section class="d-none" id="main-login" class="">
+            <div class="content-fluid text-center d-flex align-items-center justify-content-center">
+                <div class="row vh-100">
+                    
+                    <div class="col-6  d-sm-none d-md-inline-flex flex-column align-items-center justify-content-center ">
+
                         </div>
                     <!-- Columna derecha -->
-                    <div class="col-lg-6 d-inline-flex flex-column ingreso-derecha align-items-center justify-content-center">
+                    <div class="col-6 d-inline-flex flex-column ingreso-derecha align-items-center justify-content-center">
                         <div class="row">
                             <div class="col-sm-6"><a class="" href="login.html">Iniciar Sesión</a></div>
                             <div class="col-sm-6"><a class="active bold" href="registro.html">Registrarme</a></div>

@@ -277,7 +277,8 @@ footer h4 {
     border-color: #000000;
     border-right: solid;
     border-width: 1px;
-    
+    display: flex;
+    justify-content: center;
 }
 
 .lateral-tienda li {

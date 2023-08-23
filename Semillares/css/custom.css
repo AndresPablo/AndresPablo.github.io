@@ -418,8 +418,15 @@ footer h4 {
 }
 
 .ingreso-derecha{
-    width: fit-content;
+    color: #000000;
 }
+.ingreso-derecha a {
+    color: #000000;
+}
+.ingreso-derecha a:hover {
+    color: #000000;
+}
+
 
 .logo-login img{
     width: auto;
@@ -427,7 +434,7 @@ footer h4 {
     align-self: center;
 }
 
-.col-login-izq {
+.ingreso-izquierda {
     padding: 16px;
     font-size: x-large!important;
 }
@@ -457,25 +464,27 @@ footer h4 {
 {
     display: flex;
     justify-content: center;
-    vertical-align: middle;
+    margin-top: 16px;
     row-gap: 8px;
-    
 }
-
 
 .social-login a
 {
-    text-decoration: none;
-    position: relative;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
     color: #fff;
-    margin-bottom: 10px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    display: inline-block;
-    margin: 8px;
-    vertical-align: middle;
+}
+
+.social-login a:hover{
+    color: white;
 }
 
 .social-login a.facebook{

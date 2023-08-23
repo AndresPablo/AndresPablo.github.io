@@ -77,11 +77,12 @@
 
         <!-- Contenido -->
         <section id="main">
-            <div class="content vh-100">
+            <div class="content col vh-100">
                 <div class="row vh-100">
                     <!-- Izquierda / datos del comprador-->
-                    <div class="col-7">
+                    <div class="col-7 resumen-compra-datos">
                         <a href="tienda.html">Volver</a>
+                        <div class="row">   <h2>Tus Datos</h2>    </div>
                         <div class="signin_form s_form d-grid justify-content-center p-3 "> 
                             <div class="input_text my-1"> 
                                 <input type="text" placeholder="Nombre de usuario"> 
@@ -96,15 +97,15 @@
                         </div>  
                     </div>
                     <!-- Derecha / resumen de compra-->
-                    <div class="col bg-mostaza">
-                        <div class="row">   <h1>Resumen de compra</h1>    </div>
+                    <div class="col resumen-compra-panel bg-mostaza">
+                        <div class="row">   <h2>Resumen de compra</h2>    </div>
                         <div class="row">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span>Producto</span>
                                 <span>Cantidad</span>
                                 <span>Importe</span>
                             </div>
-                            <ul class="lista-carrito">
+                            <ul class="lista-carrito ms-2">
                                 <li class="lista-carrito-item">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span>Producto 1</span>
@@ -115,7 +116,7 @@
                                 <li class="lista-carrito-item">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span>Producto 2</span>
-                                        <span> 1</span>
+                                        <span>1</span>
                                         <span>$15.00</span>
                                     </div>
                                 </li>
@@ -128,7 +129,6 @@
                                 </li>
                             </ul>
                         </div>
-                        </div>
                         <div class="row">__________________________</div>
                         <div class="row">
                             Subtotal: $12.345,00
@@ -139,6 +139,9 @@
                                 <a href="cuenta.html"> <button class="btn-secondary">Continuar</button></a>
                             </div>
                         </div>
+
+                        </div>
+
                         
                         
                     </div>

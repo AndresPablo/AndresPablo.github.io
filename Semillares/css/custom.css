@@ -115,7 +115,7 @@ nav{
 }
 
 .nav-logo {
-    height: 128px;
+    height: 100px;
     width: auto;
 }
 
@@ -535,10 +535,19 @@ footer h4 {
 /*------------------------------------------------------------*/
 /* COMPRA */
 
+.resumen-compra-panel{
+    padding: 2rem 3rem;
+}
+
+.resumen-compra-panel h2{
+    color: #fff;
+}
+
 .lista-carrito {
     display: flex;
     flex-direction: column;
-    padding-left: 0;
+    padding-left: 1rem;
+    padding-right: 2rem;
     margin-bottom: 0;
 }
 
@@ -548,8 +557,13 @@ footer h4 {
   padding: 0.5rem 1rem;
   color: #212529;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+
+.resumen-compra-datos{
+    padding:  2rem 3rem;
+}
+
 
 /*------------------------------------------------------------*/
 /* CUENTA */

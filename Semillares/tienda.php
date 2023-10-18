@@ -1,3 +1,13 @@
+<?php
+    require 'config/database.php';
+    $db = new Database();
+    $con = $db->conectar();
+    $sql = $con->prepare("SELECT id, nombre, precio FROM productos WHERE activo=1");
+    $sql->execute();
+    $resultado = $sql->fetchAll(PDO::FETCH_ASOC);
+?>
+
+
 <!DOCTYPE html>
 <html lang="es-AR">
     <head>
@@ -128,9 +138,29 @@
             </div>
             <!-- Grilla de productos -->
             <div id="wraper-grilla" class="container-fluid col col-0">
-                <div id="grilla-tienda" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div id="contenedor-productos" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center contenedor-productos">
+                    <?php foreach ($resultado as $row) {?>
+                        <div class="producto">
+                            <?php 
+                            $id= $row['id'];
+                            $imagen = "img/productos/".$id."/principal.jpg";
+                            if(!file_exists($imagen)){ 
+                                $imagen = "./img/no-photo.jpg";
+                            }
+                            ?>
+                            <img class="producto-imagen" src="<?php echo $imagen; ?>" alt="">
+                            <div class="detalles-producto">
+                                <h3 class="producto-titulo"><?php echo $row['nombre';] ?></h3>
+                                <p class="producto-precio"><?php echo number_format($row['precio';], 2, ',', '.' ); ?></p>
+                                <button class="producto-agregar">Detalles</button>
+                                <button class="producto-agregar">Agregar</button>
+                            </div>
+                        </div>
+                    </div>    
+                    <div>
+                    </div>
                     <div class="col-3 bg-gris-claro carta-producto">
-                        <div class="row ">
+                        <div class="row">
                             <div class="col-4">
                                 <img src="img/img productos/aceite-oliva.jpg" alt="">
                             </div>
@@ -425,6 +455,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <!-- Scripts para tienda -->
+        <script src="js/main.js"></script>
+        <script src="js/menu.js"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Panel de Actividades - Evento</title>
+    <!-- Bootstrap 5 + Icons + Librerías de exportación -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-calendar-alt"></i> EventoActivo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Temáticas
+                    </a>
+                    <ul class="dropdown-menu" id="tematicasDropdown" aria-labelledby="navbarDropdown">
+                        <!-- Los ítems se llenan dinámicamente con JS -->
+                    </ul>
+                </li>
+            </ul>
+            <div class="d-flex gap-2">
+                <button id="exportarExcelBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
+                <button id="exportarPdfBtn" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button id="exportarJsonBtn" class="btn btn-secondary btn-sm"><i class="fas fa-download"></i> JSON</button>
+                <button id="resetJsonBtn" class="btn btn-warning btn-sm"><i class="fas fa-undo-alt"></i> Reset</button>
+                <button id="modoInmersivoBtn" class="btn btn-inmersivo btn-sm"><i class="fas fa-vr-cardboard"></i> Modo inmersivo</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- DATOS DEL USUARIO -->
+<div class="container mt-4">
+    <div class="user-info-card">
+        <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
+        <h5><i class="fas fa-user-circle"></i> Información personal</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreUsuario" placeholder="Ej: Ana">
+                <small class="text-muted">Tu nombre o cómo te gusta que te llamen.</small>
+            </div>
+            <div class="col-md-1">
+                <label class="form-label">Edad</label>
+                <input type="number" class="form-control" id="edadUsuario" min="0" value="18" placeholder="Ej: 28">
+                <small class="text-muted">Años</small>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Pronombres</label>
+                <input type="text" class="form-control" id="pronombresUsuario" placeholder="Ej: ella/él/elle">
+                <small class="text-muted">Separados por barras.</small>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Apodo</label>
+                <input type="text" class="form-control" id="apodoUsuario" placeholder="Ej: Ani">
+                <small class="text-muted">Nombre corto o alias.</small>
+            </div>
+        </div>
+
+        <!-- Campo adicional: Cuidado posterior (multilínea) -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">Cuidado posterior</label>
+                <textarea class="form-control" id="cuidadoPosterior" rows="2" placeholder="Indica si necesitas algún cuidado especial después de la actividad"></textarea>
+                <small class="text-muted">Opcional, para adaptar la logística.</small>
+            </div>
+        </div>
+
+        <!-- Slider de 10 pasos (0-10) -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">Nivel de energía actual (0 = muy bajo, 10 = muy alto)</label>
+                <div class="custom-slider-wrapper">
+                    <div class="custom-slider-container">
+                        <input type="range" id="energiaSlider" class="custom-range" min="0" max="10" step="1" value="5">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>10</span>
+                        </div>
+                    </div>
+                    <div class="slider-value-badge">
+                        <span id="energiaValor" class="badge bg-secondary">5</span>
+                    </div>
+                </div>
+                <small class="text-muted">Arrastra para indicar tu nivel de energía antes del evento.</small>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: SEGURIDAD Y PREFERENCIAS -->
+        <h5><i class="fas fa-shield-alt"></i> Seguridad y preferencias</h5>
+        <div class="row g-3">
+            <div class="col-12">
+                <label class="form-label">Enfermedades / condiciones</label>
+                <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, dolores de articulación, medicamentos, etc."></textarea>
+                <small class="text-muted">Opcional, solo para adaptar la experiencia.</small>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Palabra clave</label>
+                <div class="input-group">
+                    <span class="input-group-text">🔑</span>
+                    <input type="text" class="form-control" id="palabraClaveUsuario" placeholder="Ej: aventura">
+                </div>
+                <small class="text-muted">Una palabra que te identifique.</small>
+            </div>
+            <div class="col-12">
+                <div class="semaforo-info p-2 bg-light rounded">
+                    <small class="text-muted d-block"><strong>📊 Escala de interés (semáforo):</strong></small>
+                    <small class="d-block"><span style="color:#dc3545;">🔴 Rojo</span> – Odio / No me gusta</small>
+                    <small class="d-block"><span style="color:#fd7e14;">🟠 Naranja</span> – No me gusta / Indiferente</small>
+                    <small class="d-block"><span style="color:#ffc107;">🟡 Amarillo</span> – Curiosidad / Me da igual</small>
+                    <small class="d-block"><span style="color:#198754;">🟢 Verde</span> – Me gusta</small>
+                    <small class="d-block"><span style="color:#d63384;"><i class="fas fa-heart"></i>  Rosa</span> – Amo / Encanta</small>
+                </div>
+            </div>
+            <div class="col-12 disclaimer-text">
+                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios.
+                <div class="form-check mt-2"><input class="form-check-input" type="checkbox" id="checkDisclaimer1"><label class="form-check-label" for="checkDisclaimer1">Acepto que las respuestas son voluntarias</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkDisclaimer2"><label class="form-check-label" for="checkDisclaimer2">Comprendo que puedo editar los items en modo inmersivo</label></div>
+            </div>
+        </div>
+    </div>
+    <div id="tablasContainer"></div>
+</div>
+
+<footer>© Cuestionario interactivo - Expresa tu interés por las actividades del evento</footer>
+
+<!-- MODAL DE BIENVENIDA -->
+<div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-question-circle"></i> ¡Bienvenido/a!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Antes de comenzar, queremos asegurarnos de que estás listo para explorar las actividades del evento.</p>
+                <p><strong>¿Estás seguro de que deseas continuar?</strong> Podrás revisar y editar todas las actividades, tu experiencia, interés, rol y notas en el <span class="badge bg-secondary">modo inmersivo</span>.</p>
+                <hr>
+                <p class="text-muted small">No hay respuestas correctas ni incorrectas. Toda la información es editable y no se requiere registro.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnNoModal">No, gracias</button>
+                <button type="button" class="btn btn-primary" id="btnSiModal">Sí, estoy seguro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INMERSIVO -->
+<div class="modal fade" id="inmersivoModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fas fa-edit"></i> Editar actividad</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <img id="modalImagen" class="img-preview-modal" src="" alt="Imagen actividad">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="actividad-titulo-modal" id="modalTitulo">Actividad | Temática</div>
+                        <div class="actividad-subtitulo-modal" id="modalSubtitulo"><h4>a<span class="badge badge-secondary"></span></h4></div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Interés</label>
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <div id="botonesInteres" class="d-flex me-2">
+                                        <div class="interes-boton" data-valor="Odio" title="Odio">🚫</div>
+                                        <div class="interes-boton" data-valor="No me gusta" title="No me gusta">👎</div>
+                                        <div class="interes-boton" data-valor="Curiosidad" title="Curiosidad">❓</div>
+                                        <div class="interes-boton" data-valor="Me gusta" title="Me gusta">👍</div>
+                                        <div class="interes-boton" data-valor="Amo" title="Amo">❤️</div>
+                                    </div>
+                                    <select class="form-select w-auto flex-grow-1" id="editInteres" style="max-width: 180px;">
+                                        <option value="">Seleccionar</option>
+                                        <option value="Odio">Odio</option>
+                                        <option value="No me gusta">No me gusta</option>
+                                        <option value="Curiosidad">Curiosidad</option>
+                                        <option value="Me gusta">Me gusta</option>
+                                        <option value="Amo">Amo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Experiencia</label>
+                                <select class="form-select" id="editExperiencia">
+                                    <option value="">Seleccionar</option>
+                                    <option value="nula">nula</option>
+                                    <option value="poca">poca</option>
+                                    <option value="algo">algo</option>
+                                    <option value="mucha">mucha</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Rol</label>
+                                <select class="form-select" id="editRol">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Dar">Dar</option>
+                                    <option value="Recibir">Recibir</option>
+                                    <option value="Dar y recibir">D+R</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Notas</label>
+                            <textarea class="form-control" id="editNotas" rows="3"></textarea>
+                            <small class="text-muted" id="ejemploNotasTexto"></small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Enlaces de interés</label>
+                            <div id="urlsEjemploContainer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div>
+                    <button class="btn btn-secondary" id="btnAnteriorItem"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <span class="mx-3" id="contadorModal" style="font-weight:bold;">1/20</span>
+                    <button class="btn btn-secondary" id="btnSiguienteItem">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <button class="btn btn-primary" id="btnGuardarItemModal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/custom-scripts.js"></script>
+</body>
+</html>

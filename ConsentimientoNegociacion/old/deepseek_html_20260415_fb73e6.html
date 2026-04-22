@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Panel de Actividades - Evento</title>
+    <!-- Bootstrap 5 + Icons + Librerías de exportación -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body { background: #f4f7fc; padding-bottom: 40px; }
+        .navbar-brand { font-weight: bold; }
+        .section-title { border-left: 6px solid #0d6efd; padding-left: 15px; margin-top: 30px; margin-bottom: 20px; }
+        .table-responsive { border-radius: 16px; overflow-x: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; margin-bottom: 30px; }
+        .user-info-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 25px; box-shadow: 0 6px 14px rgba(0,0,0,0.05); }
+        .disclaimer-text { font-size: 0.85rem; color: #6c757d; background: #f8f9fa; padding: 10px; border-radius: 12px; }
+        .btn-inmersivo { background: linear-gradient(135deg, #6f42c1, #d63384); border: none; color: white; }
+        .btn-inmersivo:hover { background: linear-gradient(135deg, #5a32a3, #ba2b6f); color: white; }
+        footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: gray; }
+        /* Colores de fondo según interés */
+        .interes-Odio { background-color: #f8d7da !important; }   /* rojo claro */
+        .interes-No-me-gusta { background-color: #ffe5b4 !important; } /* naranja claro */
+        .interes-Curiosidad { background-color: #fff3cd !important; }   /* amarillo */
+        .interes-Me-gusta { background-color: #d1e7dd !important; }     /* verde claro */
+        .interes-Amo { background-color: #f8c8e8 !important; }          /* rosa */
+        /* Para filas sin interés seleccionado: fondo blanco por defecto */
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-calendar-alt"></i> EventoActivo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="#tablaBaile">Baile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaDeportes">Deportes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaDeportesImpacto">Deportes de impacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaJuegosMesa">Juegos de Mesa</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaComidas">Comidas</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+                <button id="exportarExcelBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
+                <button id="exportarPdfBtn" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button id="modoInmersivoBtn" class="btn btn-inmersivo btn-sm"><i class="fas fa-vr-cardboard"></i> Modo inmersivo</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <!-- Datos del usuario (opcionales) -->
+    <div class="user-info-card">
+        <h5><i class="fas fa-user-circle"></i> Tus datos (opcionales)</h5>
+        <div class="row g-3">
+            <div class="col-md-3"><input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre"></div>
+            <div class="col-md-2"><input type="number" class="form-control" id="edadUsuario" placeholder="Edad"></div>
+            <div class="col-md-3">
+                <select class="form-select" id="generoUsuario">
+                    <option value="">Género</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                    <option>No binario</option>
+                    <option>Prefiero no decir</option>
+                </select>
+            </div>
+            <div class="col-md-4"><input type="text" class="form-control" id="enfermedadesUsuario" placeholder="Enfermedades / condiciones (opcional)"></div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 disclaimer-text">
+                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios.
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="checkbox" id="checkDisclaimer1">
+                    <label class="form-check-label" for="checkDisclaimer1">Acepto que las respuestas son voluntarias</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkDisclaimer2">
+                    <label class="form-check-label" for="checkDisclaimer2">Comprendo que puedo editar los items en modo inmersivo</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tablasContainer"></div>
+</div>
+<footer>© Cuestionario interactivo - Expresa tu interés por las actividades del evento</footer>
+
+<!-- MODAL DE BIENVENIDA -->
+<div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-question-circle"></i> ¡Bienvenido/a!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Antes de comenzar, queremos asegurarnos de que estás listo para explorar las actividades del evento.</p>
+                <p><strong>¿Estás seguro de que deseas continuar?</strong> Podrás revisar y editar todas las actividades, tu experiencia, interés, rol y notas en el <span class="badge bg-secondary">modo inmersivo</span>.</p>
+                <hr>
+                <p class="text-muted small">No hay respuestas correctas ni incorrectas. Toda la información es editable y no se requiere registro.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnNoModal">No, gracias</button>
+                <button type="button" class="btn btn-primary" id="btnSiModal">Sí, estoy seguro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INMERSIVO (edición de items) -->
+<div class="modal fade" id="inmersivoModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fas fa-edit"></i> Modo inmersivo - Edición de actividades</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" id="itemCounter">Actividad 1 de X</div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Temática / Tabla</label>
+                    <input type="text" class="form-control" id="editTematica" readonly disabled>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Actividad (no editable)</label>
+                    <input type="text" class="form-control" id="editActividad" readonly disabled>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Experiencia</label>
+                        <select class="form-select" id="editExperiencia">
+                            <option value="">Seleccionar</option>
+                            <option value="nula">nula</option>
+                            <option value="poca">poca</option>
+                            <option value="algo">algo</option>
+                            <option value="mucha">mucha</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Interés</label>
+                        <select class="form-select" id="editInteres">
+                            <option value="">Seleccionar</option>
+                            <option value="Odio">Odio</option>
+                            <option value="No me gusta">No me gusta</option>
+                            <option value="Curiosidad">Curiosidad</option>
+                            <option value="Me gusta">Me gusta</option>
+                            <option value="Amo">Amo</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Rol</label>
+                        <select class="form-select" id="editRol">
+                            <option value="">Seleccionar</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="A+B">A+B</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">Notas</label>
+                        <textarea class="form-control" id="editNotas" rows="2" placeholder="Notas adicionales"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div>
+                    <button class="btn btn-secondary" id="btnAnteriorItem"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" id="btnSiguienteItem">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <button class="btn btn-primary" id="btnGuardarItemModal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ======================== DATOS GLOBALES ========================
+    // Cada item: id, tematica, actividad, experiencia, interes, rol, notas
+    // Además se agrega un emoji fijo por actividad (solo lectura)
+    let items = [
+        // Baile
+        { id: 1, tematica: "Baile", actividad: "Salsa", experiencia: "", interes: "", rol: "", notas: "", emoji: "💃" },
+        { id: 2, tematica: "Baile", actividad: "Tango", experiencia: "", interes: "", rol: "", notas: "", emoji: "🕺" },
+        { id: 3, tematica: "Baile", actividad: "Breakdance", experiencia: "", interes: "", rol: "", notas: "", emoji: "🤸" },
+        // Deportes
+        { id: 4, tematica: "Deportes", actividad: "Fútbol", experiencia: "", interes: "", rol: "", notas: "", emoji: "⚽" },
+        { id: 5, tematica: "Deportes", actividad: "Baloncesto", experiencia: "", interes: "", rol: "", notas: "", emoji: "🏀" },
+        { id: 6, tematica: "Deportes", actividad: "Tenis", experiencia: "", interes: "", rol: "", notas: "", emoji: "🎾" },
+        // Deportes de impacto
+        { id: 7, tematica: "Deportes de impacto", actividad: "Rugby", experiencia: "", interes: "", rol: "", notas: "", emoji: "🏉" },
+        { id: 8, tematica: "Deportes de impacto", actividad: "Boxeo", experiencia: "", interes: "", rol: "", notas: "", emoji: "🥊" },
+        // Juegos de Mesa
+        { id: 9, tematica: "Juegos de Mesa", actividad: "Catan", experiencia: "", interes: "", rol: "", notas: "", emoji: "🎲" },
+        { id: 10, tematica: "Juegos de Mesa", actividad: "Dixit", experiencia: "", interes: "", rol: "", notas: "", emoji: "🎴" },
+        // Comidas
+        { id: 11, tematica: "Comidas", actividad: "Taller de sushi", experiencia: "", interes: "", rol: "", notas: "", emoji: "🍣" },
+        { id: 12, tematica: "Comidas", actividad: "Cata de vinos", experiencia: "", interes: "", rol: "", notas: "", emoji: "🍷" }
+    ];
+
+    function reasignarIds() { items.forEach((item, idx) => { item.id = idx + 1; }); }
+    reasignarIds();
+
+    const tematicasOrden = ["Baile", "Deportes", "Deportes de impacto", "Juegos de Mesa", "Comidas"];
+    const contenedor = document.getElementById("tablasContainer");
+
+    // Mapeo de interés a clase CSS
+    function getClaseInteres(interes) {
+        switch(interes) {
+            case "Odio": return "interes-Odio";
+            case "No me gusta": return "interes-No-me-gusta";
+            case "Curiosidad": return "interes-Curiosidad";
+            case "Me gusta": return "interes-Me-gusta";
+            case "Amo": return "interes-Amo";
+            default: return "";
+        }
+    }
+
+    // Renderizar tablas: columnas: Icono | Actividad | Experiencia | Interés | Rol | Notas
+    function renderizarTablas() {
+        let html = '';
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(item => item.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            html += `
+                <div id="tabla${tem.replace(/ /g, '')}" class="section-title">
+                    <h3><i class="fas fa-${tem === 'Baile' ? 'music' : (tem === 'Deportes' ? 'futbol' : (tem === 'Deportes de impacto' ? 'fist-raised' : (tem === 'Juegos de Mesa' ? 'chess' : 'utensils')))}"></i> ${tem}</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered align-middle">
+                        <thead class="table-dark">
+                            <tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr>
+                        </thead>
+                        <tbody>
+            `;
+            itemsFiltrados.forEach(item => {
+                const claseFila = getClaseInteres(item.interes);
+                html += `<tr class="${claseFila}">
+                            <td>${item.emoji}</td>
+                            <td>${escapeHtml(item.actividad)}</td>
+                            <td>${item.experiencia || ""}</td>
+                            <td>${item.interes || ""}</td>
+                            <td>${item.rol || ""}</td>
+                            <td>${item.notas || ""}</td>
+                          </tr>`;
+            });
+            html += `</tbody></table></div>`;
+        }
+        contenedor.innerHTML = html;
+    }
+
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // ============= MODAL INMERSIVO (recorre todos los items) =============
+    let indiceItemActual = 0;
+    let inmersivoModalInstance;
+    const modalInmersivo = document.getElementById('inmersivoModal');
+    
+    function cargarItemEnModal(index) {
+        const item = items[index];
+        if (!item) return;
+        document.getElementById('itemCounter').innerText = `Actividad ${index+1} de ${items.length} | Tabla: ${item.tematica}`;
+        document.getElementById('editTematica').value = item.tematica;
+        document.getElementById('editActividad').value = item.actividad;
+        document.getElementById('editExperiencia').value = item.experiencia;
+        document.getElementById('editInteres').value = item.interes;
+        document.getElementById('editRol').value = item.rol;
+        document.getElementById('editNotas').value = item.notas || '';
+    }
+    
+    function guardarItemDesdeModal() {
+        if (indiceItemActual < 0 || indiceItemActual >= items.length) return;
+        const item = items[indiceItemActual];
+        item.experiencia = document.getElementById('editExperiencia').value;
+        item.interes = document.getElementById('editInteres').value;
+        item.rol = document.getElementById('editRol').value;
+        item.notas = document.getElementById('editNotas').value;
+        renderizarTablas();   // actualizar vista principal con nuevos colores
+    }
+    
+    document.getElementById('btnAnteriorItem').addEventListener('click', () => {
+        if (indiceItemActual > 0) {
+            guardarItemDesdeModal();
+            indiceItemActual--;
+            cargarItemEnModal(indiceItemActual);
+        } else {
+            alert("Ya estás en la primera actividad.");
+        }
+    });
+    document.getElementById('btnSiguienteItem').addEventListener('click', () => {
+        if (indiceItemActual < items.length - 1) {
+            guardarItemDesdeModal();
+            indiceItemActual++;
+            cargarItemEnModal(indiceItemActual);
+        } else {
+            alert("Última actividad alcanzada.");
+        }
+    });
+    document.getElementById('btnGuardarItemModal').addEventListener('click', () => {
+        guardarItemDesdeModal();
+        alert("Cambios guardados en las tablas.");
+    });
+    
+    document.getElementById('modoInmersivoBtn').addEventListener('click', () => {
+        indiceItemActual = 0;
+        cargarItemEnModal(indiceItemActual);
+        inmersivoModalInstance.show();
+    });
+    
+    // ============= EXPORTAR A EXCEL (con nuevas columnas) =============
+    function exportarExcel() {
+        const wb = XLSX.utils.book_new();
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(i => i.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            const data = itemsFiltrados.map(i => ({
+                "Icono": i.emoji,
+                "Actividad": i.actividad,
+                "Experiencia": i.experiencia,
+                "Interés": i.interes,
+                "Rol": i.rol,
+                "Notas": i.notas
+            }));
+            const ws = XLSX.utils.json_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, tem.slice(0, 31));
+        }
+        const usuarioData = [{
+            "Nombre": document.getElementById('nombreUsuario').value,
+            "Edad": document.getElementById('edadUsuario').value,
+            "Género": document.getElementById('generoUsuario').value,
+            "Enfermedades": document.getElementById('enfermedadesUsuario').value,
+            "Disclaimer1": document.getElementById('checkDisclaimer1').checked ? "Aceptado" : "No",
+            "Disclaimer2": document.getElementById('checkDisclaimer2').checked ? "Aceptado" : "No"
+        }];
+        const wsUser = XLSX.utils.json_to_sheet(usuarioData);
+        XLSX.utils.book_append_sheet(wb, wsUser, "Info_Usuario");
+        XLSX.writeFile(wb, `evento_actividades_${new Date().toISOString().slice(0,19)}.xlsx`);
+    }
+    document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
+    
+    // ============= EXPORTAR A PDF =============
+    async function exportarPDF() {
+        const pdfContent = document.createElement('div');
+        pdfContent.style.padding = '20px';
+        pdfContent.style.backgroundColor = 'white';
+        pdfContent.style.fontFamily = 'Arial, sans-serif';
+        const nombre = document.getElementById('nombreUsuario').value || "No especificado";
+        const edad = document.getElementById('edadUsuario').value || "—";
+        const genero = document.getElementById('generoUsuario').value || "—";
+        const enf = document.getElementById('enfermedadesUsuario').value || "—";
+        pdfContent.innerHTML = `<h2>Reporte de actividades del evento</h2>
+        <p><strong>Nombre:</strong> ${nombre} | <strong>Edad:</strong> ${edad} | <strong>Género:</strong> ${genero} | <strong>Enfermedades:</strong> ${enf}</p>
+        <p><em>Disclaimers aceptados: ${document.getElementById('checkDisclaimer1').checked ? 'Sí' : 'No'} / ${document.getElementById('checkDisclaimer2').checked ? 'Sí' : 'No'}</em></p>
+        <hr>`;
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(i => i.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            let tablaHtml = `<h3>${tem}</h3><table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%; margin-bottom: 25px;">
+                            <thead><tr style="background:#e9ecef;"><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr></thead><tbody>`;
+            itemsFiltrados.forEach(item => {
+                tablaHtml += `<tr>
+                                <td>${item.emoji}</td>
+                                <td>${escapeHtml(item.actividad)}</td>
+                                <td>${item.experiencia || ""}</td>
+                                <td>${item.interes || ""}</td>
+                                <td>${item.rol || ""}</td>
+                                <td>${item.notas || ""}</td>
+                              </tr>`;
+            });
+            tablaHtml += `</tbody></table>`;
+            pdfContent.innerHTML += tablaHtml;
+        }
+        document.body.appendChild(pdfContent);
+        try {
+            const canvas = await html2canvas(pdfContent, { scale: 2 });
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 190;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+            pdf.save(`evento_actividades_${new Date().toISOString().slice(0,19)}.pdf`);
+        } catch (err) {
+            console.error(err);
+            alert("Error generando PDF");
+        }
+        document.body.removeChild(pdfContent);
+    }
+    document.getElementById('exportarPdfBtn').addEventListener('click', exportarPDF);
+    
+    // Scroll suave
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    
+    // Modal bienvenida
+    let welcomeModal;
+    window.addEventListener('load', () => {
+        welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'), { backdrop: 'static', keyboard: false });
+        welcomeModal.show();
+        document.getElementById('btnSiModal').addEventListener('click', () => welcomeModal.hide());
+        document.getElementById('btnNoModal').addEventListener('click', () => welcomeModal.hide());
+        renderizarTablas();
+        inmersivoModalInstance = new bootstrap.Modal(modalInmersivo);
+    });
+</script>
+</body>
+</html>

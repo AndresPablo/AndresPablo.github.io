@@ -1,0 +1,140 @@
+{
+  "tematicasOrden": ["Baile", "Deportes", "Deportes de impacto", "Juegos de Mesa", "Comidas"],
+  "items": [
+    {
+      "tematica": "Baile",
+      "actividad": "Salsa",
+      "emoji": "💃",
+      "imagen": "",
+      "descripcion": "Ritmo caliente y movimientos sensuales.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Salsa_(baile)", "https://www.youtube.com/watch?v=ejemplo_salsa"]
+    },
+    {
+      "tematica": "Baile",
+      "actividad": "Tango",
+      "emoji": "🕺",
+      "imagen": "",
+      "descripcion": "Baile argentino lleno de pasión.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Tango"]
+    },
+    {
+      "tematica": "Baile",
+      "actividad": "Breakdance",
+      "emoji": "🤸",
+      "imagen": "",
+      "descripcion": "Acrobacias y ritmo urbano.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Breakdance"]
+    },
+    {
+      "tematica": "Deportes",
+      "actividad": "Fútbol",
+      "emoji": "⚽",
+      "imagen": "",
+      "descripcion": "El deporte rey, trabajo en equipo.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Fútbol"]
+    },
+    {
+      "tematica": "Deportes",
+      "actividad": "Baloncesto",
+      "emoji": "🏀",
+      "imagen": "",
+      "descripcion": "Encestar y saltar, ritmo rápido.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Baloncesto"]
+    },
+    {
+      "tematica": "Deportes",
+      "actividad": "Tenis",
+      "emoji": "🎾",
+      "imagen": "",
+      "descripcion": "Raqueta y precisión, individual o dobles.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Tenis"]
+    },
+    {
+      "tematica": "Deportes de impacto",
+      "actividad": "Rugby",
+      "emoji": "🏉",
+      "imagen": "",
+      "descripcion": "Contacto fuerte y estrategia colectiva.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Rugby"]
+    },
+    {
+      "tematica": "Deportes de impacto",
+      "actividad": "Boxeo",
+      "emoji": "🥊",
+      "imagen": "",
+      "descripcion": "Guantes y reflejos, disciplina.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Boxeo"]
+    },
+    {
+      "tematica": "Deportes de impacto",
+      "actividad": "Artes marciales mixtas",
+      "emoji": "🥋",
+      "imagen": "",
+      "descripcion": "Combate completo, técnica y respeto.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Artes_marciales_mixtas"]
+    },
+    {
+      "tematica": "Juegos de Mesa",
+      "actividad": "Catan",
+      "emoji": "🎲",
+      "imagen": "",
+      "descripcion": "Construye y negocia, estrategia.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Catan"]
+    },
+    {
+      "tematica": "Juegos de Mesa",
+      "actividad": "Dixit",
+      "emoji": "🎴",
+      "imagen": "",
+      "descripcion": "Imaginación y storytelling.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Dixit"]
+    },
+    {
+      "tematica": "Juegos de Mesa",
+      "actividad": "Ajedrez",
+      "emoji": "♟️",
+      "imagen": "",
+      "descripcion": "Juego milenario de estrategia pura.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Ajedrez"]
+    },
+    {
+      "tematica": "Comidas",
+      "actividad": "Taller de sushi",
+      "emoji": "🍣",
+      "imagen": "",
+      "descripcion": "Aprende a hacer sushi tradicional.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Sushi"]
+    },
+    {
+      "tematica": "Comidas",
+      "actividad": "Cata de vinos",
+      "emoji": "🍷",
+      "imagen": "",
+      "descripcion": "Descubre sabores y maridajes.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Cata_de_vinos"]
+    },
+    {
+      "tematica": "Comidas",
+      "actividad": "Chocolate artesanal",
+      "emoji": "🍫",
+      "imagen": "",
+      "descripcion": "Elabora tu propio chocolate.",
+      "ejemplo_notas": "",
+      "urls_ejemplo": ["https://es.wikipedia.org/wiki/Chocolate"]
+    }
+  ]
+}

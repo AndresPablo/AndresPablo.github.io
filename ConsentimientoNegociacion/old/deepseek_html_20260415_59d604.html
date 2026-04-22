@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Panel de Valoraciones - Ficción, Terror, Documental, Biopic</title>
+    <!-- Bootstrap 5 + Icons + Librerías de exportación -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            background: #f4f7fc;
+            padding-bottom: 40px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .section-title {
+            border-left: 6px solid #0d6efd;
+            padding-left: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .table-responsive {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: white;
+            margin-bottom: 30px;
+        }
+        .user-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+        }
+        .disclaimer-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 12px;
+        }
+        .btn-inmersivo {
+            background: linear-gradient(135deg, #6f42c1, #d63384);
+            border: none;
+            color: white;
+        }
+        .btn-inmersivo:hover {
+            background: linear-gradient(135deg, #5a32a3, #ba2b6f);
+            color: white;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR con anclas y botones de acción -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-clapperboard"></i> CineRating</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="#tablaFiccion">Ficción</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaTerror">Terror</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaDocumental">Documental</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tablaBiopic">Biopic</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+                <button id="exportarExcelBtn" class="btn btn-success btn-sm"><i class="fas fa-file-excel"></i> Excel</button>
+                <button id="exportarPdfBtn" class="btn btn-danger btn-sm"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button id="modoInmersivoBtn" class="btn btn-inmersivo btn-sm"><i class="fas fa-vr-cardboard"></i> Modo inmersivo</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <!-- Información básica del usuario (no obligatoria) -->
+    <div class="user-info-card">
+        <h5><i class="fas fa-user-circle"></i> Tus datos (opcionales)</h5>
+        <div class="row g-3">
+            <div class="col-md-3"><input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre"></div>
+            <div class="col-md-2"><input type="number" class="form-control" id="edadUsuario" placeholder="Edad"></div>
+            <div class="col-md-3">
+                <select class="form-select" id="generoUsuario">
+                    <option value="">Género</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                    <option>No binario</option>
+                    <option>Prefiero no decir</option>
+                </select>
+            </div>
+            <div class="col-md-4"><input type="text" class="form-control" id="enfermedadesUsuario" placeholder="Enfermedades / condiciones (opcional)"></div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 disclaimer-text">
+                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos y solo para fines estadísticos. No hay campos obligatorios.
+                <div class="form-check mt-2">
+                    <input class="form-check-input" type="checkbox" id="checkDisclaimer1">
+                    <label class="form-check-label" for="checkDisclaimer1">Acepto que las respuestas son voluntarias</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkDisclaimer2">
+                    <label class="form-check-label" for="checkDisclaimer2">Comprendo que puedo editar los items en modo inmersivo</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor dinámico para las tablas (se llenarán con JS) -->
+    <div id="tablasContainer"></div>
+</div>
+<footer>© Cuestionario interactivo - Navega por temáticas, edita en modo inmersivo, exporta a Excel/PDF</footer>
+
+<!-- MODAL DE BIENVENIDA (se muestra al cargar) -->
+<div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-question-circle"></i> ¡Bienvenido/a!</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Antes de comenzar, queremos asegurarnos de que estás listo para explorar el panel de valoraciones.</p>
+                <p><strong>¿Estás seguro de que deseas continuar?</strong> Podrás revisar y editar todas las fichas de películas/series por temática, modificar puntajes, vistas, experiencia y notas en el <span class="badge bg-secondary">modo inmersivo</span>.</p>
+                <hr>
+                <p class="text-muted small">No hay respuestas correctas ni incorrectas. Toda la información es editable y no se requiere registro.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnNoModal">No, gracias</button>
+                <button type="button" class="btn btn-primary" id="btnSiModal">Sí, estoy seguro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INMERSIVO (edición de filas con anterior/siguiente) -->
+<div class="modal fade" id="inmersivoModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fas fa-edit"></i> Modo inmersivo - Edición de items</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" id="itemCounter">Item 1 de X</div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Temática / Tabla</label>
+                    <input type="text" class="form-control" id="editTematica" readonly disabled>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">ID (solo lectura)</label>
+                        <input type="text" class="form-control" id="editId" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Vistas</label>
+                        <input type="text" class="form-control" id="editVistas" placeholder="Número de vistas">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Experiencia (texto)</label>
+                        <input type="text" class="form-control" id="editExperiencia" placeholder="Ej: Intensa, aburrida...">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Puntaje (1-10)</label>
+                        <input type="number" class="form-control" id="editPuntaje" step="0.1" min="0" max="10">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Categoría (subgénero)</label>
+                        <input type="text" class="form-control" id="editCategoria" placeholder="Ej: Ciencia ficción, Slasher...">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Notas</label>
+                        <textarea class="form-control" id="editNotas" rows="2" placeholder="Notas adicionales"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div>
+                    <button class="btn btn-secondary" id="btnAnteriorItem"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="btn btn-secondary" id="btnSiguienteItem">Siguiente <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <button class="btn btn-primary" id="btnGuardarItemModal">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ======================== DATOS GLOBALES ========================
+    // Estructura de items: cada item pertenece a una temática fija (tabla)
+    // Campos: id, tematica, vistas, experiencia, puntaje, categoria, notas
+    let items = [
+        // Ficción
+        { id: 1, tematica: "Ficción", vistas: 1240, experiencia: "Atrapante", puntaje: 8.5, categoria: "Ciencia Ficción", notas: "Efectos especiales increíbles" },
+        { id: 2, tematica: "Ficción", vistas: 890, experiencia: "Creativa", puntaje: 7.8, categoria: "Fantasía", notas: "Mundo muy original" },
+        { id: 3, tematica: "Ficción", vistas: 2300, experiencia: "Épica", puntaje: 9.2, categoria: "Space Opera", notas: "Recomendada 100%" },
+        // Terror
+        { id: 4, tematica: "Terror", vistas: 3150, experiencia: "Escalofriante", puntaje: 8.0, categoria: "Slasher", notas: "Mucha sangre" },
+        { id: 5, tematica: "Terror", vistas: 980, experiencia: "Psicológico", puntaje: 9.1, categoria: "Terror psicológico", notas: "Final inquietante" },
+        { id: 6, tematica: "Terror", vistas: 452, experiencia: "Suspenso lento", puntaje: 6.5, categoria: "Sobrenatural", notas: "Algo predecible" },
+        // Documental
+        { id: 7, tematica: "Documental", vistas: 670, experiencia: "Informativo", puntaje: 7.5, categoria: "Naturaleza", notas: "Fotografía increíble" },
+        { id: 8, tematica: "Documental", vistas: 210, experiencia: "Conmovedor", puntaje: 8.9, categoria: "Social", notas: "Toca temas profundos" },
+        // Biopic
+        { id: 9, tematica: "Biopic", vistas: 1500, experiencia: "Inspirador", puntaje: 8.2, categoria: "Música", notas: "Actuación magistral" },
+        { id: 10, tematica: "Biopic", vistas: 870, experiencia: "Crudo", puntaje: 7.9, categoria: "Deportes", notas: "Basado en hechos reales" }
+    ];
+
+    // Helper: reordenar IDs para mantener coherencia (opcional)
+    function reasignarIds() {
+        items.forEach((item, idx) => { item.id = idx + 1; });
+    }
+    reasignarIds();
+
+    // Función para renderizar TODAS las tablas según los items agrupados
+    const tematicasOrden = ["Ficción", "Terror", "Documental", "Biopic"];
+    const contenedor = document.getElementById("tablasContainer");
+
+    function renderizarTablas() {
+        let html = '';
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(item => item.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            html += `
+                <div id="tabla${tem.replace(/ /g, '')}" class="section-title">
+                    <h3><i class="fas fa-${tem === 'Ficción' ? 'robot' : (tem === 'Terror' ? 'skull' : (tem === 'Documental' ? 'film' : 'crown'))}"></i> ${tem}</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered align-middle">
+                        <thead class="table-dark">
+                            <tr><th>ID</th><th>Vistas</th><th>Experiencia</th><th>Puntaje</th><th>Categoría</th><th>Notas</th></tr>
+                        </thead>
+                        <tbody>
+            `;
+            itemsFiltrados.forEach(item => {
+                html += `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.vistas}</td>
+                            <td>${item.experiencia}</td>
+                            <td>${item.puntaje}</td>
+                            <td>${item.categoria}</td>
+                            <td>${item.notas || "—"}</td>
+                         </tr>`;
+            });
+            html += `</tbody></table></div>`;
+        }
+        contenedor.innerHTML = html;
+    }
+
+    // ============= MODAL INMERSIVO (navegación y edición) =============
+    let indiceItemActual = 0; // índice en el array global items
+    let inmersivoModalInstance;
+    const modalInmersivo = document.getElementById('inmersivoModal');
+    
+    function cargarItemEnModal(index) {
+        const item = items[index];
+        if (!item) return;
+        document.getElementById('itemCounter').innerText = `Item ${index+1} de ${items.length} | Tabla: ${item.tematica}`;
+        document.getElementById('editTematica').value = item.tematica;
+        document.getElementById('editId').value = item.id;
+        document.getElementById('editVistas').value = item.vistas;
+        document.getElementById('editExperiencia').value = item.experiencia;
+        document.getElementById('editPuntaje').value = item.puntaje;
+        document.getElementById('editCategoria').value = item.categoria;
+        document.getElementById('editNotas').value = item.notas || '';
+    }
+    
+    function guardarItemDesdeModal() {
+        if (indiceItemActual < 0 || indiceItemActual >= items.length) return;
+        const item = items[indiceItemActual];
+        // Actualizar campos (todos editables excepto ID y temática que no se editan en el modal)
+        item.vistas = document.getElementById('editVistas').value;
+        item.experiencia = document.getElementById('editExperiencia').value;
+        let puntajeVal = parseFloat(document.getElementById('editPuntaje').value);
+        item.puntaje = isNaN(puntajeVal) ? 0 : puntajeVal;
+        item.categoria = document.getElementById('editCategoria').value;
+        item.notas = document.getElementById('editNotas').value;
+        // No modificamos tematica ni id intencionalmente para mantener integridad de tablas
+        renderizarTablas();   // refrescar vista principal
+        // Opcional: mantener el modal abierto pero mostrar cambios
+    }
+    
+    // Eventos de navegación en el modal inmersivo
+    document.getElementById('btnAnteriorItem').addEventListener('click', () => {
+        if (indiceItemActual > 0) {
+            guardarItemDesdeModal(); // guardar antes de mover
+            indiceItemActual--;
+            cargarItemEnModal(indiceItemActual);
+        } else {
+            alert("Ya estás en el primer item.");
+        }
+    });
+    document.getElementById('btnSiguienteItem').addEventListener('click', () => {
+        if (indiceItemActual < items.length - 1) {
+            guardarItemDesdeModal();
+            indiceItemActual++;
+            cargarItemEnModal(indiceItemActual);
+        } else {
+            alert("Último item alcanzado.");
+        }
+    });
+    document.getElementById('btnGuardarItemModal').addEventListener('click', () => {
+        guardarItemDesdeModal();
+        alert("Cambios guardados en la tabla principal.");
+    });
+    
+    // Abrir modo inmersivo: empezar desde el primer item o desde el último seleccionado?
+    document.getElementById('modoInmersivoBtn').addEventListener('click', () => {
+        indiceItemActual = 0; // comenzar desde el primero
+        cargarItemEnModal(indiceItemActual);
+        inmersivoModalInstance.show();
+    });
+    
+    // ============= EXPORTAR A EXCEL (varias hojas por temática) =============
+    function exportarExcel() {
+        const wb = XLSX.utils.book_new();
+        // Por cada temática, generar una hoja
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(i => i.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            const data = itemsFiltrados.map(i => ({
+                "ID": i.id,
+                "Vistas": i.vistas,
+                "Experiencia": i.experiencia,
+                "Puntaje": i.puntaje,
+                "Categoría": i.categoria,
+                "Notas": i.notas
+            }));
+            const ws = XLSX.utils.json_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, tem.slice(0, 31)); // nombre corto
+        }
+        // También añadir hoja de "Datos del usuario"
+        const usuarioData = [{
+            "Nombre": document.getElementById('nombreUsuario').value,
+            "Edad": document.getElementById('edadUsuario').value,
+            "Género": document.getElementById('generoUsuario').value,
+            "Enfermedades": document.getElementById('enfermedadesUsuario').value,
+            "Disclaimer1": document.getElementById('checkDisclaimer1').checked ? "Aceptado" : "No",
+            "Disclaimer2": document.getElementById('checkDisclaimer2').checked ? "Aceptado" : "No"
+        }];
+        const wsUser = XLSX.utils.json_to_sheet(usuarioData);
+        XLSX.utils.book_append_sheet(wb, wsUser, "Info_Usuario");
+        XLSX.writeFile(wb, `cineRating_${new Date().toISOString().slice(0,19)}.xlsx`);
+    }
+    document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
+    
+    // ============= EXPORTAR A PDF (con html2canvas + jspdf) =============
+    async function exportarPDF() {
+        // Construir un contenedor temporal con la info de usuario + todas las tablas
+        const pdfContent = document.createElement('div');
+        pdfContent.style.padding = '20px';
+        pdfContent.style.backgroundColor = 'white';
+        pdfContent.style.fontFamily = 'Arial, sans-serif';
+        pdfContent.style.width = '100%';
+        
+        // Información del usuario
+        const nombre = document.getElementById('nombreUsuario').value || "No especificado";
+        const edad = document.getElementById('edadUsuario').value || "—";
+        const genero = document.getElementById('generoUsuario').value || "—";
+        const enf = document.getElementById('enfermedadesUsuario').value || "—";
+        pdfContent.innerHTML = `<h2>Reporte de valoraciones</h2>
+        <p><strong>Nombre:</strong> ${nombre} | <strong>Edad:</strong> ${edad} | <strong>Género:</strong> ${genero} | <strong>Enfermedades:</strong> ${enf}</p>
+        <p><em>Disclaimers aceptados: ${document.getElementById('checkDisclaimer1').checked ? 'Sí' : 'No'} / ${document.getElementById('checkDisclaimer2').checked ? 'Sí' : 'No'}</em></p>
+        <hr>`;
+        
+        // Agregar cada tabla con su estilo
+        for (let tem of tematicasOrden) {
+            const itemsFiltrados = items.filter(i => i.tematica === tem);
+            if (itemsFiltrados.length === 0) continue;
+            let tablaHtml = `<h3>${tem}</h3><table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 25px;">
+                            <thead><tr style="background:#e9ecef;"><th>ID</th><th>Vistas</th><th>Experiencia</th><th>Puntaje</th><th>Categoría</th><th>Notas</th></tr></thead><tbody>`;
+            itemsFiltrados.forEach(item => {
+                tablaHtml += `<tr><td>${item.id}</td><td>${item.vistas}</td><td>${item.experiencia}</td><td>${item.puntaje}</td><td>${item.categoria}</td><td>${item.notas || "—"}</td></tr>`;
+            });
+            tablaHtml += `</tbody></table>`;
+            pdfContent.innerHTML += tablaHtml;
+        }
+        document.body.appendChild(pdfContent);
+        try {
+            const canvas = await html2canvas(pdfContent, { scale: 2, logging: false });
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 190;
+            const pageHeight = 277;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let position = 10;
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            pdf.save(`cuestionario_${new Date().toISOString().slice(0,19)}.pdf`);
+        } catch (err) {
+            console.error(err);
+            alert("Error generando PDF, revisa consola.");
+        }
+        document.body.removeChild(pdfContent);
+    }
+    document.getElementById('exportarPdfBtn').addEventListener('click', exportarPDF);
+    
+    // ============= SCROLL SUAVE PARA ANCLAS =============
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // ============= MODAL DE BIENVENIDA =============
+    let welcomeModal;
+    window.addEventListener('load', () => {
+        welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'), { backdrop: 'static', keyboard: false });
+        welcomeModal.show();
+        // Botones del modal
+        document.getElementById('btnSiModal').addEventListener('click', () => {
+            welcomeModal.hide();
+        });
+        document.getElementById('btnNoModal').addEventListener('click', () => {
+            welcomeModal.hide();
+            // Opcional: mostrar un pequeño toast o simplemente cerrar
+            console.log("Usuario eligió No, continúa igual");
+        });
+        // Inicializar tablas
+        renderizarTablas();
+        // Inicializar modal inmersivo bootstrap
+        inmersivoModalInstance = new bootstrap.Modal(modalInmersivo);
+    });
+    
+    // Opcional: si se edita algún campo de usuario, no afecta a las tablas, solo para exportación.
+    // El botón de modo inmersivo ya está configurado.
+    // También se puede agregar un pequeño helper para que al guardar en inmersivo se mantenga la posición
+    // pero ya funciona correctamente.
+</script>
+</body>
+</html>

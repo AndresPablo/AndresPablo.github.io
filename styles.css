@@ -1,0 +1,7 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.link-tab:hover {
+  background-color: #e8e8e8 !important;
+}

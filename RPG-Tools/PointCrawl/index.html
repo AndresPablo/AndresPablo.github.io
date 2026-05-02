@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pointcrawl Studio - Mapa para D&D</title>
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Bootstrap JS Bundle (incluye Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVBAR SUPERIOR -->
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-compass-fill"></i> Pointcrawl Studio</a>
+            <div class="d-flex">
+                <button class="btn btn-outline-light me-2" id="newNodeNavBtn"><i class="bi bi-plus-circle"></i> Nuevo nodo</button>
+                <button class="btn btn-outline-light me-2" id="duplicateNodeNavBtn"><i class="bi bi-files"></i> Duplicar</button>
+                <button class="btn btn-outline-danger me-2" id="resetNavBtn"><i class="bi bi-trash3"></i> Reset</button>
+                <button class="btn btn-outline-info me-2" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="bi bi-download"></i> Exportar</button>
+                <button class="btn btn-outline-success me-2" id="importJsonBtn"><i class="bi bi-upload"></i> Importar</button>
+                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal"><i class="bi bi-gear"></i> Configuración</button>
+            </div>
+            <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+        </div>
+    </nav>
+
+    <!-- Modal de Exportación -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exportModalLabel"><i class="bi bi-printer"></i> Exportar mapa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="modalSolidBgToggle" checked>
+                        <label class="form-check-label" for="modalSolidBgToggle">Usar color de fondo del canvas (desmarcar para transparente)</label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="modalIncludeGridToggle" checked>
+                        <label class="form-check-label" for="modalIncludeGridToggle">Incluir grilla en la exportación</label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button id="modalExportPngBtn" class="btn btn-primary"><i class="bi bi-image"></i> Exportar como PNG</button>
+                        <button id="modalExportPdfBtn" class="btn btn-primary"><i class="bi bi-file-pdf"></i> Exportar como PDF</button>
+                        <button id="modalExportJsonBtn" class="btn btn-success"><i class="bi bi-filetype-json"></i> Exportar como JSON</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de selección de iconos -->
+    <div class="modal fade" id="iconPickerModal" tabindex="-1" aria-labelledby="iconPickerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iconPickerModalLabel"><i class="bi bi-images"></i> Seleccionar icono</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div id="iconPickerTags" class="px-3 pt-3"></div>
+                <div class="modal-body icon-picker-body" style="max-height: 500px;">
+                    <div id="iconPickerGrid" class="icon-picker-grid"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Configuración -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel"><i class="bi bi-gear"></i> Configuración</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Orientación del canvas</label>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="orientationRadio" id="orientVertical" value="portrait">
+                            <label class="form-check-label" for="orientVertical">Vertical (A4)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="orientationRadio" id="orientHorizontal" value="landscape">
+                            <label class="form-check-label" for="orientHorizontal">Horizontal (A4)</label>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="gridVisibleToggle" checked>
+                        <label class="form-check-label" for="gridVisibleToggle">Mostrar grilla</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gridTypeSelect" class="form-label">Tipo de grilla</label>
+                        <select class="form-select" id="gridTypeSelect">
+                            <option value="squares">Cuadrados</option>
+                            <option value="hex" selected>Hexágonos</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="hexOrientationDiv">
+                        <label for="hexOrientationSelect" class="form-label">Orientación de hexágonos</label>
+                        <select class="form-select" id="hexOrientationSelect">
+                            <option value="pointy">Punta arriba</option>
+                            <option value="flat">Vertical</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gridSizeInput" class="form-label">Tamaño de grilla (píxeles)</label>
+                        <input type="number" class="form-control" id="gridSizeInput" min="8" max="256" value="26">
+                        <small class="form-text text-muted">Los nodos se alinearán al centro de la grilla y se dibujará con movimiento suave</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Color de grilla</label>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="color" class="form-control form-control-color p-0" id="gridColorInput" value="#808080" style="width: 56px; height: 42px;" />
+                            <div class="flex-grow-1">
+                                <label for="gridAlphaInput" class="form-label mb-1">Opacidad</label>
+                                <input type="range" class="form-range" id="gridAlphaInput" min="0" max="1" step="0.01" value="0.18">
+                            </div>
+                            <div><span id="gridAlphaValue" class="badge bg-secondary">18%</span></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Color de fondo del canvas</label>
+                        <input type="color" class="form-control form-control-color p-0" id="canvasBgColorInput" value="#ffffff" style="width: 56px; height: 42px;" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="applyOrientationBtn" class="btn btn-primary" data-bs-dismiss="modal">Aplicar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de inicio - selección de mapa -->
+    <div class="modal fade" id="startupModal" tabindex="-1" aria-labelledby="startupModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="startupModalLabel"><i class="bi bi-compass"></i> Bienvenido a Pointcrawl Studio</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">¿Cómo te gustaría comenzar?</p>
+                    <div class="d-grid gap-2">
+                        <button id="loadPremadeMapBtn" class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down"></i> Cargar mapa predefinido</button>
+                        <button id="startBlankMapBtn" class="btn btn-outline-light"><i class="bi bi-plus-square"></i> Empezar con mapa vacío</button>
+                        <button id="loadLastSessionBtn" class="btn btn-outline-secondary"><i class="bi bi-clock-history"></i> Continuar sesión anterior</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de selección de mapas predefinidos -->
+    <div class="modal fade" id="mapSelectionModal" tabindex="-1" aria-labelledby="mapSelectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mapSelectionModalLabel"><i class="bi bi-map"></i> Seleccionar mapa predefinido</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="mapList" class="row g-3">
+                        <!-- Maps will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Área del canvas con scroll para pan -->
+        <div class="canvas-area shadow-lg col-8" id="canvasContainer">
+            <canvas id="pointcanvas" width="1131" height="800"></canvas>
+            <div class="status-bar mt-2" id="statusMsg">
+                <i class="bi bi-cursor-fill"></i> Ctrl + arrastrar desde nodo para conexión | Supr elimina | Esc deselecciona | Arrastra el fondo para mover
+            </div>
+        </div>
+
+        <!-- Panel de propiedades de nodos -->
+        <div class="properties-panel shadow col-4" id="nodePropertiesPanel" style="max-height: 800px; overflow-y: auto; display: none;">
+            <div class="section">
+                <h3><i class="bi bi-node-plus"></i> PROPIEDADES DEL NODO</h3>
+                <div class="container-fluid p-0">
+                    <!-- Fila con 2 columnas -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-palette-fill"></i> Color fondo</label>
+                            <input type="color" id="nodeBgColor" class="form-control form-control-color" value="#ffffff">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-shapes"></i> Forma</label>
+                            <select id="nodeShape" class="form-select">
+                                <option value="circle">Círculo</option>
+                                <option value="square">Cuadrado</option>
+                                <option value="hexagon">Hexágono (punta arriba)</option>
+                                <option value="hexagon-flat">Hexágono (plano arriba)</option>
+                                <option value="isometric">Isométrica</option>
+                                <option value="isometric-circle">Círculo isométrico</option>
+                                <option value="diamond">Rombo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila con 2 columnas -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-arrows-angle-expand"></i> Tamaño</label>
+                            <select id="nodeSize" class="form-select">
+                                <option value="small">Pequeño</option>
+                                <option value="medium">Mediano</option>
+                                <option value="large">Grande</option>
+                                <option value="giant">Gigante</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-palette"></i> Color del icono</label>
+                            <input type="color" id="iconColor" class="form-control form-control-color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <!-- Fila completa -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-fonts"></i> Texto interno</label>
+                            <input type="text" id="innerText" class="form-control" placeholder="Ej: Torre">
+                        </div>
+                    </div>
+
+                    <!-- Fila completa -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-tag-fill"></i> Texto externo</label>
+                            <input type="text" id="labelText" class="form-control" placeholder="Etiqueta">
+                        </div>
+                    </div>
+
+                    <!-- Fila con 2 columnas -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-arrow-up-short"></i> Posición externo</label>
+                            <select id="labelPos" class="form-select">
+                                <option value="top">Arriba</option>
+                                <option value="bottom">Abajo</option>
+                                <option value="left">Izquierda</option>
+                                <option value="right">Derecha</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-brush"></i> Fondo texto externo</label>
+                            <input type="color" id="labelBgColor" class="form-control form-control-color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Iconos -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-image"></i> Icono</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="file" id="iconFile" class="form-control form-control-sm" accept="image/png,image/svg+xml">
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" id="iconUrl" class="form-control" placeholder="URL...">
+                                        <button id="loadUrlIcon" class="btn btn-outline-secondary btn-sm">Cargar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button id="selectIconBtn" class="btn btn-outline-secondary btn-sm w-100">Seleccionar icono predefinido</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Preview -->
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                            <div class="icon-preview border rounded p-2 bg-light" id="iconPreview">Sin icono</div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Botones -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-grid gap-2">
+                                <button id="removeIconBtn" class="btn btn-warning btn-sm"><i class="bi bi-trash"></i> Quitar icono</button>
+                                <button id="deleteNodeBtn" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i> Eliminar nodo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de propiedades de conexiones -->
+        <div class="properties-panel shadow col-4" id="connectionPropertiesPanel" style="max-height: 800px; overflow-y: auto; display: none;">
+            <div class="section">
+                <h3><i class="bi bi-link-45deg"></i> PROPIEDADES DE CONEXIÓN</h3>
+                <div class="container-fluid p-0">
+                    <!-- Fila con 2 columnas -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-pip"></i> Color línea</label>
+                            <input type="color" id="lineColor" class="form-control form-control-color" value="#000000">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label"><i class="bi bi-bezier2"></i> Tipo de línea</label>
+                            <select id="strokePattern" class="form-select">
+                                <option value="normal">Normal</option>
+                                <option value="rayada">Rayada</option>
+                                <option value="dotted">Punteada</option>
+                                <option value="wavy_wide">Ondulada (amplia)</option>
+                                <option value="wavy_short">Ondulada (ondas cortas)</option>
+                                <option value="zigzag">Zigzag</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Grosor -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-dash-lg"></i> Grosor</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="range" id="lineWidthSlider" min="1" max="5" step="1" value="2" class="form-range">
+                                <span id="widthValue" class="slider-value badge bg-secondary">Media</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Texto -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-chat-text-fill"></i> Texto (turnos/días)</label>
+                            <input type="text" id="connText" class="form-control" placeholder="Ej: 2 días">
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Icono de conexión -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-emoji-sunglasses"></i> Icono en medio</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="file" id="connIconFile" class="form-control form-control-sm" accept="image/png,image/svg+xml">
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" id="connIconUrl" class="form-control" placeholder="URL...">
+                                        <button id="loadConnIconUrl" class="btn btn-outline-secondary btn-sm">Cargar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fila con 2 columnas - Forma del icono -->
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="form-label">Forma del ícono</label>
+                            <select id="connIconShape" class="form-select">
+                                <option value="circle">Círculo</option>
+                                <option value="square">Cuadrado</option>
+                                <option value="diamond">Rombo</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Relleno de forma</label>
+                            <input type="color" id="connIconFill" class="form-control form-control-color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Preview del icono -->
+                    <div class="row mb-3">
+                        <div class="col-12 text-center">
+                            <div class="icon-preview border rounded p-2 bg-light" id="connIconPreview">Sin ícono</div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Patrón decorativo -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-palette"></i> Patrón decorativo</label>
+                            <select id="connPattern" class="form-select">
+                                <option value="none">Ninguno</option>
+                                <option value="arrows">Flechas</option>
+                                <option value="dots">Puntos</option>
+                                <option value="squares">Cuadrados</option>
+                                <option value="lines">Líneas cruzadas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Cantidad de patrones -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-list-ol"></i> Cantidad de patrones</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="range" id="patternCount" min="0" max="31" step="1" value="0" class="form-range">
+                                <span id="patternCountValue" class="pattern-count-value badge bg-secondary">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Tamaño del patrón -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label"><i class="bi bi-arrows-expand"></i> Tamaño del patrón</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="range" id="patternSize" min="0.1" max="3" step="0.1" value="1.0" class="form-range">
+                                <span id="patternSizeValue" class="pattern-size-value badge bg-secondary">1.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fila completa - Botones -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-grid gap-2">
+                                <button id="removeConnIconBtn" class="btn btn-warning btn-sm"><i class="bi bi-trash"></i> Quitar ícono</button>
+                                <button id="deleteConnBtn" class="btn btn-danger btn-sm"><i class="bi bi-link-slash"></i> Eliminar conexión</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

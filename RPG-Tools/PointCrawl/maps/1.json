@@ -1,0 +1,88 @@
+{
+  "name": "Mapa de Ejemplo - Bosque Encantado",
+  "author": "Pointcrawl Studio",
+  "nodes": [
+    {
+      "id": 1,
+      "x": 200,
+      "y": 150,
+      "bgColor": "#228B22",
+      "shape": "circle",
+      "size": "medium",
+      "labelText": "Claro Principal",
+      "labelPosition": "bottom",
+      "labelBgColor": "#ffffffaa",
+      "innerText": "",
+      "iconSrc": "node-icons/nature/1.svg"
+    },
+    {
+      "id": 2,
+      "x": 400,
+      "y": 100,
+      "bgColor": "#8B4513",
+      "shape": "circle",
+      "size": "medium",
+      "labelText": "Árbol Antiguo",
+      "labelPosition": "top",
+      "labelBgColor": "#ffffffaa",
+      "innerText": "",
+      "iconSrc": "node-icons/nature/1.svg"
+    },
+    {
+      "id": 3,
+      "x": 600,
+      "y": 200,
+      "bgColor": "#4169E1",
+      "shape": "circle",
+      "size": "medium",
+      "labelText": "Lago Místico",
+      "labelPosition": "bottom",
+      "labelBgColor": "#ffffffaa",
+      "innerText": "",
+      "iconSrc": "node-icons/misc/1.svg"
+    }
+  ],
+  "connections": [
+    {
+      "id": 1,
+      "fromId": 1,
+      "toId": 2,
+      "color": "#32CD32",
+      "strokePattern": "normal",
+      "lineWidthLevel": 3,
+      "text": "2 horas",
+      "pattern": "none",
+      "patternCount": 0
+    },
+    {
+      "id": 2,
+      "fromId": 2,
+      "toId": 3,
+      "color": "#32CD32",
+      "strokePattern": "normal",
+      "lineWidthLevel": 3,
+      "text": "1 hora",
+      "pattern": "none",
+      "patternCount": 0
+    }
+  ],
+  "nextNodeId": 4,
+  "nextConnId": 3,
+  "canvasOrientation": "landscape",
+  "gridSize": 26,
+  "showGrid": true,
+  "gridType": "hex",
+  "hexOrientation": "flat",
+  "gridColor": "#808080",
+  "gridAlpha": 0.18,
+  "lastConnectionStyle": {
+    "color": "#000000",
+    "strokePattern": "normal",
+    "lineWidthLevel": 3,
+    "iconShape": "circle",
+    "iconFillColor": "#ffffff",
+    "text": "1 jornada",
+    "pattern": "none",
+    "patternCount": 0
+  }
+}

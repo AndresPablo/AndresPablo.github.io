@@ -35,7 +35,7 @@ function renderizarTablas() {
     for (let tem of tematicasOrden) {
         const itemsFiltrados = items.filter(item => item.tematica === tem);
         if (itemsFiltrados.length === 0) continue;
-        html += `<div id="tabla${tem.replace(/ /g, '')}" class="section-title"><h3> ${tem}</h3></div><div class="table-responsive"><table class="table table-hover table-bordered align-middle"><thead class="table-dark"><tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></thead><tbody>`;
+        html += `<div id="tabla${tem.replace(/ /g, '')}" class="section-title"><h3> ${tem}</h3></div><div class="table-responsive"><table class="table table-hover table-bordered align-middle"><thead class="table-dark sticky-table-header"><tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></thead><tbody>`;
         itemsFiltrados.forEach((item) => {
             const globalIndex = items.findIndex(i => i.id === item.id);
             const claseFila = getClaseInteres(item.interes);
@@ -145,7 +145,7 @@ function reasignarIds() { items.forEach((item, idx) => { item.id = idx + 1; }); 
 function normalizarItem(item) {
     return {
         id: item.id || 0,
-        tematica: item.tematica,
+        tematica: item.display-name,
         actividad: item.actividad,
         emoji: item.emoji || '',
         imagen: item.imagen || '',
@@ -307,8 +307,8 @@ async function exportarPDF() {
         .interes-Me-gusta { background-color: #d1e7dd !important; }
         .interes-Amo { background-color: #f8c8e8 !important; }
         table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
-        th { background-color: #f2f2f2; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top;}
+        th { background-color: #ff0000; }
         .tabla-pdf th:nth-child(1), .tabla-pdf td:nth-child(1) { width: 60px; }   /* Icono */
         .tabla-pdf th:nth-child(2), .tabla-pdf td:nth-child(2) { width: 25%; }    /* Actividad */
         .tabla-pdf th:nth-child(3), .tabla-pdf td:nth-child(3) { width: 100px; }  /* Experiencia */

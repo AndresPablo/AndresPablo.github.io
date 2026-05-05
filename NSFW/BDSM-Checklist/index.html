@@ -171,10 +171,25 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <img id="modalImagen" class="img-preview-modal" src="" alt="Imagen actividad">
+                        <div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img id="modalImagen" src="..." class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <img id="modalImagen" class="d-none" src="" alt="Imagen actividad">
                     </div>
                     <div class="col-md-5">
-                        <div class="actividad-titulo-modal" id="modalTitulo">Actividad | Temática</div>
+                        <div class="actividad-titulo-modal" id="modalTitulo">Actividad | Categoría</div>
                         <div class="actividad-subtitulo-modal" id="modalSubtitulo"><h4>a<span class="badge badge-secondary"></span></h4></div>
                         
                         <div class="row mb-3">

@@ -2351,6 +2351,7 @@ function resetFullMap() {
         nextConnId = 1;
         selectedNodeId = null;
         selectedConnectionId = null;
+        gridType = "hex-flat";
         const n1 = addNodeRaw(300, 250, "#2c2c2c", "circle", 1, "Cripta", "bottom", "#ffffff", "💀");
         const n2 = addNodeRaw(750, 380, "#3b965a", "square", 1, "Bosque", "bottom", "#ffffff", "🌲");
         const n3 = addNodeRaw(550, 600, "#473700", "isometric", 2, "Montaña", "bottom", "#ffffffaa", "⛰️");

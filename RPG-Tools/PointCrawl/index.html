@@ -102,24 +102,20 @@
                         <input class="form-check-input" type="checkbox" id="gridVisibleToggle" checked>
                         <label class="form-check-label" for="gridVisibleToggle">Mostrar grilla</label>
                     </div>
+<div class="mb-3">
+    <label for="cellSizeInput" class="form-label">Tamaño de celda (px)</label>
+    <input type="number" id="cellSizeInput" class="form-control" min="10" max="200" step="2">
+    <small class="form-text text-muted">Cambia el tamaño de las celdas. Las unidades X/Y se actualizarán automáticamente.</small>
+</div>
                     <div class="mb-3">
                         <label for="gridTypeSelect" class="form-label">Tipo de grilla</label>
                         <select class="form-select" id="gridTypeSelect">
-                            <option value="squares">Cuadrados</option>
-                            <option value="hex" selected>Hexágonos</option>
+                            <option value="square">Cuadrada</option>
+                            <option value="hex-pointy">Hexagonal (punta)</option>
+                            <option value="hex-flat">Hexagonal (plano)</option>
+                            <option value="circles">Círculos</option>
+                            <option value="isometric">Isométrica</option>
                         </select>
-                    </div>
-                    <div class="mb-3" id="hexOrientationDiv">
-                        <label for="hexOrientationSelect" class="form-label">Orientación de hexágonos</label>
-                        <select class="form-select" id="hexOrientationSelect">
-                            <option value="pointy">Punta arriba</option>
-                            <option value="flat">Vertical</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gridSizeInput" class="form-label">Tamaño de grilla (píxeles)</label>
-                        <input type="number" class="form-control" id="gridSizeInput" min="8" max="256" value="26">
-                        <small class="form-text text-muted">Los nodos se alinearán al centro de la grilla y se dibujará con movimiento suave</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Color de grilla</label>
@@ -220,14 +216,14 @@
 
                     <!-- Fila con 2 columnas -->
                     <div class="row mb-3">
-                        <div class="col-6">
-                            <label class="form-label"><i class="bi bi-arrows-angle-expand"></i> Tamaño</label>
-                            <select id="nodeSize" class="form-select">
-                                <option value="small">Pequeño</option>
-                                <option value="medium">Mediano</option>
-                                <option value="large">Grande</option>
-                                <option value="giant">Gigante</option>
-                            </select>
+                        <div class="property-row">
+                            <label>Escala del nodo</label>
+                            <div class="d-flex gap-2">
+                                <input type="number" id="nodeScaleInput" class="form-control" step="0.1" min="0.2" max="3" value="1.0">
+                                <button id="resetScaleBtn" class="btn btn-outline-secondary" title="Resetear a escala 1 (tamaño de celda)">↺</button>
+                            </div>
+                            <small class="text-muted">1 = tamaño de una celda de la grilla actual</small>
+                        </div>
                         </div>
                         <div class="col-6">
                             <label class="form-label"><i class="bi bi-palette"></i> Color del icono</label>

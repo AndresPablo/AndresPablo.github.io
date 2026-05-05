@@ -35,10 +35,8 @@ let lastConnectionStyle = {
 
 let exportSolidBackground = false;
 let canvasOrientation = "landscape";
-let gridSize = 26;
 let showGrid = true;
-let gridType = "hex";
-let hexOrientation = "flat";
+let gridType = "square";
 let gridColor = "#616161";
 let gridAlpha = 0.18;
 let canvasBgColor = "#ffffff";
@@ -261,39 +259,125 @@ async function loadIconsFromFolders() {
     }
 }
 
-// Tamaños de nodos
-const SIZE_MAP = { small: 18, medium: 26, large: 34, giant: 68 };
 
-// Elementos DOM
+//#region DOM
+
 const canvas = document.getElementById('pointcanvas');
 const canvasContainer = document.getElementById('canvasContainer');
 let ctx = canvas.getContext('2d');
 
-// ------------------------- FUNCIONES BASE -------------------------
-function getNodeRadius(node) { return SIZE_MAP[node.size] || SIZE_MAP.medium; }
+// Tamaños de nodos
+let cellSize = 32;  // tamaño de celda en píxeles
+gridUnitsX = 16;
+gridUnitsY = 9;
+let currentCellSize = canvas.width / gridUnitsX; // se actualiza al cambiar grilla o canvas
+let hexRadius = 20; 
 
-function snapToGrid(x, y) {
-    if (gridType === "hex") return snapToHexGrid(x, y, gridSize, hexOrientation);
-    return {
-        x: Math.round(x / gridSize) * gridSize,
-        y: Math.round(y / gridSize) * gridSize
-    };
+//#endregion DOM
+
+
+//#region FUNCIONES BASE
+// ------------------------- FUNCIONES BASE -------------------------
+function getNodeRadius(node) { return node.radius || 26; }
+
+function updateUnitsFromCellSize() {
+    if (!canvas) return;
+    gridUnitsX = Math.max(1, Math.floor(canvas.width / cellSize));
+    gridUnitsY = Math.max(1, Math.floor(canvas.height / cellSize));
 }
 
-function snapToHexGrid(x, y, size, orientation) {
+function getRadiusFromScale(shape, scale, cellW, cellH) {
+    if (shape === "square") {
+        return (cellW * scale) / 2;  // el cuadrado ocupa todo el ancho
+    } else if (shape === "isometric" || shape === "isometric-circle") {
+        // Para isométrico, el radio base = cellW/3 cuando scale=1
+        return (cellW / 3) * scale;
+    } else if (shape === "hexagon" || shape === "hexagon-flat") {
+        // Para hexágonos, usa hexRadius definido aparte
+        return hexRadius * scale;
+    } else {
+        // círculo, diamante, etc.
+        return (cellW / 2) * scale;  // o cellH/2, pero usamos cellW para simetría
+    }
+}
+
+function snapToGrid(x, y) {
+    const cellW = canvas.width / gridUnitsX;
+    const cellH = canvas.height / gridUnitsY;
+
+    switch (gridType) {
+        case "square":
+        case "circles":
+            // Centro de la celda cuadrada
+            const col = Math.round(x / cellW);
+            const row = Math.round(y / cellH);
+            return {
+                x: col * cellW + cellW/2,
+                y: row * cellH + cellH/2
+            };
+        case "hex-pointy":
+            return snapToHexCenter(x, y, hexRadius, "pointy");
+        case "hex-flat":
+            return snapToHexCenter(x, y, hexRadius, "flat");
+        case "isometric":
+            const cellW = canvas.width / gridUnitsX;
+            const cellH = canvas.height / gridUnitsY;
+            return snapToIsometricCenter(x, y, cellW, cellH);
+        default:
+            return { x, y };
+    }
+}
+
+function snapToHexCenter(x, y, size, orientation) {
+    // Usa las mismas fórmulas de axialToPixel pero invirtiendo el proceso
     const sqrt3 = Math.sqrt(3);
     let q, r;
     if (orientation === "pointy") {
-        q = (sqrt3 / 3 * x - 1 / 3 * y) / size;
-        r = (2 / 3 * y) / size;
-    } else { // flat
-        q = (2 / 3 * x) / size;
-        r = (-1 / 3 * x + sqrt3 / 3 * y) / size;
+        q = (sqrt3/3 * x - 1/3 * y) / size;
+        r = (2/3 * y) / size;
+    } else {
+        q = (2/3 * x) / size;
+        r = (-1/3 * x + sqrt3/3 * y) / size;
     }
     const cube = cubeRound({ x: q, y: -q - r, z: r });
     const axial = { q: cube.x, r: cube.z };
-    return axialToPixel(axial.q, axial.r, size, orientation);
+    const center = axialToPixel(axial.q, axial.r, size, orientation);
+    return { x: center.x, y: center.y };
 }
+
+function snapToIsometricCenter(x, y, cellW, cellH) {
+    // Paso 1: calcular coordenadas axiales aproximadas
+    const i_raw = (x / cellW) + (y / cellH);
+    const j_raw = (y / cellH) - (x / cellW);
+    
+    // Paso 2: probar candidatos alrededor del redondeo
+    const i0 = Math.round(i_raw);
+    const j0 = Math.round(j_raw);
+    
+    let bestX = 0, bestY = 0;
+    let bestDist = Infinity;
+    
+    // Buscar en un radio de 1 celda alrededor
+    for (let di = -1; di <= 1; di++) {
+        for (let dj = -1; dj <= 1; dj++) {
+            const i = i0 + di;
+            const j = j0 + dj;
+            // Convertir axial a píxel (centro de la celda)
+            const centerX = (i - j) * cellW / 2;
+            const centerY = (i + j) * cellH / 2;
+            const dx = centerX - x;
+            const dy = centerY - y;
+            const dist = dx*dx + dy*dy;
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestX = centerX;
+                bestY = centerY;
+            }
+        }
+    }
+    return { x: bestX, y: bestY };
+}
+
 
 function axialToPixel(q, r, size, orientation) {
     const sqrt3 = Math.sqrt(3);
@@ -311,6 +395,8 @@ function axialToPixel(q, r, size, orientation) {
 }
 
 function hexToRgba(hex, alpha = 1) {
+    // Asegurar que hex sea una cadena válida
+    if (!hex || typeof hex !== 'string') hex = "#808080";
     const normalized = hex.startsWith('#') ? hex.slice(1) : hex;
     if (normalized.length !== 6) return `rgba(128,128,128,${alpha})`;
     const intVal = parseInt(normalized, 16);
@@ -319,6 +405,7 @@ function hexToRgba(hex, alpha = 1) {
     const b = intVal & 255;
     return `rgba(${r},${g},${b},${alpha})`;
 }
+
 
 function cubeRound(cube) {
     let rx = Math.round(cube.x);
@@ -355,10 +442,11 @@ function saveToLocalStorage() {
         nextConnId,
         canvasOrientation,
         lastConnectionStyle,
-        gridSize,
+        cellSize,
         showGrid,
         gridType,
-        hexOrientation,
+        gridUnitsX,
+        gridUnitsY,
         gridColor,
         gridAlpha,
         canvasBgColor
@@ -371,17 +459,30 @@ function loadFromLocalStorage() {
     if (!raw) return false;
     try {
         const data = JSON.parse(raw);
-        nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff' }));
+        nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff' 
+            }));
+
+        if (!newNode.radius) {
+            if (newNode.size) {
+                newNode.radius = cellSize;
+                delete newNode.size;
+            } else {
+                newNode.radius = 32;
+            }
+        }
+        return newNode;
+
         connections = data.connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc, patternSize: c.patternSize || 1.0 }));
         nextNodeId = data.nextNodeId;
         nextConnId = data.nextConnId;
         canvasOrientation = data.canvasOrientation || "landscape";
-        gridSize = data.gridSize || 26;
         showGrid = data.showGrid !== undefined ? data.showGrid : true;
         gridType = data.gridType || "hex";
-        hexOrientation = data.hexOrientation || "flat";
-        gridColor = data.gridColor || "#808080";
-        gridAlpha = data.gridAlpha !== undefined ? data.gridAlpha : 0.18;
+        cellSize = data.cellSize || 32;
+        gridUnitsX = data.gridUnitsX || 12;
+        gridUnitsY = data.gridUnitsY || 12;
+        gridColor = data.gridColor || "#8a8a8a";
+        gridAlpha = data.gridAlpha !== undefined ? data.gridAlpha : 0.25;
         canvasBgColor = data.canvasBgColor || "#ffffff";
         lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0 };
         setCanvasSizeByOrientation(false);
@@ -407,6 +508,7 @@ function setCanvasSizeByOrientation(save = true) {
     canvas.width = newWidth;
     canvas.height = newHeight;
     ctx = canvas.getContext('2d');
+    updateUnitsFromCellSize()
     renderCanvas();
     if (save) saveToLocalStorage();
 }
@@ -516,8 +618,16 @@ function selectNodeIcon(filepath) {
 }
 
 // ------------------------- NODOS Y CONEXIONES -------------------------
-function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", size = "medium", labelText = "", labelPosition = "bottom", labelBgColor = "#ffffffaa", innerText = "") {
-    const node = { id: nextNodeId++, x, y, bgColor, shape, size, labelText, labelPosition, labelBgColor, innerText, iconImage: null, iconSrc: null, iconColor: "#ffffff" };
+function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, labelText = "", labelPosition = "bottom", labelBgColor = "#dbdbdb", innerText = "") {
+    const node = { 
+        id: nextNodeId++, 
+        x, y, bgColor, shape, 
+        scale: scale, 
+        labelText, labelPosition, labelBgColor, innerText, 
+        iconImage: null, iconSrc: null, iconColor: "#ffffff" 
+    };
+    // Calculamos radius dinámicamente según la forma y el tamaño de celda actual
+    node.radius = getRadiusFromScale(shape, scale, currentCellSize);
     nodes.push(node);
     return node;
 }
@@ -576,7 +686,7 @@ function duplicateSelectedNode() {
     if (!original) return;
     const newX = Math.min(canvas.width - getNodeRadius(original) - 5, original.x + 40);
     const newY = Math.min(canvas.height - getNodeRadius(original) - 5, original.y + 40);
-    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.size, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
+    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.radius, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
     newNode.iconColor = original.iconColor || '#ffffff';
     if (original.iconSrc) loadImageForNode(newNode, original.iconSrc);
     renderCanvas();
@@ -587,12 +697,19 @@ function duplicateSelectedNode() {
     updateStatusMessage(`Nodo duplicado (${newNode.id})`, false);
 }
 
+//#region DIBUJO
 // ------------------------- DIBUJO -------------------------
 function drawShape(ctx, x, y, radius, shape, bgColor, isSelected) {
     ctx.save();
     ctx.beginPath();
-    if (shape === "circle") ctx.arc(x, y, radius, 0, Math.PI * 2);
-    else if (shape === "square") ctx.rect(x - radius, y - radius, radius * 2, radius * 2);
+    if (shape === "circle"){
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+    } 
+    else if (shape === "square"){
+            // El lado del cuadrado es 2 * radius, debe ser igual a cellSize cuando scale=1
+    const side = radius * 2;
+    ctx.rect(x - side/2, y - side/2, side, side);
+    }
     else if (shape === "hexagon") {
         const angles = [30, 90, 150, 210, 270, 330].map(d => d * Math.PI / 180);
         ctx.moveTo(x + radius * Math.cos(angles[0]), y + radius * Math.sin(angles[0]));
@@ -604,15 +721,19 @@ function drawShape(ctx, x, y, radius, shape, bgColor, isSelected) {
         for (let i = 1; i < angles.length; i++) ctx.lineTo(x + radius * Math.cos(angles[i]), y + radius * Math.sin(angles[i]));
         ctx.closePath();
     } else if (shape === "isometric") {
-        const hw = radius * 0.9, hh = radius * 0.7;
-        ctx.moveTo(x, y - hh);
-        ctx.lineTo(x + hw, y);
-        ctx.lineTo(x, y + hh);
-        ctx.lineTo(x - hw, y);
+        // Proporción isométrica: ancho = 2 * alto
+        const width = radius * 1.5;      // semi-ancho horizontal
+        const height = radius * 0.75;    // semi-alto vertical
+        ctx.moveTo(x, y - height);
+        ctx.lineTo(x + width, y);
+        ctx.lineTo(x, y + height);
+        ctx.lineTo(x - width, y);
         ctx.closePath();
     } else if (shape === "isometric-circle") {
         // Oval/ellipse for isometric circle - wider than tall
-        ctx.ellipse(x, y, radius * 1.2, radius * 0.8, 0, 0, Math.PI * 2);
+        const radX = radius * 1.5;
+        const radY = radius * 0.75;
+        ctx.ellipse(x, y, radX, radY, 0, 0, Math.PI * 2);
     } else if (shape === "diamond") {
         // Diamond shape (rotated square)
         const size = radius * 0.9;
@@ -630,6 +751,22 @@ function drawShape(ctx, x, y, radius, shape, bgColor, isSelected) {
         ctx.stroke();
     }
     ctx.restore();
+}
+
+function updateHexRadius() {
+    const cellW = canvas.width / gridUnitsX;
+    const cellH = canvas.height / gridUnitsY;
+    // Para hexágonos regulares, el radio se calcula según la orientación
+    if (gridType === "hex-pointy") {
+        // Distancia horizontal entre centros = sqrt(3) * radius
+        hexRadius = cellW / Math.sqrt(3);
+    } else if (gridType === "hex-flat") {
+        // Distancia vertical entre centros = sqrt(3) * radius
+        hexRadius = cellH / Math.sqrt(3);
+    } else {
+        hexRadius = Math.min(cellW, cellH) / 2;
+    }
+    hexRadius = Math.max(4, Math.min(100, hexRadius));
 }
 
 function drawInnerText(ctx, node, radius) {
@@ -793,6 +930,35 @@ function drawIcon(ctx, node, radius) {
         ctx.restore();
     }
 }
+
+function calcRadiusFromScale(shape, scale, cellSize) {
+    if (shape === "square") {
+        // El cuadrado debe ocupar todo el ancho de la celda: lado = cellSize * scale
+        // El radio de dibujo es la mitad del lado
+        return (cellSize * scale) / 2;
+    } else {
+        // Círculo, hexágono, isométrico: el radio es la mitad del tamaño de celda por escala
+        return (cellSize / 2) * scale;
+    }
+}
+
+function updateAllNodeRadii() {
+    const cellW = canvas.width / gridUnitsX;
+    const cellH = canvas.height / gridUnitsY;
+
+    for (let node of nodes) {
+        node.radius = getRadiusFromScale(node.shape, node.scale, cellW, cellH);
+    }
+
+    renderCanvas();
+    saveToLocalStorage();
+}
+
+
+
+//#endregion DIBUJO
+
+// #region Connection Drawing  
 
 function mapWidthLevel(level) {
     const levels = { 1: 1.5, 2: 2.5, 3: 4, 4: 6, 5: 8.5 };
@@ -1207,6 +1373,10 @@ function drawPatternAlongPath(ctx, points, pattern, count, lineColor, lineWidth,
 
 
 
+//#endregion Connection Drawing
+
+
+// #region GRID / Grilla
 
 //  *** GRILLA ***  //
 function drawGrid(targetCtx = ctx, targetCanvas = canvas) {
@@ -1214,43 +1384,47 @@ function drawGrid(targetCtx = ctx, targetCanvas = canvas) {
     targetCtx.save();
     targetCtx.strokeStyle = hexToRgba(gridColor, gridAlpha);
     targetCtx.lineWidth = 1;
-    if (gridType === "squares") {
-        for (let x = 0; x <= targetCanvas.width; x += gridSize) {
+    if (gridUnitsX <= 0) gridUnitsX = 24;
+    if (gridUnitsY <= 0) gridUnitsY = 12;
+    const cellW = targetCanvas.width / gridUnitsX;
+    const cellH = targetCanvas.height / gridUnitsY;
+    
+    if (gridType === "square") {
+        for (let i = 0; i <= gridUnitsX; i++) {
+            const x = i * cellW;
             targetCtx.beginPath();
-            targetCtx.moveTo(x + 0.5, 0);
-            targetCtx.lineTo(x + 0.5, targetCanvas.height);
+            targetCtx.moveTo(x, 0);
+            targetCtx.lineTo(x, targetCanvas.height);
             targetCtx.stroke();
         }
-        for (let y = 0; y <= targetCanvas.height; y += gridSize) {
+        for (let i = 0; i <= gridUnitsY; i++) {
+            const y = i * cellH;
             targetCtx.beginPath();
-            targetCtx.moveTo(0, y + 0.5);
-            targetCtx.lineTo(targetCanvas.width, y + 0.5);
+            targetCtx.moveTo(0, y);
+            targetCtx.lineTo(targetCanvas.width, y);
             targetCtx.stroke();
         }
-    } else if (gridType === "hex") {
-        const r = gridSize;
-        const angleOffset = hexOrientation === "pointy" ? -30 : 0;
+    } 
+    else if (gridType === "hex-pointy" || gridType === "hex-flat") {
+        const orientation = gridType === "hex-pointy" ? "pointy" : "flat";
+        const size = hexRadius;
+        const angleOffset = gridType === "hex-pointy" ? -30 : 0;
+        const sqrt3 = Math.sqrt(3);
         
-        // Calculate bounds based on orientation
-        let maxQ, maxR;
-        if (hexOrientation === "pointy") {
-            maxQ = Math.ceil(targetCanvas.width / (r * Math.sqrt(3))) + 1;
-            maxR = Math.ceil(targetCanvas.height / (r * 1.5)) + 1;
-        } else { // flat
-            maxQ = Math.ceil(targetCanvas.width / (r * 1.5)) + 1;
-            maxR = Math.ceil(targetCanvas.height / (r * Math.sqrt(3))) + 1;
-        }
-        
-        for (let q = -maxQ; q <= maxQ; q++) {
-            for (let rr = -maxR; rr <= maxR; rr++) {
-                const center = axialToPixel(q, rr, r, hexOrientation);
-                if (center.x < -r || center.x > targetCanvas.width + r || center.y < -r || center.y > targetCanvas.height + r) continue;
-                
+        for (let q = -gridUnitsX; q <= gridUnitsX; q++) {
+            for (let r = -gridUnitsY; r <= gridUnitsY; r++) {
+                let center;
+                if (gridType === "hex-pointy") {
+                    center = { x: size * sqrt3 * (q + r/2), y: size * 3/2 * r };
+                } else {
+                    center = { x: size * 3/2 * q, y: size * sqrt3 * (r + q/2) };
+                }
+                if (center.x < -size || center.x > targetCanvas.width + size || center.y < -size || center.y > targetCanvas.height + size) continue;
                 targetCtx.beginPath();
                 for (let side = 0; side < 6; side++) {
                     const angle = Math.PI / 180 * (60 * side + angleOffset);
-                    const px = center.x + r * Math.cos(angle);
-                    const py = center.y + r * Math.sin(angle);
+                    const px = center.x + size * Math.cos(angle);
+                    const py = center.y + size * Math.sin(angle);
                     if (side === 0) targetCtx.moveTo(px, py);
                     else targetCtx.lineTo(px, py);
                 }
@@ -1259,8 +1433,87 @@ function drawGrid(targetCtx = ctx, targetCanvas = canvas) {
             }
         }
     }
+    else if (gridType === "circles") {
+        const radius = Math.min(cellW, cellH) * 0.3;
+        for (let i = 0; i < gridUnitsX; i++) {
+            for (let j = 0; j < gridUnitsY; j++) {
+                const cx = (i + 0.5) * cellW;
+                const cy = (j + 0.5) * cellH;
+                targetCtx.beginPath();
+                targetCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+                targetCtx.stroke();
+            }
+        }
+    }
+    else if (gridType === "isometric") {
+        // Calcula el tamaño de celda a partir de las unidades actuales
+        const cellW = targetCanvas.width / gridUnitsX;
+        const cellH = targetCanvas.height / gridUnitsY;
+        // Para una grilla isométrica, usamos el promedio o el horizontal (ambos funcionan)
+        const step = Math.min(cellW, cellH); // o usa cellW directamente
+        drawIsometricGrid(targetCtx, targetCanvas.width, targetCanvas.height, step, step/2, gridColor, gridAlpha);
+    }
     targetCtx.restore();
 }
+
+function drawIsometricGrid(ctx, width, height, stepX, stepY, color, alpha) {
+    if (!stepX || stepX <= 0 || !stepY || stepY <= 0) return;
+    
+    ctx.save();
+    ctx.strokeStyle = hexToRgba(color, alpha);
+    ctx.lineWidth = 1;
+    
+    const slope = stepY / stepX;  // típicamente 0.5
+    
+    // Extender los límites considerablemente para cubrir todas las esquinas
+    const extend = Math.max(width, height) * 1.5;
+    const bMin = -extend;
+    const bMax = height + extend;
+    const stepB = stepY;  // espaciado entre líneas paralelas
+    
+    // 1. Líneas con pendiente positiva ( / ) : y = slope * x + b
+    for (let b = bMin; b <= bMax; b += stepB) {
+        const x1 = 0;
+        const y1 = b;
+        const x2 = width;
+        const y2 = slope * width + b;
+        
+        // No es necesario recortar, solo dibujar (el canvas lo recorta automáticamente)
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
+    
+    // 2. Líneas con pendiente negativa ( \ ) : y = -slope * x + b
+    for (let b = bMin; b <= bMax; b += stepB) {
+        const x1 = 0;
+        const y1 = b;
+        const x2 = width;
+        const y2 = -slope * width + b;
+        
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
+    
+    ctx.restore();
+}
+
+function updateCellSize() {
+    if (!canvas) return;
+    const cellW = canvas.width / gridUnitsX;
+    const cellH = canvas.height / gridUnitsY;
+    // Para grilla cuadrada usamos el ancho; para hex/isométrico usamos el mínimo
+    currentCellSize = Math.min(cellW, cellH);
+    if (currentCellSize <= 0) currentCellSize = 32;
+}
+
+
+
+
+//#endregion GRID / Grilla
 
 function renderCanvasTo(targetCtx, targetCanvas, includeGrid = true, includeBackground = true) {
     if (includeBackground) {
@@ -1521,6 +1774,8 @@ canvasContainer.style.cursor = 'grab';
 function updatePropertiesPanel() {
     const nodePanel = document.getElementById('nodePropertiesPanel');
     const connPanel = document.getElementById('connectionPropertiesPanel');
+    const radiusInput = document.getElementById('nodeRadiusInput');
+    const scaleInput = document.getElementById('nodeScaleInput');
 
     if (selectedNodeId !== null) {
         const node = nodes.find(n => n.id === selectedNodeId);
@@ -1532,12 +1787,13 @@ function updatePropertiesPanel() {
             // Update node field values
             document.getElementById('nodeBgColor').value = node.bgColor;
             document.getElementById('nodeShape').value = node.shape;
-            document.getElementById('nodeSize').value = node.size;
             document.getElementById('innerText').value = node.innerText || '';
             document.getElementById('labelText').value = node.labelText || '';
             document.getElementById('labelPos').value = node.labelPosition;
             document.getElementById('labelBgColor').value = node.labelBgColor;
             document.getElementById('iconColor').value = node.iconColor || '#ffffff';
+            if (scaleInput) scaleInput.value = node.scale.toFixed(2);
+            
 
             // Update icon preview
             const iconPreview = document.getElementById('iconPreview');
@@ -1547,7 +1803,7 @@ function updatePropertiesPanel() {
                 iconPreview.innerHTML = "Sin icono";
             }
 
-            attachNodeEvents(node);
+            //attachNodeEvents(node); // TODO: DELETE
         }
     } else if (selectedConnectionId !== null) {
         const conn = connections.find(c => c.id === selectedConnectionId);
@@ -1580,7 +1836,7 @@ function updatePropertiesPanel() {
                 connIconPreview.innerHTML = "Sin ícono";
             }
 
-            attachConnectionEvents(conn);
+            //attachConnectionEvents(conn); // TODO: DELETE
         }
     } else {
         // Hide both panels
@@ -1605,10 +1861,23 @@ function updatePatternSizeValue(value) {
     span.innerText = value.toFixed(2);
 }
 
+document.getElementById('resetScaleBtn')?.addEventListener('click', () => {
+    if (selectedNodeId) {
+        const node = nodes.find(n => n.id === selectedNodeId);
+        if (node) {
+            node.scale = 1.0;
+            node.radius = getRadiusFromScale(node.shape, 1.0, currentCellSize);
+            document.getElementById('nodeScaleInput').value = "1.00";
+            renderCanvas();
+            saveToLocalStorage();
+        }
+    }
+});
+
 function attachNodeEvents(node) {
     // Remove existing event listeners to prevent duplicates
     const elements = [
-        'nodeBgColor', 'nodeShape', 'nodeSize', 'innerText', 'labelText', 'labelPos', 'labelBgColor', 'iconColor',
+        'nodeBgColor', 'nodeShape', 'nodeRadius', 'innerText', 'labelText', 'labelPos', 'labelBgColor', 'iconColor',
         'iconFile', 'loadUrlIcon', 'selectIconBtn', 'removeIconBtn', 'deleteNodeBtn'
     ];
 
@@ -1623,7 +1892,6 @@ function attachNodeEvents(node) {
     // Re-attach event listeners
     document.getElementById('nodeBgColor')?.addEventListener('change', e => { node.bgColor = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('nodeShape')?.addEventListener('change', e => { node.shape = e.target.value; renderCanvas(); saveToLocalStorage(); });
-    document.getElementById('nodeSize')?.addEventListener('change', e => { node.size = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('innerText')?.addEventListener('change', e => { node.innerText = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('labelText')?.addEventListener('change', e => { node.labelText = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('labelPos')?.addEventListener('change', e => { node.labelPosition = e.target.value; renderCanvas(); saveToLocalStorage(); });
@@ -1658,6 +1926,29 @@ function attachNodeEvents(node) {
         renderCanvas(); updatePropertiesPanel(); saveToLocalStorage();
     });
     document.getElementById('deleteNodeBtn')?.addEventListener('click', () => deleteNodeById(node.id));
+
+    document.getElementById('nodeScaleInput')?.addEventListener('change', e => {
+        let scale = parseFloat(e.target.value);
+        if (isNaN(scale)) scale = 1;
+        scale = Math.min(3, Math.max(0.2, scale));
+        node.radius = scale * currentCellSize;
+        e.target.value = scale.toFixed(2);
+        renderCanvas();
+        saveToLocalStorage();
+    });
+
+    document.getElementById('resetScaleBtn')?.addEventListener('click', () => {
+        const scaleInput = document.getElementById('nodeScaleInput');
+        if (scaleInput && selectedNodeId) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.radius = currentCellSize;
+                scaleInput.value = "1.00";
+                renderCanvas();
+                saveToLocalStorage();
+            }
+        }
+    });
 }
 
 function attachConnectionEvents(conn) {
@@ -1790,10 +2081,8 @@ document.getElementById('modalExportJsonBtn').addEventListener('click', () => {
         nextConnId,
         canvasOrientation,
         lastConnectionStyle,
-        gridSize,
         showGrid,
         gridType,
-        hexOrientation
     };
     const jsonString = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -1829,10 +2118,8 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             nextNodeId = data.nextNodeId || 1;
             nextConnId = data.nextConnId || 1;
             canvasOrientation = data.canvasOrientation || "landscape";
-            gridSize = data.gridSize || 26;
             showGrid = data.showGrid !== undefined ? data.showGrid : true;
             gridType = data.gridType || "hex";
-            hexOrientation = data.hexOrientation || "flat";
             lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0 };
             
             setCanvasSizeByOrientation(false);
@@ -1862,10 +2149,9 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
 // Opciones de documento: orientación + configuraciones de grilla
 document.getElementById('applyOrientationBtn').addEventListener('click', () => {
     const selectedOrientation = document.querySelector('input[name="orientationRadio"]:checked')?.value;
-    const newGridSize = parseInt(document.getElementById('gridSizeInput').value, 10) || gridSize;
     const newGridType = document.getElementById('gridTypeSelect').value;
+    const newCellSize = document.getElementById('cellSizeInput').value;
     const newShowGrid = document.getElementById('gridVisibleToggle').checked;
-    const newHexOrientation = document.getElementById('hexOrientationSelect').value;
     const newGridColor = document.getElementById('gridColorInput').value;
     const newGridAlpha = parseFloat(document.getElementById('gridAlphaInput').value);
     const newCanvasBgColor = document.getElementById('canvasBgColorInput').value;
@@ -1876,8 +2162,9 @@ document.getElementById('applyOrientationBtn').addEventListener('click', () => {
         setCanvasSizeByOrientation(false);
         changed = true;
     }
-    if (newGridSize !== gridSize) {
-        gridSize = newGridSize;
+        if (!isNaN(newCellSize) && newCellSize !== cellSize) {
+        cellSize = newCellSize;
+        updateUnitsFromCellSize();
         changed = true;
     }
     if (newGridType !== gridType) {
@@ -1886,10 +2173,6 @@ document.getElementById('applyOrientationBtn').addEventListener('click', () => {
     }
     if (newShowGrid !== showGrid) {
         showGrid = newShowGrid;
-        changed = true;
-    }
-    if (newHexOrientation !== hexOrientation) {
-        hexOrientation = newHexOrientation;
         changed = true;
     }
     if (newGridColor !== gridColor) {
@@ -1905,9 +2188,11 @@ document.getElementById('applyOrientationBtn').addEventListener('click', () => {
         changed = true;
     }
 
-    document.getElementById('hexOrientationDiv').style.display = gridType === 'hex' ? 'block' : 'none';
 
     if (changed) {
+        updateCellSize();
+        updateHexRadius();
+        updateAllNodeRadii();
         saveToLocalStorage();
         renderCanvas();
         updateStatusMessage('Configuración aplicada', false);
@@ -1920,29 +2205,19 @@ document.getElementById('applyOrientationBtn').addEventListener('click', () => {
 const settingsModalEl = document.getElementById('settingsModal');
 settingsModalEl.addEventListener('show.bs.modal', () => {
     document.getElementById(canvasOrientation === 'portrait' ? 'orientVertical' : 'orientHorizontal').checked = true;
-    document.getElementById('gridSizeInput').value = gridSize;
     document.getElementById('gridTypeSelect').value = gridType;
     document.getElementById('gridVisibleToggle').checked = showGrid;
-    document.getElementById('hexOrientationSelect').value = hexOrientation;
+    document.getElementById('cellSizeInput').value = cellSize;
     document.getElementById('gridColorInput').value = gridColor;
     document.getElementById('gridAlphaInput').value = gridAlpha;
     document.getElementById('canvasBgColorInput').value = canvasBgColor;
     document.getElementById('gridAlphaValue').innerText = `${Math.round(gridAlpha * 100)}%`;
-    const hexDiv = document.getElementById('hexOrientationDiv');
-    hexDiv.style.display = gridType === 'hex' ? 'block' : 'none';
 });
 
-// Manejador para cambiar el tamaño de la grilla
-const gridSizeInput = document.getElementById('gridSizeInput');
-gridSizeInput.addEventListener('change', (e) => {
-    const newSize = parseInt(e.target.value, 10);
-    if (!Number.isNaN(newSize) && newSize >= 8 && newSize <= 256) {
-        gridSize = newSize;
-        saveToLocalStorage();
-        renderCanvas();
-        updateStatusMessage(`Tamaño de grilla cambiado a ${gridSize}px`, false);
-    }
-});
+
+
+
+// Manejador para cambiar el color de la grilla
 const gridColorInput = document.getElementById('gridColorInput');
 gridColorInput.addEventListener('change', (e) => {
     gridColor = e.target.value;
@@ -1950,6 +2225,7 @@ gridColorInput.addEventListener('change', (e) => {
     renderCanvas();
     updateStatusMessage('Color de grilla actualizado', false);
 });
+// Manejador para cambiar el Alfa  de la grilla
 const gridAlphaInput = document.getElementById('gridAlphaInput');
 gridAlphaInput.addEventListener('input', (e) => {
     gridAlpha = parseFloat(e.target.value);
@@ -1957,6 +2233,8 @@ gridAlphaInput.addEventListener('input', (e) => {
     saveToLocalStorage();
     renderCanvas();
 });
+
+// Manejador para cambiar el color del canvas
 const canvasBgColorInput = document.getElementById('canvasBgColorInput');
 canvasBgColorInput.addEventListener('change', (e) => {
     canvasBgColor = e.target.value;
@@ -1968,8 +2246,6 @@ canvasBgColorInput.addEventListener('change', (e) => {
 // Manejador para cambiar el tipo de grilla
 document.getElementById('gridTypeSelect').addEventListener('change', (e) => {
     gridType = e.target.value;
-    const hexDiv = document.getElementById('hexOrientationDiv');
-    hexDiv.style.display = gridType === 'hex' ? 'block' : 'none';
     saveToLocalStorage();
     renderCanvas();
     updateStatusMessage(`Tipo de grilla cambiado a ${gridType}`, false);
@@ -1983,13 +2259,6 @@ document.getElementById('gridVisibleToggle').addEventListener('change', (e) => {
     updateStatusMessage(`Grilla ${showGrid ? 'visible' : 'oculta'}`, false);
 });
 
-// Manejador para cambiar la orientación de hexágonos
-document.getElementById('hexOrientationSelect').addEventListener('change', (e) => {
-    hexOrientation = e.target.value;
-    saveToLocalStorage();
-    updateStatusMessage(`Orientación de hexágonos cambiada a ${hexOrientation}`, false);
-});
-
 // ------------------------- RESET Y DEMO -------------------------
 function resetFullMap() {
     if (confirm("⚠️ ¿Reiniciar completamente el mapa? Se perderán todos los datos actuales.")) {
@@ -1999,9 +2268,9 @@ function resetFullMap() {
         nextConnId = 1;
         selectedNodeId = null;
         selectedConnectionId = null;
-        const n1 = addNodeRaw(300, 250, "#000000", "circle", "medium", "Cripta", "bottom", "#ffffffaa", "💀");
-        const n2 = addNodeRaw(750, 380, "#000000", "square", "medium", "Bosque", "bottom", "#ffffffaa", "🌲");
-        const n3 = addNodeRaw(550, 600, "#000000", "isometric", "giant", "Montaña", "bottom", "#ffffffaa", "⛰️");
+        const n1 = addNodeRaw(300, 250, "#2c2c2c", "circle", 1, "Cripta", "bottom", "#ffffff", "💀");
+        const n2 = addNodeRaw(750, 380, "#3b965a", "square", 1, "Bosque", "bottom", "#ffffff", "🌲");
+        const n3 = addNodeRaw(550, 600, "#473700", "isometric", 2, "Montaña", "bottom", "#ffffffaa", "⛰️");
         addConnectionRaw(n1.id, n2.id, "#000000", "normal", 3, "2 días", null, "circle", "#ffffff");
         addConnectionRaw(n2.id, n3.id, "#000000", "rayada", 4, "1 día", null, "diamond", "#ffffff");
         addConnectionRaw(n1.id, n3.id, "#000000", "dotted", 2, "ruta oculta", null, "square", "#ffffff");
@@ -2017,7 +2286,7 @@ function resetFullMap() {
 document.getElementById('newNodeNavBtn').addEventListener('click', () => {
     let x = 100 + Math.random() * (canvas.width - 200);
     let y = 100 + Math.random() * (canvas.height - 200);
-    const newNode = addNodeRaw(x, y, "#000000", "circle", "medium", "", "bottom", "#ffffffaa", "");
+    const newNode = addNodeRaw(x, y, "#000000", "circle", 26, "", "bottom", "#ffffffaa", "");
     renderCanvas();
     selectedNodeId = newNode.id;
     selectedConnectionId = null;
@@ -2076,10 +2345,8 @@ function loadMapFromData(mapData) {
             canvasOrientation = mapData.canvasOrientation;
             setCanvasSizeByOrientation(false);
         }
-        if (mapData.gridSize !== undefined) gridSize = mapData.gridSize;
         if (mapData.showGrid !== undefined) showGrid = mapData.showGrid;
         if (mapData.gridType) gridType = mapData.gridType;
-        if (mapData.hexOrientation) hexOrientation = mapData.hexOrientation;
         if (mapData.gridColor) gridColor = mapData.gridColor;
         if (mapData.gridAlpha !== undefined) gridAlpha = mapData.gridAlpha;
         if (mapData.lastConnectionStyle) lastConnectionStyle = mapData.lastConnectionStyle;
@@ -2199,7 +2466,156 @@ document.getElementById('loadLastSessionBtn').addEventListener('click', () => {
     modal.hide();
 });
 
+const radiusInputElement = document.getElementById('nodeRadiusInput');
+if (radiusInputElement) {
+    radiusInputElement.addEventListener('input', function(e) {
+        if (selectedNodeId === null) return;
+        const node = nodes.find(n => n.id === selectedNodeId);
+        if (!node) return;
+        
+        let val = parseInt(e.target.value);
+        if (isNaN(val)) val = 26;
+        val = Math.min(80, Math.max(12, val));
+        node.radius = val;
+        e.target.value = val; // asegura que el valor mostrado sea el válido
+        renderCanvas();
+        saveToLocalStorage();
+    });
+}
+
+function setupEventListeners() {
+    // --- Nodo ---
+    document.getElementById('nodeBgColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.bgColor = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('nodeShape')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.shape = e.target.value;
+                node.radius = getRadiusFromScale(node.shape, node.scale, currentCellSize);
+            }
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('innerText')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.innerText = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('labelText')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.labelText = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('labelPos')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.labelPosition = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('labelBgColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.labelBgColor = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('iconColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.iconColor = e.target.value;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    // Escala del nodo (input numérico)
+    document.getElementById('nodeScaleInput')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                let scale = parseFloat(e.target.value);
+                if (isNaN(scale)) scale = 1;
+                scale = Math.min(3, Math.max(0.2, scale));
+                node.scale = scale;
+                node.radius = getRadiusFromScale(node.shape, scale, currentCellSize);
+                e.target.value = scale.toFixed(2);
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    // Botón reset escala
+    document.getElementById('resetScaleBtn')?.addEventListener('click', () => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.scale = 1.0;
+                node.radius = getRadiusFromScale(node.shape, 1.0, currentCellSize);
+                document.getElementById('nodeScaleInput').value = "1.00";
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    // Icono: cargar archivo, URL, selector, quitar, eliminar nodo
+    document.getElementById('iconFile')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (selectedNodeId && file) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                const reader = new FileReader();
+                reader.onload = ev => loadImageForNode(node, ev.target.result);
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    document.getElementById('loadUrlIcon')?.addEventListener('click', () => {
+        const url = document.getElementById('iconUrl')?.value;
+        if (selectedNodeId && url) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) loadImageForNode(node, url);
+        }
+    });
+    document.getElementById('selectIconBtn')?.addEventListener('click', async () => {
+        if (selectedNodeId) {
+            iconPickerTargetNodeId = selectedNodeId;
+            selectedIconTags.clear();
+            await populateIconPicker();
+            const modalEl = document.getElementById('iconPickerModal');
+            const iconModal = new bootstrap.Modal(modalEl);
+            iconModal.show();
+        }
+    });
+    document.getElementById('removeIconBtn')?.addEventListener('click', () => {
+        if (selectedNodeId) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.iconImage = null;
+                node.iconSrc = null;
+                renderCanvas(); updatePropertiesPanel(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('deleteNodeBtn')?.addEventListener('click', () => {
+        if (selectedNodeId) deleteNodeById(selectedNodeId);
+    });
+
+    // --- Conexión (similar, pero con sus propios IDs) ---
+    // ... (puedes agregar aquí los eventos para conexión si los tienes,
+    // pero asegúrate de que no se dupliquen con attachConnectionEvents)
+
+    // Exportar, importar, configuraciones, etc. ya los tienes definidos fuera.
+}
+
 // ------------------------- INITIALIZATION -------------------------
+setupEventListeners();
 renderCanvas();
 document.getElementById('canvasBgColorInput').value = canvasBgColor;
 populateIconPicker();

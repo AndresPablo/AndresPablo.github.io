@@ -459,8 +459,7 @@ function loadFromLocalStorage() {
     if (!raw) return false;
     try {
         const data = JSON.parse(raw);
-        nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff' 
-            }));
+        nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff' }));
 
         if (!newNode.radius) {
             if (newNode.size) {
@@ -1453,6 +1452,7 @@ function drawGrid(targetCtx = ctx, targetCanvas = canvas) {
         const step = Math.min(cellW, cellH); // o usa cellW directamente
         drawIsometricGrid(targetCtx, targetCanvas.width, targetCanvas.height, step, step/2, gridColor, gridAlpha);
     }
+    debugDrawCenters(targetCtx);
     targetCtx.restore();
 }
 
@@ -1510,11 +1510,98 @@ function updateCellSize() {
     if (currentCellSize <= 0) currentCellSize = 32;
 }
 
+function getCellCenters() {
+    if (!canvas) return [];
+    
+    const cellW = canvas.width / gridUnitsX;
+    const cellH = canvas.height / gridUnitsY;
+    const centers = [];
+    
+    switch (gridType) {
+        case "square":
+        case "circles":
+            for (let row = 0; row < gridUnitsY; row++) {
+                for (let col = 0; col < gridUnitsX; col++) {
+                    centers.push({
+                        x: col * cellW + cellW/2,
+                        y: row * cellH + cellH/2
+                    });
+                }
+            }
+            break;
+            
+        case "hex-pointy":
+            for (let q = -gridUnitsX; q <= gridUnitsX; q++) {
+                for (let r = -gridUnitsY; r <= gridUnitsY; r++) {
+                    const center = axialToPixel(q, r, hexRadius, "pointy");
+                    if (center.x >= 0 && center.x <= canvas.width && center.y >= 0 && center.y <= canvas.height) {
+                        centers.push(center);
+                    }
+                }
+            }
+            break;
+            
+        case "hex-flat":
+            for (let q = -gridUnitsX; q <= gridUnitsX; q++) {
+                for (let r = -gridUnitsY; r <= gridUnitsY; r++) {
+                    const center = axialToPixel(q, r, hexRadius, "flat");
+                    if (center.x >= 0 && center.x <= canvas.width && center.y >= 0 && center.y <= canvas.height) {
+                        centers.push(center);
+                    }
+                }
+            }
+            break;
+            
+        case "isometric":
+            for (let i = -gridUnitsX; i <= gridUnitsX; i++) {
+                for (let j = -gridUnitsY; j <= gridUnitsY; j++) {
+                    const centerX = (i - j) * cellW / 2;
+                    const centerY = (i + j) * cellH / 2;
+                    if (centerX >= 0 && centerX <= canvas.width && centerY >= 0 && centerY <= canvas.height) {
+                        centers.push({ x: centerX, y: centerY });
+                    }
+                }
+            }
+            break;
+    }
+    
+    return centers;
+}
 
+function debugDrawCenters(ctx) {
+    const centers = getCellCenters();
+    ctx.save();
+    ctx.fillStyle = "#ff0000";
+    
+    for (const center of centers) {
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.restore();
+}
 
+function debugSnapPoint(mouseX, mouseY, ctx) {
+    const snapped = snapToGrid(mouseX, mouseY);
+    ctx.save();
+    ctx.fillStyle = "#ffff00";
+    ctx.strokeStyle = "#ffaa00";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(snapped.x, snapped.y, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(snapped.x, snapped.y, 10, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+    
+    console.log(`Mouse: (${mouseX}, ${mouseY}) → Snap: (${snapped.x}, ${snapped.y})`);
+}
 
 //#endregion GRID / Grilla
 
+
+// #region CANVAS 
 function renderCanvasTo(targetCtx, targetCanvas, includeGrid = true, includeBackground = true) {
     if (includeBackground) {
         targetCtx.fillStyle = canvasBgColor;
@@ -1807,12 +1894,12 @@ function updatePropertiesPanel() {
         }
     } else if (selectedConnectionId !== null) {
         const conn = connections.find(c => c.id === selectedConnectionId);
+        console.log(selectedConnectionId)
         if (conn) {
-            // Show connection panel, hide node panel
             connPanel.style.display = 'block';
             nodePanel.style.display = 'none';
 
-            // Update connection field values
+            // Actualizar campos
             document.getElementById('lineColor').value = conn.color;
             document.getElementById('strokePattern').value = conn.strokePattern;
             document.getElementById('lineWidthSlider').value = conn.lineWidthLevel;
@@ -1823,20 +1910,16 @@ function updatePropertiesPanel() {
             document.getElementById('patternCount').value = conn.patternCount;
             document.getElementById('patternSize').value = conn.patternSize || 1.0;
 
-            // Update slider values
             updateWidthValue(conn.lineWidthLevel);
             updatePatternCountValue(conn.patternCount);
             updatePatternSizeValue(conn.patternSize || 1.0);
 
-            // Update connection icon preview
             const connIconPreview = document.getElementById('connIconPreview');
             if (conn.iconImage) {
                 connIconPreview.innerHTML = `<img src="${conn.iconSrc}">`;
             } else {
                 connIconPreview.innerHTML = "Sin ícono";
             }
-
-            //attachConnectionEvents(conn); // TODO: DELETE
         }
     } else {
         // Hide both panels

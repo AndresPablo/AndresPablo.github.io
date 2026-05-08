@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mothership Companion</title>
+	<link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="crt">
+    <div class="header">
+        <h1>Mothership Companion</h1>
+        <div class="subtitle">TERMINAL DE SOPORTE PARA TTRPG // SISTEMA EN LÍNEA</div>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" data-tab="characters">Personajes</button>
+            <button class="tab" data-tab="catalog">Catálogo</button>
+        </div>
+
+        <!-- Pestaña Personajes -->
+        <div id="characters" class="tab-content active">
+            <div class="character-container">
+                <div class="character-params">
+                    <h2>Parámetros</h2>
+                    
+                    <div class="param-group">
+                        <h3>Estadísticas Base</h3>
+                        <div class="param-row">
+                            <span class="param-label">Fuerza</span>
+                            <span class="param-value" id="strength-value">50</span>
+                        </div>
+                        <div class="param-row">
+                            <span class="param-label">Velocidad</span>
+                            <span class="param-value" id="speed-value">50</span>
+                        </div>
+                        <div class="param-row">
+                            <span class="param-label">Intelecto</span>
+                            <span class="param-value" id="intellect-value">50</span>
+                        </div>
+                        <div class="param-row">
+                            <span class="param-label">Combate</span>
+                            <span class="param-value" id="combat-value">50</span>
+                        </div>
+                    </div>
+
+                    <div class="param-group">
+                        <h3>Ajustes de Generación</h3>
+                        <div class="param-row">
+                            <span class="param-label">Nivel de Aleatoriedad</span>
+                            <span class="param-value">Alto</span>
+                        </div>
+                        <div class="param-row">
+                            <span class="param-label">Incluir Trasfondo</span>
+                            <span class="param-value">Sí</span>
+                        </div>
+                        <div class="param-row">
+                            <span class="param-label">Incluir Reacción al Pánico</span>
+                            <span class="param-value">Sí</span>
+                        </div>
+                    </div>
+
+                    <button class="button" id="generate-character">
+                        <i class="fas fa-dice"></i> GENERAR PERSONAJE ALEATORIO
+                    </button>
+                    <button class="button" id="load-data" style="margin-top: 10px;">
+                        <i class="fas fa-database"></i> CARGAR DATOS EXTERNOS
+                    </button>
+                </div>
+
+                <div class="character-sheet">
+                    <h2>Ficha de Personaje</h2>
+                    
+                    <div class="param-row">
+                        <span class="param-label">Nombre:</span>
+                        <span class="param-value" id="char-name">Cargando...</span>
+                    </div>
+                    
+                    <div class="param-row">
+                        <span class="param-label">Clase:</span>
+                        <span class="param-value" id="char-class">Cargando...</span>
+                    </div>
+                    
+                    <h3>Estadísticas</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Fuerza</span>
+                        <span class="param-value" id="char-strength">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Velocidad</span>
+                        <span class="param-value" id="char-speed">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Intelecto</span>
+                        <span class="param-value" id="char-intellect">-</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Combate</span>
+                        <span class="param-value" id="char-combat">-</span>
+                    </div>
+                    
+                    <h3>Salvaciones</h3>
+                    <div class="param-row">
+                        <span class="param-label">Miedo:</span>
+                        <span class="param-value" id="save-fear">-</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-label">Cuerpo:</span>
+                        <span class="param-value" id="save-body">-</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-label">Mente:</span>
+                        <span class="param-value" id="save-mind">-</span>
+                    </div>
+                    
+                    <h3>Trasfondo</h3>
+                    <div class="param-row">
+                        <span class="param-value" id="char-background">Cargando datos...</span>
+                    </div>
+                    
+                    <h3>Reacción al Pánico</h3>
+                    <div class="param-row">
+                        <span class="param-value" id="char-panic">Cargando datos...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pestaña Catálogo -->
+        <div id="catalog" class="tab-content">
+            <div class="catalog-container">
+                <div class="catalog-sidebar">
+                    <h2>Categorías</h2>
+                    <ul class="category-list" id="category-list">
+                        <!-- Las categorías se cargan dinámicamente -->
+                    </ul>
+
+                    <div class="filter-section">
+                        <h3>Filtros</h3>
+                        <div class="filter-tags" id="filter-tags">
+                            <!-- Los filtros se cargan dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Buscar</h3>
+                        <input type="text" id="search-input" placeholder="Buscar ítem..." 
+                               style="width: 100%; padding: 10px; background: rgba(0,0,0,0.5); 
+                               border: 1px solid var(--neon-color); color: var(--neon-color); 
+                               margin-top: 10px;">
+                    </div>
+                </div>
+
+                <div class="catalog-content">
+                    <h2 id="category-title">Cargando catálogo...</h2>
+                    <div id="items-count" style="margin-bottom: 20px; opacity: 0.8;"></div>
+                    <div class="items-grid" id="items-container">
+                        <!-- Los ítems se cargan dinámicamente aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selector de color -->
+    <div class="color-selector">
+        <h4>Color Terminal</h4>
+        <div class="color-buttons">
+            <div class="color-btn color-white" data-color="#ffffff"></div>
+            <div class="color-btn color-green" data-color="#00ff00"></div>
+            <div class="color-btn color-yellow" data-color="#ffff00"></div>
+            <div class="color-btn color-pink" data-color="#ff00ff"></div>
+        </div>
+    </div>
+	
+    <script>
+        // Datos para generación de personajes
+        const names = [
+            "Capt. Elena Vance", "Lt. Marcus Rourke", "Dr. Aris Thorne", "Eng. Kira Volkov", 
+            "Sgt. Jax Morrigan", "Psi. Silas Frost", "Tech. Nova Chen", "Scout. Zara Vex",
+            "Med. Orion Hale", "Pilot. Vega Sterling"
+        ];
+        
+        const classes = [
+            "Marinero de Naves", "Científico de Campo", "Android", "Marine de la Marina",
+            "Piloto de Caza", "Técnico de Sistemas", "Médico de Combate", "Explorador",
+            "Psíquico", "Ingeniero de Robots"
+        ];
+        
+        const backgrounds = [
+            "Ex-piloto de cargueros con deudas de juego. Busca un trabajo rápido en los límites del espacio conocido.",
+            "Científico exiliado por experimentos no autorizados con xenomorfos. Ahora trabaja como mercenario.",
+            "Marine veterano de la Guerra de los Cinturones. Tiene implantes cibernéticos que le dan ventaja en combate.",
+            "Médico con experiencia en biología alienígena. Perdió su licencia médica después de un incidente con un espécimen vivo.",
+            "Técnico especializado en IA. Su última IA se volvió loca y destruyó una estación espacial.",
+            "Psíquico con habilidades de precognición. Sus visiones le han causado problemas con las autoridades.",
+            "Ex-contrabandista que trabajaba en la Ruta de las Lunas. Tiene contactos en el bajo mundo espacial.",
+            "Ingeniero de robots que se especializa en drones de combate. Sus diseños son ilegales en varios sistemas."
+        ];
+        
+        const panicReactions = [
+            "Congelarse momentáneamente, luego atacar al objetivo más cercano indiscriminadamente.",
+            "Entrar en estado de shock y correr en dirección aleatoria durante 1d4 turnos.",
+            "Gritar histéricamente y disparar arma al azar (si tiene).",
+            "Intentar huir a toda costa, incluso arrojándose por precipicios o ventanas.",
+            "Caer al suelo y cubrirse la cabeza, quedando incapacitado por 1d3 turnos.",
+            "Negar la realidad y actuar como si nada estuviera mal (puede intentar socializar con aliens).",
+            "Volverse violento y atacar al compañero más cercano, creyendo que está infectado.",
+            "Perder el control de las funciones corporales, luego intentar desesperadamente limpiarse."
+        ];
+
+        // Datos para el catálogo
+        const catalogData = {
+            weapons: [
+                { name: "Pistola Láser Tipo-7", desc: "Pistola de energía estándar de la marina. Daño: 1d6. Alcance: Corto. Carga: 10 disparos." },
+                { name: "Rifle de Asalto AP-12", desc: "Rifle automático de proyectiles. Daño: 1d8. Alcance: Medio. Munición: 30 balas." },
+                { name: "Lanzallamas XM-900", desc: "Lanza llamas de plasma compacto. Daño: 1d10. Alcance: Muy corto. Carga: 5 ráfagas." },
+                { name: "Rifle de Francotirador PS-1", desc: "Rifle de precisión con mira telescópica. Daño: 1d12. Alcance: Largo. Munición: 5 balas." },
+                { name: "Granada de Fragmentación", desc: "Explosivo de mano. Daño: 2d6 en radio de 5m. Usa una acción para lanzar." }
+            ],
+            armor: [
+                { name: "Traje de Vacío Estándar", desc: "Protección básica contra el vacío y radiación. Armadura: 1. Movilidad: Normal." },
+                { name: "Armadura de Placas de Combate", desc: "Armadura pesada para marines. Armadura: 3. Movilidad: Reducida." },
+                { name: "Traje de Infiltración", desc: "Armadura ligera con capacidades de sigilo. Armadura: 1. Movilidad: Alta." },
+                { name: "Exotraje de Ingeniería", desc: "Traje reforzado para trabajo en ambientes hostiles. Armadura: 2. Movilidad: Normal." }
+            ],
+            tools: [
+                { name: "Kit de Primeros Auxilios", desc: "Contiene vendajes, estimulantes y analgésicos. Restaura 1d4+1 PV." },
+                { name: "Herramientas Multiusos", desc: "Set completo para reparaciones mecánicas y electrónicas." },
+                { name: "Escáner de Vida", desc: "Detecta firmas de vida en un radio de 100m. Puede diferenciar entre formas de vida." },
+                { name: "Soplete de Plasma", desc: "Para cortar metal y sellar brechas. También puede usarse como arma improvisada." }
+            ],
+            patches: [
+                { name: "Parche de Estimulantes", desc: "Aumenta la Velocidad en 10 por 1d6 turnos. Después: fatiga (-5 a todas las pruebas)." },
+                { name: "Parche de Analgésicos", desc: "Ignora efectos de heridas leves por 1 hora. No cura daño." },
+                { name: "Parche de Adrenalina", desc: "+5 a pruebas de Combate por 10 minutos. Después: -5 a pruebas de Intelecto." },
+                { name: "Parche de Coagulante", desc: "Detiene sangrado inmediatamente. Cura 1 PV cada turno por 3 turnos." }
+            ],
+            ships: [
+                { name: "Carguero clase Marte", desc: "Nave de transporte estándar. Tripulación: 5-10. Capacidad de carga: 100 toneladas." },
+                { name: "Fragata clase Centinela", desc: "Nave de patrulla militar. Armamento: 2 torretas láser, lanzatorpedos." },
+                { name: "Explorador clase Horizonte", desc: "Nave de exploración de largo alcance. Laboratorios y sensores avanzados." },
+                { name: "Lanzadera de Asalto", desc: "Nave de desembarco para operaciones planetarias. Capacidad: 20 marines." }
+            ],
+            cybermods: [
+                { name: "Ojo Cibernético", desc: "Visión mejorada (+5 a pruebas visuales). Opciones: infrarrojos, aumento, HUD." },
+                { name: "Brazo Protésico", desc: "Fuerza aumentada (+5 a pruebas de Fuerza). Puede contener herramientas integradas." },
+                { name: "Reflejos Neurales", desc: "+5 a pruebas de Velocidad y iniciativa en combate." },
+                { name: "Interfaz de Nave", desc: "Permite controlar naves directamente con la mente. +10 a pilotaje." }
+            ]
+        };
+
+        // Cambio de pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Actualizar pestañas activas
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Mostrar contenido correspondiente
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Generador de personajes aleatorios
+        document.getElementById('generate-character').addEventListener('click', () => {
+            // Generar valores aleatorios
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomClass = classes[Math.floor(Math.random() * classes.length)];
+            const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            const randomPanic = panicReactions[Math.floor(Math.random() * panicReactions.length)];
+            
+            // Generar estadísticas (entre 30 y 70)
+            const strength = Math.floor(Math.random() * 41) + 30;
+            const speed = Math.floor(Math.random() * 41) + 30;
+            const intellect = Math.floor(Math.random() * 41) + 30;
+            const combat = Math.floor(Math.random() * 41) + 30;
+            
+            // Calcular salvaciones basadas en estadísticas
+            const fearSave = Math.floor((strength + intellect) / 2);
+            const bodySave = Math.floor((strength + speed) / 2);
+            const mindSave = Math.floor((intellect + combat) / 2);
+            
+            // Actualizar interfaz
+            document.getElementById('char-name').textContent = randomName;
+            document.getElementById('char-class').textContent = randomClass;
+            document.getElementById('char-strength').textContent = strength;
+            document.getElementById('char-speed').textContent = speed;
+            document.getElementById('char-intellect').textContent = intellect;
+            document.getElementById('char-combat').textContent = combat;
+            document.getElementById('save-fear').textContent = fearSave;
+            document.getElementById('save-body').textContent = bodySave;
+            document.getElementById('save-mind').textContent = mindSave;
+            document.getElementById('char-background').textContent = randomBackground;
+            document.getElementById('char-panic').textContent = randomPanic;
+            
+            // Efecto visual de actualización
+            const charSheet = document.querySelector('.character-sheet');
+            charSheet.style.boxShadow = '0 0 20px var(--neon-color)';
+            setTimeout(() => {
+                charSheet.style.boxShadow = '0 0 15px var(--screen-glow)';
+            }, 300);
+        });
+
+        // Cargar categorías del catálogo
+        function loadCatalog(category) {
+            const itemsContainer = document.getElementById('items-container');
+            const categoryTitle = document.getElementById('category-title');
+            
+            // Actualizar título
+            categoryTitle.textContent = getCategoryName(category);
+            
+            // Limpiar contenedor
+            itemsContainer.innerHTML = '';
+            
+            // Cargar ítems de la categoría seleccionada
+            if (catalogData[category]) {
+                catalogData[category].forEach(item => {
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'item-card';
+                    itemCard.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-desc">${item.desc}</div>
+                    `;
+                    itemsContainer.appendChild(itemCard);
+                });
+            }
+            
+            // Actualizar categorías activas
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-category') === category) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Mapear IDs de categoría a nombres
+        function getCategoryName(categoryId) {
+            const names = {
+                weapons: "Armas",
+                armor: "Armaduras",
+                tools: "Herramientas",
+                patches: "Parches",
+                ships: "Naves",
+                cybermods: "Cibermods"
+            };
+            return names[categoryId] || categoryId;
+        }
+
+        // Inicializar catálogo con la primera categoría
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCatalog('weapons');
+            
+            // Configurar eventos para categorías
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const category = item.getAttribute('data-category');
+                    loadCatalog(category);
+                });
+            });
+        });
+
+        // Selector de color
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const color = btn.getAttribute('data-color');
+                
+                // Actualizar variable CSS
+                document.documentElement.style.setProperty('--neon-color', color);
+                document.documentElement.style.setProperty('--screen-glow', color + '20');
+                
+                // Efecto visual
+                btn.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>

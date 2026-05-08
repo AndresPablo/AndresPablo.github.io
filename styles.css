@@ -5,3 +5,7 @@ body {
 .link-tab:hover {
   background-color: #e8e8e8 !important;
 }
+
+#nsfw-container {
+  display: none;
+}

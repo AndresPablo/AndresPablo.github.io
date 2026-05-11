@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0036)https://panr.github.io/terminal-css/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- Google tag (gtag.js) -->
-	<script async="" src="./css/js"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+<html style="--background: #1d2021; --foreground: #ebdbb2; --accent: #8ec07c;">
+	<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-		gtag('config', 'G-T1DS3R5LFM');
-	</script>
 	<title>Terminal.css | Semantic styles for the simple web</title>
 	
 	<meta name="description" content="A custom set of semantic styles derived from Terminal Theme for Hugo you always wanted.">
@@ -26,16 +19,16 @@
 	<link rel="shortcut icon" href="https://panr.github.io/terminal-css/favicon.png">
 	<title>Terminal.css</title>
   <!-- FONTS -->
-	<link href="./css/fira-code.css" rel="stylesheet" id="componentsFontFiraCode">
-	<link href="./css/jetbrains-mono.css" rel="stylesheet" id="componentsFontJetBrainsMono">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/fira-code.css" rel="stylesheet" id="componentsFontFiraCode">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/jetbrains-mono.css" rel="stylesheet" id="componentsFontJetBrainsMono">
   <!-- VARIABLES -->
-	<link href="./css/variables.css" rel="stylesheet" id="componentsVariables">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/variables.css" rel="stylesheet" id="componentsVariables">
   <!-- HEADINGS -->
-	<link href="./css/default.css" rel="stylesheet" id="componentsHeading">
-	<link href="./css/one-size.css" rel="stylesheet" id="componentsHeadingOneSize" disabled="">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/default.css" rel="stylesheet" id="componentsHeading">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/one-size.css" rel="stylesheet" id="componentsHeadingOneSize" disabled="">
   <!-- REST -->
-	<link href="./css/standalone.css" rel="stylesheet">
-	<link href="./css/site.css" rel="stylesheet">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/standalone.css" rel="stylesheet">
+	<link href="./Terminal.css _ Semantic styles for the simple web_files/site.css" rel="stylesheet">
 </head>
 
 <body style="padding: 20px">
@@ -66,13 +59,13 @@
       </ul>
     </div>
 
-    <form id="settings" class="settings">
+    <form id="settings" class="settings" data-gtm-form-interact-id="0">
       <div class="settings-table">
         <div id="settings-terminal-theme">
           <div class="settings-row" style="font-weight: 600;">
             <div class="settings-cell">
               <div class="settings-label" style="text-transform: uppercase;">Color Schema Presets</div>
-              <div class="settings-input"><select id="presets" name="presets"><option value="Dark" disabled="">Dark</option><option value="Terminal Dark (default)">Terminal Dark (default)</option><option value="Teal">Teal</option><option value="Heliotrope">Heliotrope</option><option value="Viking">Viking</option><option value="Black &amp; White">Black &amp; White</option><option value="Matrix">Matrix</option><option value="Pink Panther">Pink Panther</option><option value="Blue Screen of Death">Blue Screen of Death</option><option value="Pistachio">Pistachio</option><option value="Light" disabled="">Light</option><option value="Terminal Light">Terminal Light</option><option value="Tahiti Gold">Tahiti Gold</option><option value="Hopbush">Hopbush</option><option value="Studio">Studio</option><option value="White &amp; Black">White &amp; Black</option><option value="Vanilla Sky">Vanilla Sky</option><option value="Tomato">Tomato</option></select></div>
+              <div class="settings-input"><select id="presets" name="presets" data-gtm-form-interact-field-id="0"><option value="Dark" disabled="">Dark</option><option value="Terminal Dark (default)">Terminal Dark (default)</option><option value="Teal">Teal</option><option value="Heliotrope">Heliotrope</option><option value="Viking">Viking</option><option value="Black &amp; White">Black &amp; White</option><option value="Matrix">Matrix</option><option value="Pink Panther">Pink Panther</option><option value="Blue Screen of Death">Blue Screen of Death</option><option value="Pistachio">Pistachio</option><option value="Light" disabled="">Light</option><option value="Terminal Light">Terminal Light</option><option value="Tahiti Gold">Tahiti Gold</option><option value="Hopbush">Hopbush</option><option value="Studio">Studio</option><option value="White &amp; Black">White &amp; Black</option><option value="Vanilla Sky">Vanilla Sky</option><option value="Tomato">Tomato</option></select></div>
             </div>
           </div>
           <div class="settings-row">
@@ -90,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div id="settings-standalone" class="settings-row">
+        <div id="settings-standalone" class="settings-row" hidden="">
           <div class="settings-cell">
             <div class="settings-label">Heading Style</div>
             <div class="settings-input">
@@ -112,7 +105,7 @@
         </div>
       </div>
 
-      <div class="terminal-info" hidden="" style="margin: 20px 0; padding: 10px;">
+      <div class="terminal-info" style="margin: 20px 0; padding: 10px;">
 				Remember to put all the downloaded files directly into <code>/static/</code> folder to make it work, like this:<br>
 				- <code>/static/terminal.css</code><br>
 				- <code>/static/favicon.png</code><br>
@@ -120,9 +113,9 @@
 			</div>
 			<div>
 				<div style="margin: 20px 0;">
-					<label style="display: inline-block;"><input id="assets" type="checkbox" name="assets">&nbsp;Generate&nbsp;<strong>favicon</strong>&nbsp;and&nbsp;<strong>og-image</strong></label>
+					<label style="display: inline-block;"><input id="assets" type="checkbox" name="assets" data-gtm-form-interact-field-id="1">&nbsp;Generate&nbsp;<strong>favicon</strong>&nbsp;and&nbsp;<strong>og-image</strong></label>
 				</div>
-				<div id="assets-preview" hidden="">
+				<div id="assets-preview">
 					<svg id="template-favicon" width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" style="width: 50px; height: 50px;"><rect width="50" height="50" x="0" y="0" fill="var(--accent)"></rect></svg>
 					<svg id="template-og-image" width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 400px; height: 210px; max-width: 100%;">
 						<rect width="1200" height="630" fill="var(--background)"></rect>
@@ -147,7 +140,7 @@
 						</g>
 					</svg>
 				</div>
-				<button id="download" type="submit">Download Terminal.css</button>
+				<button id="download" type="submit">Download Terminal.css and assets</button>
 			</div>
     </form>
 
@@ -190,11 +183,11 @@
 				<h2 id="images">
 					Images<a href="https://panr.github.io/terminal-css/#images" class="hanchor" arialabel="Anchor">#</a>
 				</h2>
-				<img src="./css/terminal-css.png" alt="Terminal.css preview" loading="lazy">
+				<img src="./Terminal.css _ Semantic styles for the simple web_files/terminal-css.png" alt="Terminal.css preview" loading="lazy">
 
 				<h3>Figures with caption</h3>
 				<figure style="margin: 10px 0;">
-					<img src="./css/terminal-css.png" alt="Terminal.css preview" loading="lazy">
+					<img src="./Terminal.css _ Semantic styles for the simple web_files/terminal-css.png" alt="Terminal.css preview" loading="lazy">
 					<figcaption>Terminal.css preview</figcaption>
 				</figure>
 			</section>
@@ -358,7 +351,7 @@
 		Made by <a href="https://radoslawkoziel.pl/" target="_blank">panr</a>. Derived from <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Terminal</a> theme. Source code on <a href="https://github.com/panr/terminal-css/" target="_blank">Github</a>.
 	</footer>
 
-	<script defer="" type="module" src="./css/script.js.descarga"></script>
+	<script defer="" type="module" src="./Terminal.css _ Semantic styles for the simple web_files/script.js.descarga"></script>
 
 
 

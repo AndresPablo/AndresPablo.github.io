@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://panr.github.io/terminal-css/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Google tag (gtag.js) -->
+	<script async="" src="./css/js"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-T1DS3R5LFM');
+	</script>
+	<title>Terminal.css | Semantic styles for the simple web</title>
+	
+	<meta name="description" content="A custom set of semantic styles derived from Terminal Theme for Hugo you always wanted.">
+	<meta name="author" content="Radek Kozieł (@panr)">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+	<!-- OG data -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Terminal.css">
+	<meta property="og:description" content="A custom set of semantic styles derived from Terminal Theme for Hugo you always wanted.">
+	<meta property="og:url" content="https://panr.github.io/terminal-css/">
+	<meta property="og:site_name" content="Terminal.css">
+	<meta property="og:image" content="https://panr.github.io/terminal-css/og-image.png">
+	<link rel="shortcut icon" href="https://panr.github.io/terminal-css/favicon.png">
+	<title>Terminal.css</title>
+  <!-- FONTS -->
+	<link href="./css/fira-code.css" rel="stylesheet" id="componentsFontFiraCode">
+	<link href="./css/jetbrains-mono.css" rel="stylesheet" id="componentsFontJetBrainsMono">
+  <!-- VARIABLES -->
+	<link href="./css/variables.css" rel="stylesheet" id="componentsVariables">
+  <!-- HEADINGS -->
+	<link href="./css/default.css" rel="stylesheet" id="componentsHeading">
+	<link href="./css/one-size.css" rel="stylesheet" id="componentsHeadingOneSize" disabled="">
+  <!-- REST -->
+	<link href="./css/standalone.css" rel="stylesheet">
+	<link href="./css/site.css" rel="stylesheet">
+</head>
+
+<body style="padding: 20px">
+  <dialog id="fontModal" class="dialog">
+    <div>
+      <h2>Font Family</h2>
+      <p>All fonts are provided via <strong>cdn.staticdelivr.com</strong> directly from Google Fonts and imported with `@import()` CSS function.</p>
+    </div>
+    <form method="dialog">
+      <button autofocus="">Close</button>
+    </form>
+  </dialog>
+
+	<main style="width: 1024px; max-width: 100%;">
+    <h1 id="headline"><a href="https://panr.github.io/" style="color: inherit;">Terminal.css</a></h1>
+
+		<p>A simple, classless set of semantic styles derived from <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Terminal</a> theme that you always wanted.</p>
+
+    <div id="start-question" class="start-question">
+      <p>Please, choose the type of a file you want to download:</p>
+      <ul>
+        <li>
+          <label><input type="radio" name="type" value="standalone" style="margin-right: 10px;" checked="">Standalone Terminal.css file</label>
+        </li>
+        <li>
+          <label><input type="radio" name="type" value="terminal" style="margin-right: 10px;">Terminal Theme color scheme</label>
+        </li>
+      </ul>
+    </div>
+
+    <form id="settings" class="settings">
+      <div class="settings-table">
+        <div id="settings-terminal-theme">
+          <div class="settings-row" style="font-weight: 600;">
+            <div class="settings-cell">
+              <div class="settings-label" style="text-transform: uppercase;">Color Schema Presets</div>
+              <div class="settings-input"><select id="presets" name="presets"><option value="Dark" disabled="">Dark</option><option value="Terminal Dark (default)">Terminal Dark (default)</option><option value="Teal">Teal</option><option value="Heliotrope">Heliotrope</option><option value="Viking">Viking</option><option value="Black &amp; White">Black &amp; White</option><option value="Matrix">Matrix</option><option value="Pink Panther">Pink Panther</option><option value="Blue Screen of Death">Blue Screen of Death</option><option value="Pistachio">Pistachio</option><option value="Light" disabled="">Light</option><option value="Terminal Light">Terminal Light</option><option value="Tahiti Gold">Tahiti Gold</option><option value="Hopbush">Hopbush</option><option value="Studio">Studio</option><option value="White &amp; Black">White &amp; Black</option><option value="Vanilla Sky">Vanilla Sky</option><option value="Tomato">Tomato</option></select></div>
+            </div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-cell">
+              <div class="settings-label">Background</div>
+              <div class="settings-input"><input type="color" name="background" oninput="setVariable('--background', this.value)"></div>
+            </div>
+            <div class="settings-cell">
+              <div class="settings-label">Foreground</div>
+              <div class="settings-input"><input type="color" name="foreground" oninput="setVariable('--foreground', this.value)"></div>
+            </div>
+            <div class="settings-cell">
+              <div class="settings-label">Accent</div>
+              <div class="settings-input"><input type="color" name="accent" oninput="setVariable('--accent', this.value)"></div>
+            </div>
+          </div>
+        </div>
+        <div id="settings-standalone" class="settings-row">
+          <div class="settings-cell">
+            <div class="settings-label">Heading Style</div>
+            <div class="settings-input">
+              <select name="headingStyle">
+                <option name="default" value="default">Default</option>
+                <option name="oneSize" value="oneSize">One size</option>
+              </select>
+            </div>
+          </div>
+          <div class="settings-cell">
+            <div class="settings-label">Font Family<span class="dialog-trigger" onclick="fontModal.showModal()">[?]</span></div>
+            <div class="settings-input">
+              <select id="fontFamily" name="fontFamily">
+                <option name="fira-code" value="fira-code" selected="">Fira Code</option>
+                <option name="jetbrains-mono" value="jetbrains-mono">JetBrains Mono</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="terminal-info" hidden="" style="margin: 20px 0; padding: 10px;">
+				Remember to put all the downloaded files directly into <code>/static/</code> folder to make it work, like this:<br>
+				- <code>/static/terminal.css</code><br>
+				- <code>/static/favicon.png</code><br>
+				- <code>/static/og-image.png</code><br>
+			</div>
+			<div>
+				<div style="margin: 20px 0;">
+					<label style="display: inline-block;"><input id="assets" type="checkbox" name="assets">&nbsp;Generate&nbsp;<strong>favicon</strong>&nbsp;and&nbsp;<strong>og-image</strong></label>
+				</div>
+				<div id="assets-preview" hidden="">
+					<svg id="template-favicon" width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" style="width: 50px; height: 50px;"><rect width="50" height="50" x="0" y="0" fill="var(--accent)"></rect></svg>
+					<svg id="template-og-image" width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 400px; height: 210px; max-width: 100%;">
+						<rect width="1200" height="630" fill="var(--background)"></rect>
+						<rect x="20" y="228" width="568" height="174" fill="var(--accent)"></rect>
+						<g>
+							<rect x="608" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="645" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="682" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="719" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="756" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="793" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="830" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="867" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="904" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="941" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="978" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="1015" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="1052" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="1089" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="1126" y="228" width="17" height="174" fill="var(--accent)"></rect>
+							<rect x="1163" y="228" width="17" height="174" fill="var(--accent)"></rect>
+						</g>
+					</svg>
+				</div>
+				<button id="download" type="submit">Download Terminal.css</button>
+			</div>
+    </form>
+
+		<hr>
+
+		<div>
+			<section style="border: none;">
+				<h2 id="headings">
+					Headings<a href="https://panr.github.io/terminal-css/#headings" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<p>
+					The following HTML <code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code>
+					elements represent six levels of section headings.
+					<code>&lt;h1&gt;</code> is the highest section level while
+					<code>&lt;h6&gt;</code> is the lowest.
+				</p>
+
+				<h1 id="h1">Heading 1</h1>
+				<h2 id="h2">Heading 2</h2>
+				<h3 id="h3">Heading 3</h3>
+				<h4 id="h4">Heading 4</h4>
+				<h5 id="h5">Heading 5</h5>
+				<h6 id="h6">Heading 6</h6>
+			</section>
+
+			<section>
+				<h2 id="paragraph">
+					Paragraphs<a href="https://panr.github.io/terminal-css/#paragraph" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+				<p>
+					This HTML element represents a paragraph. Paragraphs are usually represented in visual media as blocks of text separated from adjacent blocks by blank lines and/or first-line indentation, but HTML paragraphs can be any structural grouping of related content, such as images or form fields.
+				</p>
+				<p>
+					Paragraphs are block-level elements, and notably will automatically close if another block-level element is parsed before the closing tag
+				</p>
+			</section>
+
+			<section>
+				<h2 id="images">
+					Images<a href="https://panr.github.io/terminal-css/#images" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+				<img src="./css/terminal-css.png" alt="Terminal.css preview" loading="lazy">
+
+				<h3>Figures with caption</h3>
+				<figure style="margin: 10px 0;">
+					<img src="./css/terminal-css.png" alt="Terminal.css preview" loading="lazy">
+					<figcaption>Terminal.css preview</figcaption>
+				</figure>
+			</section>
+
+			<section>
+				<h2 id="blockquotes">
+					Blockquotes<a href="https://panr.github.io/terminal-css/#blockquotes" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<blockquote>
+					<p>
+						The blockquote element represents content that is quoted from
+						another source, optionally with a citation which must be within a
+						<code>footer</code> or <code>cite</code> element, and optionally
+						with in-line changes such as annotations and abbreviations.
+					</p>
+				</blockquote>
+			</section>
+
+			<section>
+				<h2 id="buttons">
+					Buttons and links<a href="https://panr.github.io/terminal-css/#buttons" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<button>Button</button>
+				<a href="https://panr.github.io/terminal-css/">Link</a>
+			</section>
+
+			<section>
+				<h2 id="tables">
+					Tables<a href="https://panr.github.io/terminal-css/#tables" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Age</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Bob</td>
+							<td>27</td>
+						</tr>
+						<tr>
+							<td>Alice</td>
+							<td>23</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section>
+				<h2 id="forms">
+					Forms<a href="https://panr.github.io/terminal-css/#forms" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<fieldset>
+					<input type="text" placeholder="Type something"><br>
+					<input type="number" placeholder="Insert number"><br>
+					<input type="text" value="Input value"><br>
+					<select>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select><br>
+					<textarea placeholder="Insert a comment..."></textarea><br>
+					<label><input type="checkbox"> I understand<br></label>
+					<button type="submi">Submit</button>
+				</fieldset>
+			</section>
+
+			<section>
+					<h2 id="code-blocks">
+						Code Blocks<a href="https://panr.github.io/terminal-css/#code-blocks" class="hanchor" arialabel="Anchor">#</a>
+					</h2>
+
+					<pre><code>pre {
+	display: block;
+	font-family: monospace;
+	white-space: pre;
+	margin: 1em 0;
+}</code></pre>
+			</section>
+
+			<section>
+				<h2 id="list-types">
+					List Types<a href="https://panr.github.io/terminal-css/#list-types" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<h3 id="ordered-list">
+					Ordered List<a href="https://panr.github.io/terminal-css/#ordered-list" class="hanchor" arialabel="Anchor">#</a>
+				</h3>
+
+				<ol>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+				</ol>
+
+				<h3 id="unordered-list">
+					Unordered List<a href="https://panr.github.io/terminal-css/#unordered-list" class="hanchor" arialabel="Anchor">#</a>
+				</h3>
+
+				<ul>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+					<li>Item</li>
+				</ul>
+
+				<h3 id="nested-list">
+					Nested list<a href="https://panr.github.io/terminal-css/#nested-list" class="hanchor" arialabel="Anchor">#</a>
+				</h3>
+
+				<ul>
+					<li>
+						Item
+						<ul>
+							<li>Nested item</li>
+							<li>Nested item</li>
+							<li>Nested item</li>
+						</ul>
+					</li>
+					<li>
+						Item
+						<ul>
+							<li>Nested item</li>
+							<li>Nested item</li>
+							<li>Nested item</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2 id="other-elements--abbr-sub-sup-kbd-mark">
+					Other Elements — abbr, sub, sup, kbd, mark<a href="https://panr.github.io/terminal-css/#other-elements--abbr-sub-sup-kbd-mark" class="hanchor" arialabel="Anchor">#</a>
+				</h2>
+
+				<p>Text<sup>sup</sup></p>
+				<p>Text<sub>sub</sub></p>
+				<p><abbr title="Abbreviation">Abbr.</abbr></p>
+				<p><kbd>Kbd</kbd></p>
+				<p><mark>Marked</mark></p>
+			</section>
+		</div>
+	</main>
+
+	<footer style="border-top: 2px solid var(--accent); margin-top: 40px; padding-top: 20px;">
+		Made by <a href="https://radoslawkoziel.pl/" target="_blank">panr</a>. Derived from <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Terminal</a> theme. Source code on <a href="https://github.com/panr/terminal-css/" target="_blank">Github</a>.
+	</footer>
+
+	<script defer="" type="module" src="./css/script.js.descarga"></script>
+
+
+
+</body></html>

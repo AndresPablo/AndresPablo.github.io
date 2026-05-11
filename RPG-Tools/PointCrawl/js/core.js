@@ -35,15 +35,17 @@ let lastConnectionStyle = {
 
 let exportSolidBackground = false;
 let canvasOrientation = "landscape";
-let showGrid = true;
+let showGrid = false;
 let gridType = "square";
 let gridColor = "#616161";
-let gridAlpha = 0.18;
-let snappingEnabled = true;
+let gridAlpha = 0.25;
+let cellW = 32;
+let cellH = 32;
+let snappingEnabled = false;
 let canvasBgColor = "#ffffff";
 const PORTRAIT_W = 800, PORTRAIT_H = 1131;
 const LANDSCAPE_W = 1131, LANDSCAPE_H = 800;
-const STORAGE_KEY = "pointcrawl_advanced_v6";
+const STORAGE_KEY = "pointcrawl_cartographer";
 const iconLibraryPath = "node-icons/";
 const ICON_FOLDERS = ["abstract", "default", "dungeon", "isometric", "modern", "other", "overland", "symbols"];
 const ICON_FILE_MAP = {
@@ -266,6 +268,7 @@ async function loadIconsFromFolders() {
 const canvas = document.getElementById('pointcanvas');
 const canvasContainer = document.getElementById('canvasContainer');
 let ctx = canvas.getContext('2d');
+const MARGIN_CM = 2;
 
 // Tamaños de nodos
 let cellSize = 32;  // tamaño de celda en píxeles
@@ -275,6 +278,7 @@ let currentCellSize = canvas.width / gridUnitsX; // se actualiza al cambiar gril
 let hexRadius = 20; 
 
 //#endregion DOM
+
 
 
 function axialToPixel(q, r, size, orientation) {
@@ -292,8 +296,15 @@ function axialToPixel(q, r, size, orientation) {
     }
 }
 
+function getMarginPx() {
+    const widthCm = canvasOrientation === "landscape" ? 29.7 : 21.0;
+    const pxPerCmX = canvas.width / widthCm;
+    const pxPerCmY = canvas.height / (canvasOrientation === "landscape" ? 21.0 : 29.7);
+    return Math.floor(MARGIN_CM * Math.min(pxPerCmX, pxPerCmY));
+}
+
+// Función auxiliar para convertir hex a rgba
 function hexToRgba(hex, alpha = 1) {
-    // Asegurar que hex sea una cadena válida
     if (!hex || typeof hex !== 'string') hex = "#808080";
     const normalized = hex.startsWith('#') ? hex.slice(1) : hex;
     if (normalized.length !== 6) return `rgba(128,128,128,${alpha})`;

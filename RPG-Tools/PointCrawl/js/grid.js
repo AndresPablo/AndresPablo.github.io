@@ -1,289 +1,338 @@
 // #region GRID / Grilla
 
-//  *** GRILLA ***  //
+
+// ---------------------------------------------------------------------
+// 1. Grilla cuadrada (square)
+// ---------------------------------------------------------------------
+function drawSquareGrid(ctx, width, height, cols, rows, cellSize) {
+    const marginPx = getMarginPx();
+    const areaWidth = width - 2 * marginPx;
+    const areaHeight = height - 2 * marginPx;
+    const totalW = cols * cellSize;
+    const totalH = rows * cellSize;
+    const startX = marginPx + (areaWidth - totalW) / 2;
+    const startY = marginPx + (areaHeight - totalH) / 2;
+    
+    // Dibujar líneas verticales
+    for (let i = 0; i <= cols; i++) {
+        const x = startX + i * cellSize;
+        ctx.beginPath();
+        ctx.moveTo(x, startY);
+        ctx.lineTo(x, startY + totalH);
+        ctx.stroke();
+    }
+    // Dibujar líneas horizontales
+    for (let j = 0; j <= rows; j++) {
+        const y = startY + j * cellSize;
+        ctx.beginPath();
+        ctx.moveTo(startX, y);
+        ctx.lineTo(startX + totalW, y);
+        ctx.stroke();
+    }
+}
+
+// ---------------------------------------------------------------------
+// 2. Grilla de círculos (centrados en cada celda cuadrada del área)
+// ---------------------------------------------------------------------
+function drawCirclesGrid(ctx, width, height, cols, rows, cellSize) {
+    const marginPx = getMarginPx();
+    const areaWidth = width - 2 * marginPx;
+    const areaHeight = height - 2 * marginPx;
+    const totalW = cols * cellSize;
+    const totalH = rows * cellSize;
+    const startX = marginPx + (areaWidth - totalW) / 2;
+    const startY = marginPx + (areaHeight - totalH) / 2;
+    const radius = cellSize * 0.3;
+
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            const cx = startX + i * cellSize + cellSize/2;
+            const cy = startY + j * cellSize + cellSize/2;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+    }
+}
+
+// ---------------------------------------------------------------------
+// 3. Grilla hexagonal (pointy y flat) con márgenes y centrado
+// ---------------------------------------------------------------------
+function drawHexGrid(ctx, orientation, cols, rows) {
+    const R = hexRadius;
+    let cellW, cellH;
+    if (orientation === "pointy") {
+        cellW = Math.sqrt(3) * R;   // distancia horizontal entre centros
+        cellH = 1.5 * R;            // distancia vertical entre centros
+    } else { // flat
+        cellW = 1.5 * R;            // distancia horizontal entre centros
+        cellH = Math.sqrt(3) * R;   // distancia vertical entre centros
+    }
+
+    // Dimensiones totales de la grilla (incluyendo medio hexágono en los bordes)
+    const totalW = (cols - 1) * cellW + 2 * R;
+    const totalH = (rows - 1) * cellH + 2 * R;
+    const marginPx = getMarginPx();
+    const startX = marginPx + (canvas.width - 2 * marginPx - totalW) / 2 + R;
+    const startY = marginPx + (canvas.height - 2 * marginPx - totalH) / 2 + R;
+
+    // Vértices del hexágono (centro en 0,0)
+    const vertices = [];
+    const step = (Math.PI * 2) / 6;
+    for (let i = 0; i < 6; i++) {
+        let angle = (orientation === "pointy") ? step * i - Math.PI/2 : step * i;
+        vertices.push({ x: R * Math.cos(angle), y: R * Math.sin(angle) });
+    }
+
+    for (let col = 0; col < cols; col++) {
+        for (let row = 0; row < rows; row++) {
+            let cx, cy;
+            if (orientation === "pointy") {
+                // Desplazamiento horizontal en filas impares
+                const offsetX = (row % 2 !== 0) ? cellW / 2 : 0;
+                cx = startX + col * cellW + offsetX;
+                cy = startY + row * cellH;
+            } else { // flat
+                // Desplazamiento vertical en columnas impares
+                const offsetY = (col % 2 !== 0) ? cellH / 2 : 0;
+                cx = startX + col * cellW;
+                cy = startY + row * cellH + offsetY;
+            }
+            ctx.beginPath();
+            for (let v of vertices) ctx.lineTo(cx + v.x, cy + v.y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+    }
+}
+
+// ---------------------------------------------------------------------
+// 4. Grilla isométrica (líneas diagonales) dentro del área con márgenes
+// ---------------------------------------------------------------------
+function drawIsometricGrid(ctx, width, height, cols, rows) {
+    const marginPx = getMarginPx();
+    const areaWidth = width - 2 * marginPx;
+    const areaHeight = height - 2 * marginPx;
+    const startX = marginPx;
+    const startY = marginPx;
+    const cellW = areaWidth / cols;
+    const cellH = areaHeight / rows;
+    const stepX = cellW;
+    const stepY = cellH / 2;
+    const slope = stepY / stepX;
+
+    // Extensión para cubrir toda el área
+    const extend = Math.max(areaWidth, areaHeight) * 1.5;
+    const bMin = -extend;
+    const bMax = areaHeight + extend;
+    const stepB = stepY;
+
+    ctx.save();
+    ctx.strokeStyle = hexToRgba(gridColor, gridAlpha);
+    ctx.lineWidth = 1;
+    // Líneas /
+    for (let b = bMin; b <= bMax; b += stepB) {
+        const x1 = startX;
+        const y1 = startY + b;
+        const x2 = startX + areaWidth;
+        const y2 = startY + slope * areaWidth + b;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
+    // Líneas \
+    for (let b = bMin; b <= bMax; b += stepB) {
+        const x1 = startX;
+        const y1 = startY + b;
+        const x2 = startX + areaWidth;
+        const y2 = startY - slope * areaWidth + b;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    }
+    ctx.restore();
+}
+
+// ---------------------------------------------------------------------
+// 5. Función principal drawGrid
+// ---------------------------------------------------------------------
 function drawGrid(targetCtx = ctx, targetCanvas = canvas) {
     if (!showGrid) return;
     targetCtx.save();
     targetCtx.strokeStyle = hexToRgba(gridColor, gridAlpha);
     targetCtx.lineWidth = 1;
-    if (gridUnitsX <= 0) gridUnitsX = 24;
-    if (gridUnitsY <= 0) gridUnitsY = 12;
-    const cellW = targetCanvas.width / gridUnitsX;
-    const cellH = targetCanvas.height / gridUnitsY;
-    
-    if (gridType === "square") {
-        for (let i = 0; i <= gridUnitsX; i++) {
-            const x = i * cellW;
-            targetCtx.beginPath();
-            targetCtx.moveTo(x, 0);
-            targetCtx.lineTo(x, targetCanvas.height);
-            targetCtx.stroke();
-        }
-        for (let i = 0; i <= gridUnitsY; i++) {
-            const y = i * cellH;
-            targetCtx.beginPath();
-            targetCtx.moveTo(0, y);
-            targetCtx.lineTo(targetCanvas.width, y);
-            targetCtx.stroke();
-        }
-    } 
-    else if (gridType === "hex-pointy" || gridType === "hex-flat") {
-        const size = hexRadius;
-        const sqrt3 = Math.sqrt(3);
-        const degToRad = Math.PI / 180;
-        const isPointy = gridType === "hex-pointy";
-        const angleOffset = isPointy ? -30 : 0;
 
-        let qMin, qMax, rMin, rMax;
+    const width = targetCanvas.width;
+    const height = targetCanvas.height;
+    const cols = gridUnitsX;
+    const rows = gridUnitsY;
 
-        if (isPointy) {
-            const hexWidth = sqrt3 * size;
-            const hexHeight = 2 * size;
-
-            qMin = Math.floor(-targetCanvas.width / hexWidth) - 2;
-            qMax = Math.floor(targetCanvas.width / hexWidth) + 2;
-
-            rMin = Math.floor(-targetCanvas.height / hexHeight) - 2;
-            rMax = Math.floor(targetCanvas.height / hexHeight) + 2;
-
-        } else {
-            const hexWidth = 2 * size;
-            const hexHeight = sqrt3 * size;
-
-            qMin = Math.floor(-targetCanvas.width / hexWidth) - 2;
-            qMax = Math.floor(targetCanvas.width / hexWidth) + 2;
-
-            rMin = Math.floor(-targetCanvas.height / hexHeight) - 2;
-            rMax = Math.floor(targetCanvas.height / hexHeight) + 2;
-        }
-
-        for (let q = qMin; q <= qMax; q++) {
-            for (let r = rMin; r <= rMax; r++) {
-
-                let center;
-
-                if (isPointy) {
-                    const offsetX = targetCanvas.width / 2;
-                    const offsetY = targetCanvas.height / 2;
-
-                    center = {
-                        x: size * sqrt3 * (q + r / 2) + offsetX,
-                        y: size * 3/2 * r + offsetY
-                    };
-                } else {
-                    const offsetX = targetCanvas.width / 2;
-                    const offsetY = targetCanvas.height / 2;
-
-                    center = {
-                        x: size * 3/2 * q + offsetX,
-                        y: size * sqrt3 * (r + q / 2) + offsetY
-                    };
-                }
-
-                // Culling (mejorado)
-                if (
-                    center.x < -size * 2 ||
-                    center.x > targetCanvas.width + size * 2 ||
-                    center.y < -size * 2 ||
-                    center.y > targetCanvas.height + size * 2
-                ) continue;
-
-                // Dibujar hexágono
-                targetCtx.beginPath();
-
-                for (let i = 0; i < 6; i++) {
-                    const angle = degToRad * (60 * i + angleOffset);
-                    const x = center.x + size * Math.cos(angle);
-                    const y = center.y + size * Math.sin(angle);
-
-                    i === 0
-                        ? targetCtx.moveTo(x, y)
-                        : targetCtx.lineTo(x, y);
-                }
-
-                targetCtx.closePath();
-                targetCtx.stroke();
-            }
-        }
+    if (cols <= 0 || rows <= 0) {
+        targetCtx.restore();
+        return;
     }
-    else if (gridType === "circles") {
-        const radius = Math.min(cellW, cellH) * 0.3;
-        for (let i = 0; i < gridUnitsX; i++) {
-            for (let j = 0; j < gridUnitsY; j++) {
-                const cx = (i + 0.5) * cellW;
-                const cy = (j + 0.5) * cellH;
-                targetCtx.beginPath();
-                targetCtx.arc(cx, cy, radius, 0, Math.PI * 2);
-                targetCtx.stroke();
-            }
-        }
+
+    // Para cuadrados y círculos necesitamos cellSize real (tamaño de celda en px)
+    // Nota: cellSize debe estar definido (sería el tamaño de celda elegido por el usuario)
+    // Pero como la grilla cuadrada ahora se dibuja con celdas de tamaño cellSize,
+    // debemos pasar cellSize a drawSquareGrid y drawCirclesGrid.
+    // Asegurar que cellSize esté definido.
+    const cellSizePx = cellSize || 32;
+
+    switch (gridType) {
+        case "square":
+            drawSquareGrid(targetCtx, width, height, cols, rows, cellSize);
+            break;
+        case "circles":
+            drawCirclesGrid(targetCtx, width, height, cols, rows, cellSizePx);
+            break;
+        case "hex-pointy":
+            drawHexGrid(targetCtx, "pointy", cols, rows);
+            break;
+        case "hex-flat":
+            drawHexGrid(targetCtx, "flat", cols, rows);
+            break;
+        case "isometric":
+            drawIsometricGrid(targetCtx, width, height, cols, rows);
+            break;
+        default:
+            break;
     }
-    else if (gridType === "isometric") {
-        // Calcula el tamaño de celda a partir de las unidades actuales
-        const cellW = targetCanvas.width / gridUnitsX;
-        const cellH = targetCanvas.height / gridUnitsY;
-        // Para una grilla isométrica, usamos el promedio o el horizontal (ambos funcionan)
-        const step = Math.min(cellW, cellH); // o usa cellW directamente
-        drawIsometricGrid(targetCtx, targetCanvas.width, targetCanvas.height, step, step/2, gridColor, gridAlpha);
-    }
-    debugDrawCenters(targetCtx);
     targetCtx.restore();
 }
 
-function drawHex(ctx, center, size, angleOffset) {
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-        const angle = (Math.PI / 180) * (60 * i + angleOffset);
-        const x = center.x + size * Math.cos(angle);
-        const y = center.y + size * Math.sin(angle);
-        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+// ---------------------------------------------------------------------
+// 6. Snapping (centro de celdas) ajustado a márgenes
+// ---------------------------------------------------------------------
+function snapToGrid(x, y) {
+    const width = canvas.width;
+    const height = canvas.height;
+    const cols = gridUnitsX;
+    const rows = gridUnitsY;
+    if (cols <= 0 || rows <= 0) return { x, y };
+
+    switch (gridType) {
+        case "square":
+        case "circles": {
+            const marginPx = getMarginPx();
+            const areaWidth = width - 2 * marginPx;
+            const areaHeight = height - 2 * marginPx;
+            const totalW = cols * cellSize;
+            const totalH = rows * cellSize;
+            const startX = marginPx + (areaWidth - totalW) / 2;
+            const startY = marginPx + (areaHeight - totalH) / 2;
+            // Columna y fila más cercana
+            const col = Math.round((x - startX - cellSize/2) / cellSize);
+            const row = Math.round((y - startY - cellSize/2) / cellSize);
+            const clampedCol = Math.min(Math.max(col, 0), cols - 1);
+            const clampedRow = Math.min(Math.max(row, 0), rows - 1);
+            return {
+                x: startX + clampedCol * cellSize + cellSize/2,
+                y: startY + clampedRow * cellSize + cellSize/2
+            };
+        }
+        case "hex-pointy":
+            return snapToHexCenter(x, y, "pointy", cols, rows);
+        case "hex-flat":
+            return snapToHexCenter(x, y, "flat", cols, rows);
+        case "isometric":
+            // Para isométrica, el snapping se basa en el área con márgenes
+            const marginPx = getMarginPx();
+            const localX = x - marginPx;
+            const localY = y - marginPx;
+            const areaWidth = width - 2 * marginPx;
+            const areaHeight = height - 2 * marginPx;
+            const cellW = areaWidth / cols;
+            const cellH = areaHeight / rows;
+            return snapToIsometricCenter(localX, localY, cellW, cellH, marginPx, marginPx);
+        default:
+            return { x, y };
     }
-    ctx.closePath();
-    ctx.stroke();
 }
 
-function drawIsometricGrid(ctx, width, height, stepX, stepY, color, alpha) {
-    if (!stepX || stepX <= 0 || !stepY || stepY <= 0) return;
-    
-    ctx.save();
-    ctx.strokeStyle = hexToRgba(color, alpha);
-    ctx.lineWidth = 1;
-    
-    const slope = stepY / stepX;  // típicamente 0.5
-    
-    // Extender los límites considerablemente para cubrir todas las esquinas
-    const extend = Math.max(width, height) * 1.5;
-    const bMin = -extend;
-    const bMax = height + extend;
-    const stepB = stepY;  // espaciado entre líneas paralelas
-    
-    // 1. Líneas con pendiente positiva ( / ) : y = slope * x + b
-    for (let b = bMin; b <= bMax; b += stepB) {
-        const x1 = 0;
-        const y1 = b;
-        const x2 = width;
-        const y2 = slope * width + b;
-        
-        // No es necesario recortar, solo dibujar (el canvas lo recorta automáticamente)
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
+function snapToHexCenter(x, y, orientation, cols, rows) {
+    const R = hexRadius;
+    let cellW, cellH;
+    if (orientation === "pointy") {
+        cellW = Math.sqrt(3) * R;
+        cellH = 1.5 * R;
+    } else {
+        cellW = 1.5 * R;
+        cellH = Math.sqrt(3) * R;
     }
-    
-    // 2. Líneas con pendiente negativa ( \ ) : y = -slope * x + b
-    for (let b = bMin; b <= bMax; b += stepB) {
-        const x1 = 0;
-        const y1 = b;
-        const x2 = width;
-        const y2 = -slope * width + b;
-        
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
+
+    const totalW = (cols - 1) * cellW + 2 * R;
+    const totalH = (rows - 1) * cellH + 2 * R;
+    const marginPx = getMarginPx();
+    const startX = marginPx + (canvas.width - 2 * marginPx - totalW) / 2 + R;
+    const startY = marginPx + (canvas.height - 2 * marginPx - totalH) / 2 + R;
+
+    const getCenter = (col, row) => {
+        if (orientation === "pointy") {
+            const offsetX = (row % 2 !== 0) ? cellW / 2 : 0;
+            return {
+                x: startX + col * cellW + offsetX,
+                y: startY + row * cellH
+            };
+        } else {
+            const offsetY = (col % 2 !== 0) ? cellH / 2 : 0;
+            return {
+                x: startX + col * cellW,
+                y: startY + row * cellH + offsetY
+            };
+        }
+    };
+
+    // Aproximar col y row
+    let approxCol = Math.floor((x - startX) / cellW);
+    let approxRow = Math.floor((y - startY) / cellH);
+    approxCol = Math.min(Math.max(approxCol, 0), cols - 1);
+    approxRow = Math.min(Math.max(approxRow, 0), rows - 1);
+
+    let bestDist = Infinity;
+    let bestCenter = { x, y };
+    for (let col = Math.max(0, approxCol - 2); col <= Math.min(cols - 1, approxCol + 2); col++) {
+        for (let row = Math.max(0, approxRow - 2); row <= Math.min(rows - 1, approxRow + 2); row++) {
+            const center = getCenter(col, row);
+            const dx = center.x - x, dy = center.y - y;
+            const dist = dx*dx + dy*dy;
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestCenter = center;
+            }
+        }
     }
-    
-    ctx.restore();
+    return bestCenter;
+}
+
+function snapToIsometricCenter(x, y, cellW, cellH, offsetX, offsetY) {
+    // x, y son coordenadas locales dentro del área (sin margen)
+    const i = (x / (cellW / 2) + y / (cellH / 2)) / 2;
+    const j = (y / (cellH / 2) - x / (cellW / 2)) / 2;
+    const iRound = Math.round(i);
+    const jRound = Math.round(j);
+    return {
+        x: (iRound - jRound) * cellW / 2 + offsetX,
+        y: (iRound + jRound) * cellH / 2 + offsetY
+    };
+}
+
+// ---------------------------------------------------------------------
+// 7. Funciones auxiliares de actualización
+// ---------------------------------------------------------------------
+function updateHexRadius() {
+    hexRadius = (cellSize && cellSize > 0) ? cellSize : 20;
 }
 
 function updateCellSize() {
     if (!canvas) return;
     const cellW = canvas.width / gridUnitsX;
     const cellH = canvas.height / gridUnitsY;
-    // Para grilla cuadrada usamos el ancho; para hex/isométrico usamos el mínimo
     currentCellSize = Math.min(cellW, cellH);
     if (currentCellSize <= 0) currentCellSize = 32;
 }
-
-function getCellCenters() {
-    if (!canvas) return [];
-    
-    const cellW = canvas.width / gridUnitsX;
-    const cellH = canvas.height / gridUnitsY;
-    const centers = [];
-    
-    switch (gridType) {
-        case "square":
-        case "circles":
-            for (let row = 0; row < gridUnitsY; row++) {
-                for (let col = 0; col < gridUnitsX; col++) {
-                    centers.push({
-                        x: col * cellW + cellW/2,
-                        y: row * cellH + cellH/2
-                    });
-                }
-            }
-            break;
-            
-        case "hex-pointy":
-            for (let q = -gridUnitsX; q <= gridUnitsX; q++) {
-                for (let r = -gridUnitsY; r <= gridUnitsY; r++) {
-                    const center = axialToPixel(q, r, hexRadius, "pointy");
-                    if (center.x >= 0 && center.x <= canvas.width && center.y >= 0 && center.y <= canvas.height) {
-                        centers.push(center);
-                    }
-                }
-            }
-            break;
-            
-        case "hex-flat":
-            for (let q = -gridUnitsX; q <= gridUnitsX; q++) {
-                for (let r = -gridUnitsY; r <= gridUnitsY; r++) {
-                    const center = axialToPixel(q, r, hexRadius, "flat");
-                    if (center.x >= 0 && center.x <= canvas.width && center.y >= 0 && center.y <= canvas.height) {
-                        centers.push(center);
-                    }
-                }
-            }
-            break;
-            
-        case "isometric":
-            for (let i = -gridUnitsX; i <= gridUnitsX; i++) {
-                for (let j = -gridUnitsY; j <= gridUnitsY; j++) {
-                    const centerX = (i - j) * cellW / 2;
-                    const centerY = (i + j) * cellH / 2;
-                    if (centerX >= 0 && centerX <= canvas.width && centerY >= 0 && centerY <= canvas.height) {
-                        centers.push({ x: centerX, y: centerY });
-                    }
-                }
-            }
-            break;
-    }
-    
-    return centers;
-}
-
-function debugDrawCenters(ctx) {
-    const centers = getCellCenters();
-    ctx.save();
-    ctx.fillStyle = "#ff0000";
-    
-    for (const center of centers) {
-        ctx.beginPath();
-        ctx.arc(center.x, center.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-    }
-    ctx.restore();
-}
-
-function debugSnapPoint(mouseX, mouseY, ctx) {
-    const snapped = snapToGrid(mouseX, mouseY);
-    ctx.save();
-    ctx.fillStyle = "#ffff00";
-    ctx.strokeStyle = "#ffaa00";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(snapped.x, snapped.y, 8, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(snapped.x, snapped.y, 10, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-    
-    console.log(`Mouse: (${mouseX}, ${mouseY}) → Snap: (${snapped.x}, ${snapped.y})`);
-}
-
 
 function updateUnitsFromCellSize() {
     if (!canvas) return;
@@ -291,79 +340,13 @@ function updateUnitsFromCellSize() {
     gridUnitsY = Math.max(1, Math.floor(canvas.height / cellSize));
 }
 
-
-function snapToGrid(x, y) {
-    const cellW = canvas.width / gridUnitsX;
-    const cellH = canvas.height / gridUnitsY;
-
-    switch (gridType) {
-        case "square":
-        case "circles":
-            // Centro de la celda cuadrada
-            const col = Math.round(x / cellW);
-            const row = Math.round(y / cellH);
-            return {
-                x: col * cellW + cellW/2,
-                y: row * cellH + cellH/2
-            };
-        case "hex-pointy":
-            return snapToHexCenter(x, y, hexRadius, "pointy");
-        case "hex-flat":
-            return snapToHexCenter(x, y, hexRadius, "flat");
-        case "isometric":
-            const cellW = canvas.width / gridUnitsX;
-            const cellH = canvas.height / gridUnitsY;
-            return snapToIsometricCenter(x, y, cellW, cellH);
-        default:
-            return { x, y };
-    }
-}
-
-function snapToHexCenter(x, y, size, orientation) {
-    const sqrt3 = Math.sqrt(3);
-
-    const offsetX = canvas.width / 2;
-    const offsetY = canvas.height / 2;
-
-    // 1. Llevar a espacio de grilla
-    const localX = x - offsetX;
-    const localY = y - offsetY;
-
-    let q, r;
-    if (orientation === "pointy") {
-        q = (sqrt3/3 * localX - 1/3 * localY) / size;
-        r = (2/3 * localY) / size;
-    } else {
-        q = (2/3 * localX) / size;
-        r = (-1/3 * localX + sqrt3/3 * localY) / size;
-    }
-    const cube = cubeRound({ x: q, y: -q - r, z: r });
-    const axial = { q: cube.x, r: cube.z };
-    const center = axialToPixel(axial.q, axial.r, size, orientation);
-    return {
-        x: center.x + offsetX,
-        y: center.y + offsetY
-    };
-}
-
-function snapToIsometricCenter(x, y, cellW, cellH) {
-
-    const offsetX = canvas.width / 2;
-    const offsetY = canvas.height / 2;
-
-    const localX = x - offsetX;
-    const localY = y - offsetY;
-
-    const i = (localX / (cellW / 2) + localY / (cellH / 2)) / 2;
-    const j = (localY / (cellH / 2) - localX / (cellW / 2)) / 2;
-
-    const iRound = Math.round(i);
-    const jRound = Math.round(j);
-
-    return {
-        x: (iRound - jRound) * cellW / 2 + offsetX,
-        y: (iRound + jRound) * cellH / 2 + offsetY
-    };
+function updateGridUnitsFromCellSize() {
+    if (!canvas) return;
+    const marginPx = getMarginPx();
+    const areaWidth = canvas.width - 2 * marginPx;
+    const areaHeight = canvas.height - 2 * marginPx;
+    gridUnitsX = Math.max(1, Math.floor(areaWidth / cellSize));
+    gridUnitsY = Math.max(1, Math.floor(areaHeight / cellSize));
 }
 
 //#endregion GRID / Grilla

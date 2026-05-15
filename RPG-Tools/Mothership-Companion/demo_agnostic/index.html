@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>Mothership Companion</title>
+		
+		<meta name="description" content="A tool for player and wardens for the Mothership TTRPG game.">
+		<meta name="author" content="Andrés Pablo">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
+        <!-- Bootstrap min CDN -->
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- Custom CSS -->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+
+<body>
+
+	<main style="width: 1024px; max-width: 100%;">
+		<nav class="">
+            <div class="content-justified" id="headline"><p>MOTHER.CO - Una herramienta para jugadores de Mothership, el juego de rol.</p></div>
+			<div class="content-justified scrollable-table-container" id="tabs-row">
+                <ul>
+                   <li class="tab active">PERSONAJES</li> 
+                   <li class="tab">CATÁLOGO</li> 
+                   <li class="tab">PUERTOS</li> 
+                   <li class="tab">off</li>
+                   <li class="tab"><span class="color-pink">color</span></li>
+                   <li class="tab"><span class="color-green">color</span></li>
+                   <li class="tab"><span class="color-white">color</span></li>
+                   <li class="tab"><span class="color-yellow">color</span></li>
+                </ul>
+            </div>
+			
+		</nav>
+
+        <section class="content" id="">
+            <div class="tab-panel fade show active" id="character-sheet" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col col-3 left-col">
+                        <h3>Options</h3>
+                    </div>
+                    <div class="col col-6 mid-col">
+                        <h3>Character Sheet</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>STATS</td>
+                                    <td>Value</td>
+                                </tr>
+                                
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SPEED</td>
+                                    <td>00</td>
+                                </tr>
+                                <tr>
+                                    <td>INTEL</td>
+                                    <td>00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col col-3 right-col">
+                        <h3>Bio</h3>
+                        <div id="character-portrait" class="portrait">
+                            <img src="" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="tab-panel fade show active" id="inventory" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col col-3 left-col">
+                        <h3>Catálogo</h3>
+                        <label for="site-search">Buscar:</label><input type="search" id="site-search" name="q" /><button>Search</button>
+                        <br>
+                        <hr>
+                        <button><a href="#">Ver Todo</a></button>
+                        <button><a href="#">Industrial</a></button>
+                        <button><a href="#">Armas</a></button>
+                        <button><a href="#">Medicina</a></button>
+                        <button><a href="#">Servicios</a></button>
+                        <button><a href="#">Ciber-Implantes</a></button>
+                        <button><a href="#">Ciber-Brainware</a></button>
+                        <button><a href="#">Ilegales</a></button>
+                        <br>                        
+                        <hr>                        
+                        <ul>
+                            <li>Todo</li>
+                            <li>Industrial</li>
+                            <li>Armas</li>
+                            <li>Medicina</li>
+                            <li>Servicios</li>
+                        </ul>
+                    </div>
+                    <div class="col col-6 mid-col">
+                        <h3 id="titulo-lista-inventario">Objetos</h3>
+                        <table>
+                            <thead>
+                                <th>
+                                    <tr>
+                                        <td>Ico</td>
+                                        <td>Nombre</td>
+                                        <td>Daño</td>
+                                        <td>Alcance</td>
+                                        <td>Capacidad</td>
+                                        <td>Especial</td>
+                                        <td>Tags</td>
+                                        <td>Precio</td>
+                                    </tr>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>---</td>
+                                    <td>Nombre</td>
+                                    <td>1d10</td>
+                                    <td>Largo</td>
+                                    <td>2</td>
+                                    <td>...</td>
+                                    <td>tag; tag</td>
+                                    <td>250 cr</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col col-3 right-col">
+                        <h3 id="titulo-objeto">Nombre</h3>
+                        <div><img src="" alt=""></div>
+                        <p>El objeto default de esta tabla. Se usa sólo en fase de prueba.</p>
+                        <hr>
+                        <table>
+                            <thead>
+                                <th>
+                                    <tr>
+                                        <td>***</td>
+                                        <td>---</td>
+                                        <td>+++</td>
+                                    </tr>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Daño:</td>
+                                    <td>1d5</td>
+                                    <td>crit[+]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div>
+
+		<section id="character-content">
+            <div class="left-column">
+
+            </div>
+            <div class="right-column">
+   
+            </div>
+        </section>
+
+        <section id="inventory-content">
+
+        </section>
+
+
+	</main>
+
+	<footer style="border-top: 2px solid var(--accent); margin-top: 40px; padding-top: 20px;">
+		Made by <a href="https://andrespablo/github.io/" target="_blank">Andrés Pablo</a>. Derived from <a href="https://github.com/" target="_blank">link</a> . Source code on <a href="https://github.com/" target="_blank">Github</a>.
+	</footer>
+
+
+
+
+</body>
+
+
+    <!-- Javascript (JS) Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</html>

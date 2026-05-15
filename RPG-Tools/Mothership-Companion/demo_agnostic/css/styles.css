@@ -1,0 +1,65 @@
+:root {
+    --main-color:rgb(206, 237, 255);
+    /*--main-color:rgb(236, 238, 229);*/
+    /*--bg-color:rgb(55, 17, 223);*/
+    --bg-color:rgb(12, 0, 68);
+    --accent-color:rgb(240, 197, 96);
+    --inactive-color:rgb(139, 116, 61);
+}
+
+.color-white { background-color: #ffffff; }
+.color-green { background-color: #00ff00; }
+.color-yellow { background-color: #ffff00; }
+.color-pink { background-color: #ff00ff; }
+
+#headline div
+{
+    background: var(--bg-color);
+    color: var(--main-color);
+}
+
+nav #tabs-row{
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+nav #tabs-row ul{
+    display: flex;             /* Aligns items horizontally */
+    list-style: none;         /* Removes default bullets */
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid var(--main-color) ; /* Bottom border for the "track" */
+}
+
+#tabs-row li{
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-bottom: -2px;      /* Overlaps the track border */
+}
+
+.tab.active {
+    color: var(--main-color);
+    background: var(--bg-color) ;
+    border-color: var(--main-color) ;       /* Active tab border */
+    border-bottom: 2px solid var(--bg-color); /* Blends with background */
+    font-weight: bold;
+}
+
+
+.content{
+    color: var(--main-color);
+    background: var(--bg-color);
+}
+
+table tbody {
+    border-width: 2px;
+    border-color: black;
+}
+
+
+footer {
+    background: blue;
+    color: aliceblue;
+}

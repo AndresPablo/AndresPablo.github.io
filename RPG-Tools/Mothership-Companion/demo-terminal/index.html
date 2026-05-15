@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0036)https://panr.github.io/terminal-css/ -->
-<html style="--background: #1d2021; --foreground: #ebdbb2; --accent: #8ec07c;">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -18,7 +18,7 @@
 		<meta property="og:site_name" content="Terminal.css">
 		<meta property="og:image" content="https://panr.github.io/terminal-css/og-image.png">
 		<link rel="shortcut icon" href="https://panr.github.io/terminal-css/favicon.png">
-		<title>Terminal.css</title>
+		<title>Mothership Companion</title>
 	<!-- FONTS -->
 		<link href="./Terminal.css _ Semantic styles for the simple web_files/fira-code.css" rel="stylesheet" id="componentsFontFiraCode">
 		<link href="./Terminal.css _ Semantic styles for the simple web_files/jetbrains-mono.css" rel="stylesheet" id="componentsFontJetBrainsMono">
@@ -30,25 +30,131 @@
 	<!-- REST -->
 		<link href="./Terminal.css _ Semantic styles for the simple web_files/standalone.css" rel="stylesheet">
 		<link href="./Terminal.css _ Semantic styles for the simple web_files/site.css" rel="stylesheet">
+
+	<!-- Bootstrap grid only -->
+		<link href="css/bootstrap-grid.css" rel="stylesheet">
+		        <!-- Custom CSS -->
+		<link href="css/styles.css" rel="stylesheet">
 	</head>
 
 <body style="padding: 20px">
-  <dialog id="fontModal" class="dialog">
-    <div>
-      <h2>Font Family</h2>
-      <p>All fonts are provided via <strong>cdn.staticdelivr.com</strong> directly from Google Fonts and imported with `@import()` CSS function.</p>
-    </div>
-    <form method="dialog">
-      <button autofocus="">Close</button>
-    </form>
-  </dialog>
 
-	<main style="width: 1024px; max-width: 100%;">
+	<main style=" max-width: 100%;">
 		<nav>
 			<h1 id="headline">Mother.Co</h1>
-			<a href="index_demo.html"><button>Demo</button></a>
-
+			<a href="index_demo.html">
+			<button>PERSONAJES</button></a>
+			<button>CATÁLOGO</button></a>
+			<button>MERCS</button></a>
+			
 		</nav>
+
+		<section class="content">
+			<div class="tab-panel fade show active" id="inventory" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col col-3 left-col ">
+                        <h1>Catálogo</h1>
+                        <label for="site-search">Buscar:</label><input type="search" id="site-search" name="q" /><button>Search</button>
+                        <br><br><hr><br><br>
+                        <button><a href="#">Ver Todo</a></button>
+                        <button><a href="#">Industrial</a></button>
+                        <button><a href="#">Armas</a></button>
+                        <button><a href="#">Medicina</a></button>
+                        <button><a href="#">Servicios</a></button>
+                        <button><a href="#">Ciber-Implantes</a></button>
+                        <button><a href="#">Ciber-Brainware</a></button>
+                        <button><a href="#">Ilegales</a></button>
+                        <br><br><hr><br>                        
+                        <ul>
+                            <li>Todo</li>
+                            <li>Industrial</li>
+                            <li>Armas</li>
+                            <li>Medicina</li>
+                            <li>Servicios</li>
+                        </ul>
+                    </div>
+                    <div class="col col-6 mid-col">
+                        <h3 id="titulo-lista-inventario">Objetos</h3>
+                        <table>
+                            <thead id="items-table">
+								<th>Ico</th>
+								<th>Nombre</th>
+								<th>Daño</th>
+								<th>Alcance</th>
+								<th>Capacidad</th>
+								<th>Especial</th>
+								<th>Precio</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+									<td></td>
+                                    <td>Nombre</td>
+                                    <td>1d10</td>
+                                    <td>Largo</td>
+                                    <td>2</td>
+                                    <td>...</td>
+                                    <td>250 cr</td>
+                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col col-3 right-col">
+                        <h3 id="titulo-objeto">Nombre</h3>
+                        <div><img src="" alt=""></div>
+                        <p>El objeto default de esta tabla. Se usa sólo en fase de prueba.</p>
+                        <hr>
+                        <table>
+                            <thead>
+                                <th>
+                                    <tr>
+                                        <td>***</td>
+                                        <td>---</td>
+                                        <td>+++</td>
+                                    </tr>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Daño:</td>
+                                    <td>1d5</td>
+                                    <td>crit[+]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+		</section>
+		
+
 	</main>
 
 	<footer style="border-top: 2px solid var(--accent); margin-top: 40px; padding-top: 20px;">

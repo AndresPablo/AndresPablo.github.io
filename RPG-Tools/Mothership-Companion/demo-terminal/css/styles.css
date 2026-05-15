@@ -1,0 +1,32 @@
+:root {
+    --main-color:rgb(206, 237, 255);
+    /*--main-color:rgb(236, 238, 229);*/
+    /*--bg-color:rgb(55, 17, 223);*/
+    --bg-color:rgb(12, 0, 68);
+    --accent-color:rgb(240, 197, 96);
+    --inactive-color:rgb(139, 116, 61);
+    --background: #1d2021;
+    --accent: #8ec07c;
+    --foreground: #ebdbb2;
+}
+
+thead th {
+    background-color: var(--foreground);
+    color: var(--bg-color);
+}
+
+.scrollable-table-container {
+    overflow-x: auto; /* Enables horizontal scroll when table is wider than div */
+    max-width: 100%;  /* Ensures container doesn't exceed screen width */
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#items-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

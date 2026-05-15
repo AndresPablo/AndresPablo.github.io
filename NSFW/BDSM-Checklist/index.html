@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Panel de Actividades - Evento</title>
+    <title>Lista de Negociación BDSM</title>
     <!-- Bootstrap 5 + Icons + Librerías de exportación -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- JQuery -->
+    <script  src="https://code.jquery.com/jquery-4.0.0.min.js"  integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+    <!-- Bootstrap Tables -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/bootstrap-table.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/bootstrap-table.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/locale/bootstrap-table-zh-CN.js"></script>
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/custom.css">
+    <!-- JS to XLSX (Excel) -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+    <!-- JS to PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- HTML Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#"><i class="fas fa-calendar-alt"></i> EventoActivo</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-calendar-alt"></i>Lista de Consentimiento</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,69 +83,143 @@
         <!-- Campo adicional: Cuidado posterior (multilínea) -->
         <div class="row mb-3">
             <div class="col-12">
-                <label class="form-label">Cuidado posterior</label>
+                <label class="form-label">❤️‍🩹Cuidado posterior</label>
                 <textarea class="form-control" id="cuidadoPosterior" rows="2" placeholder="Indica si necesitas algún cuidado especial después de la actividad"></textarea>
-                <small class="text-muted">Opcional, para adaptar la logística.</small>
+                <small class="text-muted">Ej: Mimos, silencio, chocolates, pasear, etc</small>
             </div>
         </div>
 
         <!-- Slider de 10 pasos (0-10) -->
         <div class="row mb-3">
+            <br>
             <div class="col-12">
-                <label class="form-label">Nivel de energía actual (0 = muy bajo, 10 = muy alto)</label>
+                <h6>Escala de dominación</h4>
+            </div>
+            <div class="col-12">
+                <label class="form-label">En la escala de sumisión-dominación, ¿Dónde te ubicas?</label>
                 <div class="custom-slider-wrapper">
                     <div class="custom-slider-container">
                         <input type="range" id="energiaSlider" class="custom-range" min="0" max="10" step="1" value="5">
                         <div class="slider-labels">
-                            <span>0</span>
-                            <span>10</span>
+                            <span>😇 0</span>
+                            <span>10 😈</span>
                         </div>
                     </div>
                     <div class="slider-value-badge">
                         <span id="energiaValor" class="badge bg-secondary">5</span>
                     </div>
                 </div>
-                <small class="text-muted">Arrastra para indicar tu nivel de energía antes del evento.</small>
+                <small class="text-muted">texto pequeño</small>
             </div>
         </div>
 
+
         <!-- SECCIÓN 2: SEGURIDAD Y PREFERENCIAS -->
-        <h5><i class="fas fa-shield-alt"></i> Seguridad y preferencias</h5>
+        <h5><i class="fas fa-shield-alt"></i> Seguridad</h5>
         <div class="row g-3">
             <div class="col-12">
-                <label class="form-label">Enfermedades / condiciones</label>
+                <label class="form-label">😷 Enfermedades / condiciones</label>
                 <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, dolores de articulación, medicamentos, etc."></textarea>
-                <small class="text-muted">Opcional, solo para adaptar la experiencia.</small>
+                <small class="text-muted">Obligatorio.</small>
             </div>
             <div class="col-md-4">
-                <label class="form-label">Palabra clave</label>
+                <label class="form-label">Palabra de Seguridad <span class="badge text-bg-danger">Safeword</span></label>
                 <div class="input-group">
-                    <span class="input-group-text">🔑</span>
-                    <input type="text" class="form-control" id="palabraClaveUsuario" placeholder="Ej: aventura">
+                    <span class="input-group-text">🛑</span>
+                    
+                    <input type="text" class="form-control" id="palabraClaveUsuario" placeholder="Ej: 'CACAO, PIEDAD, ROJO'">
                 </div>
-                <small class="text-muted">Una palabra que te identifique.</small>
+                <small class="text-muted">La escena se detiene cuando se menciona la palabra de seguridad.</small>
             </div>
             <div class="col-12">
+                <p>El sistema del <span class="badge text-bg-warning">semáforo</span> es una alternativa muy utilizada, especializada en comunicar estados de confort y seguridad durante las actividades.</p>
                 <div class="semaforo-info p-2 bg-light rounded">
-                    <small class="text-muted d-block"><strong>📊 Escala de interés (semáforo):</strong></small>
-                    <small class="d-block"><span style="color:#dc3545;">🔴 Rojo</span> – Odio / No me gusta</small>
-                    <small class="d-block"><span style="color:#fd7e14;">🟠 Naranja</span> – No me gusta / Indiferente</small>
-                    <small class="d-block"><span style="color:#ffc107;">🟡 Amarillo</span> – Curiosidad / Me da igual</small>
-                    <small class="d-block"><span style="color:#198754;">🟢 Verde</span> – Me gusta</small>
-                    <small class="d-block"><span style="color:#d63384;"><i class="fas fa-heart"></i>  Rosa</span> – Amo / Encanta</small>
+                    <small class="text-muted d-block"><strong>📊 Semáforo de Seguridad (semáforo):</strong></small>
+                    <small class="d-block"><span style="color:#dc3545;">🔴 Rojo</span> – Detenemos todo y vemos si continuamos.</small>
+                    <small class="d-block"><span style="color:#ffc107;">🟡 Amarillo</span> – Llamado de atención o un cambio de intensidad.</small>
+                    <small class="d-block"><span style="color:#198754;">🟢 Verde</span> – Todo OK, seguir así</small>
+                    <small class="d-block"><span style="color:#d63384;"><i class="fas fa-heart"></i>  Rosa</span> – Clímax inminente</small>
                 </div>
             </div>
             <div class="col-12 disclaimer-text">
-                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios.
+                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios, todos pueden saltarse.
                 <div class="form-check mt-2"><input class="form-check-input" type="checkbox" id="checkDisclaimer1"><label class="form-check-label" for="checkDisclaimer1">Acepto que las respuestas son voluntarias</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkDisclaimer2"><label class="form-check-label" for="checkDisclaimer2">Comprendo que puedo editar los items en modo inmersivo</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkDisclaimer2"><label class="form-check-label" for="checkDisclaimer2">Ambas partes pueden detener la escena cuando quieran, incluso con las actividades consentidas. El consentimiento es revocable en todo momento.</label></div>
             </div>
         </div>
     </div>
-    <div id="tablasContainer"></div>
+
+
+    <!-- SECCIÓN 3: TABLA DE ACTIVIDADES -->
+    <SECTion>
+        <div class="vanilla-container"></div>
+        <h3 class="section-title">Título</h3>
+        <div id="table-container" class="">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle ">
+
+                </table>
+            </div>
+        </div>
+
+        <h3 class="section-title" id="bondage-table">Título</h3>
+        <div id="tablasContainer" class="">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle ">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Icono</th>
+                            <th>Actividad</th>
+                            <th>Experiencia</th>
+                            <th>Interés</th>
+                            <th>Rol</th>
+                            <th>Notas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h3 class="section-title" id="activity-table">Título</h3>
+        <div id="tablasContainer" class="">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle ">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Icono</th>
+                            <th>Actividad</th>
+                            <th>Experiencia</th>
+                            <th>Interés</th>
+                            <th>Rol</th>
+                            <th>Notas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </SECTion>
 </div>
 
-<footer>© Cuestionario interactivo - Expresa tu interés por las actividades del evento</footer>
+<footer>
+    <h6>Inspiraciones</h6>
+    <ul>
+        <li><a href="https://knki.fun/tools/checklist/start">Yes/No/Maybe</a></li>
+        <li><a href="https://kinksheet.com/">Kink Sheet</a></li>
+        <li><a href="hhttps://adhesivecheese.github.io/kinklist/">Kink List</a></li>
+        <li><a href="https://knki.fun/tools/checklist/start">Checklist</a></li>
+        
+    </ul>
+    © Footer - Pie de página
+</footer>
 
 <!-- MODAL DE BIENVENIDA -->
 <div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
@@ -165,7 +248,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title"><i class="fas fa-edit"></i> Editar actividad</h5>
+                <h5 class="modal-title"><i class="fas fa-edit"></i> Actividad</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -174,7 +257,7 @@
                         <div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img id="modalImagen" src="..." class="d-block w-100" alt="...">
+                                    <img id="modalImagen" src="assets/default.png" class="d-block w-100" alt="...">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -189,9 +272,9 @@
                         <img id="modalImagen" class="d-none" src="" alt="Imagen actividad">
                     </div>
                     <div class="col-md-5">
-                        <div class="actividad-titulo-modal" id="modalTitulo">Actividad | Categoría</div>
+                        <div class="actividad-titulo-modal" id="modalTitulo">Actividad</div>
                         <div class="actividad-subtitulo-modal" id="modalSubtitulo"><h4>a<span class="badge badge-secondary"></span></h4></div>
-                        
+                        <div id="modalDescripcion" class="callout callout-subtle"><p>Texto descriptivo</p></div>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label class="form-label fw-bold">Interés</label>
@@ -237,7 +320,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label fw-bold">Notas</label>
-                            <textarea class="form-control" id="editNotas" rows="3"></textarea>
+                            <textarea class="form-control" id="editNotas" rows="3" placeholder="Agrega notas, límites, contexto, ideas..."></textarea>
                             <small class="text-muted" id="ejemploNotasTexto"></small>
                         </div>
                     </div>
@@ -265,5 +348,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/custom-scripts.js"></script>
+<script src="css/bootstrap/extensions/fixed-header/table-fixed-header.js"></script>
 </body>
 </html>

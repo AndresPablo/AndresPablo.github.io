@@ -1,4 +1,5 @@
 let items = [];
+let categorias = [];
 let indiceItemActual = 0;
 let inmersivoModalInstance;
 let tooltipTriggerList = [];
@@ -30,12 +31,16 @@ function getClaseInteres(interes) {
 
 function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
 
+
+
+
 function renderizarTablas() {
     let html = '';
-    for (let tem of tematicasOrden) {
-        const itemsFiltrados = items.filter(item => item.tematica === tem);
+    for (let cat of categorias) {
+        const itemsFiltrados = items.filter(item => item.tematica === cat);
         if (itemsFiltrados.length === 0) continue;
-        html += `<div id="tabla${tem.replace(/ /g, '')}" class="section-title"><h3> ${tem}</h3></div><div class="table-responsive"><table class="table table-hover table-bordered align-middle"><thead class="table-dark sticky-table-header"><tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></thead><tbody>`;
+        html+= `h2>${cat.display-name}</h2>`;
+        html += `<div id="tabla${tem.replace(/ /g, '')}" class="section-title"><h3> ${tem}</h3></div><div class="table"><table class="table table-hover table-bordered align-middle "><thead class="table-dark"><tr class="table-dark sticky-md-top"><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></thead><tbody>`;
         itemsFiltrados.forEach((item) => {
             const globalIndex = items.findIndex(i => i.id === item.id);
             const claseFila = getClaseInteres(item.interes);
@@ -50,6 +55,9 @@ function renderizarTablas() {
                         <td><button class="btn-editar-fila" data-index="${globalIndex}"><i class="fas fa-edit"></i></button></td>
                       </tr>`;
         });
+        html += `<tr class="custom-table-head-divider"> <th scope="rowgroup">DIVIDER</td><td><td><td><td><td><td> </tr>`;
+        html += `<tr class="table-light"> <td>DIVIDER</td> </tr>`;
+        html += `<caption class="caption-bottom"> ${tem}</caption>`;
         html += `</tbody></table></div>`;
     }
     contenedor.innerHTML = html;
@@ -67,14 +75,15 @@ function renderizarTablas() {
             }
         });
     });
-    generarDropdownTematicas();
+    generarDropdownCategorias();
 }
 
-function generarDropdownTematicas() {
+
+function generarDropdownCategorias() {
     const dropdownMenu = document.getElementById('tematicasDropdown');
     if (!dropdownMenu) return;
     dropdownMenu.innerHTML = '';
-    tematicasOrden.forEach(tem => {
+    /*tematicasOrden.forEach(tem => {
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.className = 'dropdown-item';
@@ -88,13 +97,58 @@ function generarDropdownTematicas() {
         });
         li.appendChild(a);
         dropdownMenu.appendChild(li);
-    });
+    });*/
 }
 
 function guardarEnLocalStorage() {
     localStorage.setItem('eventoActividades', JSON.stringify(items));
 }
 
+async function cargarDatosIniciales() {
+    const stored = localStorage.getItem('eventoActividades');
+    if (stored) {
+        const data = JSON.parse(stored);
+        items = data.items;
+        categorias = data.categorias;
+    } else {
+        try {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            items = data.items;
+            categorias = data.categorias;
+            
+            // Guardar en localStorage
+            guardarEnLocalStorage();
+        } catch(e) {
+            console.warn('No se pudo cargar data.json');
+            items = [];
+            categorias = [];
+        }
+    }
+    
+    reasignarIds();
+    renderizarTablas();
+}
+
+function guardarEnLocalStorage() {
+    const dataToStore = { items, categorias };
+    localStorage.setItem('eventoActividades', JSON.stringify(dataToStore));
+}
+
+function reasignarIds() {
+    items.forEach((item, idx) => { item.id = idx + 1; });
+}
+
+function getNombreCategoria(categoriaId) {
+    const cat = categorias.find(c => c.id === categoriaId);
+    return cat ? cat.nombre_visible : 'Sin categoría';
+}
+
+function getItemsPorCategoria(categoriaId) {
+    return items.filter(item => item.categoria_id === categoriaId);
+}
+
+/*
 async function cargarDatosIniciales() {
     const stored = localStorage.getItem('eventoActividades');
     if (stored) {
@@ -123,13 +177,13 @@ async function cargarDatosIniciales() {
             }
         } catch(e) {
             console.warn('No se pudo cargar data.json, usando datos por defecto');
-            items = [ /* items por defecto */ ];
+            items = [];
             tematicasOrden = obtenerTematicas(items, 'aparicion');
         }
     }
     reasignarIds();
     renderizarTablas();
-}
+}*/
 
 function obtenerTematicas(items, orden = 'aparicion') {
     const tematicas = [...new Map(items.map(item => [item.tematica, item.tematica])).values()];
@@ -152,6 +206,7 @@ function normalizarItem(item) {
         descripcion: item.descripcion || '',
         ejemplo_notas: item.ejemplo_notas || '',
         urls_ejemplo: Array.isArray(item.urls_ejemplo) ? item.urls_ejemplo : (item.url_ejemplo ? [item.url_ejemplo] : []),
+        external_links: Array.isArray(item.external_links) ? item.external_links : (item.external_links ? [item.external_links] : []),
         // campos que se editan en el modal, siempre vacíos al inicio
         experiencia: '',
         interes: '',
@@ -174,6 +229,7 @@ function cargarItemEnModal(index) {
     if (!item) return;
     document.getElementById('modalTitulo').innerText = `${item.actividad}`;
     document.getElementById('modalSubtitulo').innerText =  `${item.tematica}`;
+    document.getElementById('modalDescripcion').innerText = `${item.descripcion}`;
     const imgElement = document.getElementById('modalImagen');
     if (item.imagen && item.imagen.trim() !== '') {
         imgElement.src = item.imagen;
@@ -188,9 +244,20 @@ function cargarItemEnModal(index) {
     document.getElementById('editNotas').value = item.notas || '';
     document.getElementById('ejemploNotasTexto').innerText = item.ejemplo_notas || '';
     const urlEjemplo = item.url_ejemplo || '#';
+    const extLink = item.external_links || '#';
     document.getElementById('contadorModal').innerText = `${index+1}/${items.length}`;
     const urlsContainer = document.getElementById('urlsEjemploContainer');
     urlsContainer.innerHTML = '';
+    if(item.external_links){
+        item.external_links.forEach((url, idx) => {
+            const link = document.createElement('a');
+            link.href = url.url;
+            link.target = '_blank';
+            link.className = 'btn btn-sm btn-outline-primary me-1 mb-1';
+            link.textContent = `${url.texto_visible}`;
+            urlsContainer.appendChild(link);
+        });
+    /*}
     if (item.urls_ejemplo && item.urls_ejemplo.length) {
         item.urls_ejemplo.forEach((url, idx) => {
             const link = document.createElement('a');
@@ -199,8 +266,9 @@ function cargarItemEnModal(index) {
             link.className = 'btn btn-sm btn-outline-primary me-1 mb-1';
             link.textContent = `Ejemplo ${idx+1}`;
             urlsContainer.appendChild(link);
-        });
+        });*/
     } else {
+        console.warn('No se pudo cargar los links externos');
         urlsContainer.innerHTML = '<span class="text-muted">Sin enlaces</span>';
     }
 }
@@ -331,7 +399,7 @@ async function exportarPDF() {
     const disclaimer1 = document.getElementById('checkDisclaimer1').checked ? 'Aceptado' : 'No';
     const disclaimer2 = document.getElementById('checkDisclaimer2').checked ? 'Aceptado' : 'No';
 
-    let mainHtml = `<h2>Reporte de actividades</h2>
+    let mainHtml = `<h2>Lista de Actividades</h2>
     <p><strong>Nombre:</strong> ${nombre} | <strong>Edad:</strong> ${edad} | <strong>Pronombres:</strong> ${pronombres} | <strong>Apodo:</strong> ${apodo} | <strong>Palabra clave:</strong> ${palabraClave}</p>
     <p><strong>Cuidado posterior:</strong> ${cuidadoPosterior} | <strong>Nivel de energía:</strong> ${energia}/10</p>
     <p><strong>Enfermedades/condiciones:</strong> ${enf}</p>

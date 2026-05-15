@@ -1,66 +1,82 @@
 {
-  "tematicasOrden": ["Sexo (vainilla)", "Sexo grupal", "Bondage / Restricción", "Estimulación", "💥 Impacto",  "🎭​Juego de Roles", "💧 Fluidos", "Humillación", "Voyeurismo / Exhibición", "Dominación / Sumisión"],
-  "categorias":
-              [{
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               }
-              ,
-            {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               },
-              {
-                 "id": "display-name",
-                 "display-name": "Category"
-               }],
-  "items": [
-    
+  "categorias": [
     {
-      "tematica": "Sexo (vainilla)",
-      "actividad": "Beso de Lengua",
-      "emoji": "🤸",
-      "imagen": " ",
-      "descripcion": "Beso francés",
-      "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "id": "vanilla",
+      "display-name": "Vanilla"
     },
+    {
+      "id": "intimidad",
+      "display-name": "Intimidad"
+    },
+    {
+      "id": "bondage",
+      "display-name": "Bondage"
+    },
+    {
+      "id": "estimulacion",
+      "display-name": "Estimulación"
+    },
+    {
+      "id": "dolor",
+      "display-name": "💥 Dolor"
+    },
+    {
+      "id": "roleplay",
+      "display-name": "🎭​ Juego de Rolesgo"
+    },
+    {
+      "id": "grupal",
+      "display-name": "Sexo grupal"
+    },
+    {
+      "id": "voyeur",
+      "display-name": "Voyeurismo / Exhibición"
+    },
+    {
+      "id": "humillacion",
+      "display-name": "Humillación"
+    },
+    {
+      "id": "juguetes",
+      "display-name": "Juguetes"
+    },
+    {
+      "id": "ropa",
+      "display-name": "Vestimenta"
+    },
+    {
+      "id": "taboo",
+      "display-name": "Tabúes"
+    },
+    {
+      "id": "fluidos",
+      "display-name": "💧 Fluidos"
+    }
+  ],
+  "items": [
     {
       "tematica": "Sexo (vainilla)",
       "actividad": "Sexo genital / penetración",
       "emoji": "🤸",
-      "imagen": "https://egl.phncdn.com/pics/gifs/051/998/951/(m=ldpwiqacxtE_Ai)(mh=NrOvFQOYtuiykK8m)51998951b.gif?validfrom=1762923600&validto=4891363200&hash=njUVRvW00O1NWN9ERcRpxWx4Dbg%3D",
+      "imagen": "",
       "descripcion": "Penetración pene-vagina.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Kamasutra Online",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        },
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -69,7 +85,18 @@
       "imagen": " ",
       "descripcion": "Penetración con consolador o pene de juguete",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -78,7 +105,18 @@
       "imagen": "https://cdn.porngifs.com/img/38857",
       "descripcion": "Masturbar a tu pareja con manos, pies, o juguetes",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -87,7 +125,18 @@
       "imagen": "https://porngifmag.com/content/2018/12/straight_002-264.gif",
       "descripcion": "Que te masturben insertando uno más dedos",
       "ejemplo_notas": "Ej: máximo 3 dedos; lubricar primero",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -96,7 +145,21 @@
       "imagen": "https://hardcoregify.com/gif/hardcore-domination-action-4/",
       "descripcion": "Masturbación frotando los dedos en áreas sensibles de los genitales",
       "ejemplo_notas": "Ej: desde arriba hacia abajo porque sino me estimula demasiado y me hace mal",
-      "urls_ejemplo": ["https://hardcoregify.com/gif/hardcore-domination-action-4/"]
+      "urls_ejemplo": [
+        "https://hardcoregify.com/gif/hardcore-domination-action-4/"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -105,7 +168,18 @@
       "imagen": "https://www.health.qld.gov.au/__data/assets/image/0028/1334386/Oral-sex-STIs-1.png",
       "descripcion": "Oral a un pene",
       "ejemplo_notas": "Ej: Prefiero sólo lamer por afuera sin chupar",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -114,7 +188,18 @@
       "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2021/12/10/26370541.jpg?width=620",
       "descripcion": "Hasta el fondo",
       "ejemplo_notas": "Ej: Sólo si lo hago yo a mi ritmo porque me da pánico vomitar.",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -123,7 +208,22 @@
       "imagen": "https://cdn.porngifs.com/img/36196",
       "descripcion": "Hasta el fondo",
       "ejemplo_notas": "Ej: Sólo si lo hago yo a mi ritmo porque me da pánico vomitar.",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/acclaimedcoraldiamondbackrattlesnake", "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/acclaimedcoraldiamondbackrattlesnake",
+        "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -132,7 +232,18 @@
       "imagen": "https://cdn.porngifs.com/img/39178",
       "descripcion": "Oral a una vagina",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -141,7 +252,18 @@
       "imagen": "https://cdn.porngifs.com/img/21537",
       "descripcion": "Oral mutuo",
       "ejemplo_notas": "Ej: prefiero ir arriba/abajo/acostadx",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -150,7 +272,23 @@
       "imagen": " https://imagex1.sx.cdn.live/images/pinporn/2019/09/20/21842846.gif?width=460",
       "descripcion": "Sentarse en la cara. La mujer se sienta en la cara del sub.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://img0.thatpervert.com/pics/post/gif-porn-porn-facesitting-oral-porn-3562738.gif", "https://www.sex.com/user/insiderout1/facesitting/?page=29", "https://imagex1.sx.cdn.live/images/pinporn/2023/05/16/29405252.gif?width=460"]
+      "urls_ejemplo": [
+        "https://img0.thatpervert.com/pics/post/gif-porn-porn-facesitting-oral-porn-3562738.gif",
+        "https://www.sex.com/user/insiderout1/facesitting/?page=29",
+        "https://imagex1.sx.cdn.live/images/pinporn/2023/05/16/29405252.gif?width=460"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -159,7 +297,21 @@
       "imagen": "https://cdn.porngifs.com/img/36686",
       "descripcion": "Cojer una cara. Como garganta profunda pero con impulsos fuertes y rápidos.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/farunwieldyblackrhino, https://www.redgifs.com/watch/illthankfulcockerspaniel"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/farunwieldyblackrhino, https://www.redgifs.com/watch/illthankfulcockerspaniel"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -168,7 +320,18 @@
       "imagen": "https://blovjob.com/content/2022/12/woman-licking-a-womans-nipple-bors_001.gif",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -177,7 +340,18 @@
       "imagen": "https://porngifmag.com/content/2015/09/tiffany-doll-five-way-fucking-colette_005.gif",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -186,7 +360,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -195,7 +380,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -204,7 +400,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -213,7 +420,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -222,7 +440,18 @@
       "imagen": "https://www.nirobi.co.uk/products/body-safe-flexible-anal-beads?srsltid=AfmBOor6AI3He7qptkJzXHh7tufTrGUGzdQPppXjWWMeDbWiq7Xhay2e",
       "descripcion": "Beads",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -231,7 +460,18 @@
       "imagen": "https://es.wikipedia.org/wiki/Consolador",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -240,7 +480,18 @@
       "imagen": "https://es.wikipedia.org/wiki/Consolador",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -249,7 +500,18 @@
       "imagen": "https://es.wikipedia.org/wiki/Consolador",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -258,7 +520,18 @@
       "imagen": " ",
       "descripcion": "Estar siempre al borde del orgasmo",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -267,7 +540,18 @@
       "imagen": " ",
       "descripcion": "Arruinarle el orgasmo al sub cortando la estimulación de repente.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -276,7 +560,22 @@
       "imagen": " ",
       "descripcion": ".",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/embellishedfamiliarxinjiangovenator", "https://www.redgifs.com/watch/hopefulmediumbluelowchen"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/embellishedfamiliarxinjiangovenator",
+        "https://www.redgifs.com/watch/hopefulmediumbluelowchen"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -285,7 +584,21 @@
       "imagen": "https://gifcandy.net/wp-content/uploads/2016/04/gifcandy-bdsm-29.gif",
       "descripcion": "",
       "ejemplo_notas": "Ej: Strap-on",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/antiquemoraltasmaniandevil"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/antiquemoraltasmaniandevil"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -294,7 +607,18 @@
       "imagen": " ",
       "descripcion": "Penetraciión con Strap-on",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -303,7 +627,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: Usarías strap-on?",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -312,7 +647,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: Especificar si con penes o juguetes",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -321,7 +667,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo (vainilla)",
@@ -330,8 +687,19 @@
       "imagen": "https://porngifmag.com/content/2018/12/bondage_003-11.gif",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },        
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
     {
       "tematica": "Sexo (vainilla)",
       "actividad": "Vibrador - Interno",
@@ -339,14 +707,19 @@
       "imagen": "https://pleasurebetter.com/wp-content/uploads/Lush-3-Product-Image.jpg",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
-
-
     {
       "tematica": "Bondage / Restricción",
       "actividad": "Bondage - Ligero",
@@ -354,7 +727,18 @@
       "imagen": "https://mymystra.com/cdn/shop/files/black-silk-bondage-325760.jpg?v=1718753727",
       "descripcion": "Ser atadx pero de forma parcial y suave, con objetos más cómodos",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -363,7 +747,18 @@
       "imagen": "https://crash-restraint.com/ties/226",
       "descripcion": "Se disfruta de la incomodidad de las posiciones",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -372,7 +767,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -381,16 +787,44 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://crash-restraint.com/ties/226"]
+      "urls_ejemplo": [
+        "https://crash-restraint.com/ties/226"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-      {
+    {
       "tematica": "Bondage / Restricción",
       "actividad": "  Momificación",
       "emoji": "🎀",
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://crash-restraint.com/ties/226"]
+      "urls_ejemplo": [
+        "https://crash-restraint.com/ties/226"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -399,7 +833,18 @@
       "imagen": "https://www.msoulart.com/wp-content/uploads/2022/05/111.jpg",
       "descripcion": "Pueden ser de seda, cuero o metal",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -408,7 +853,22 @@
       "imagen": "https://passionalboutique.com/cdn/shop/products/BTKA_15881972655124433_e513d82e2f590df8b55c3fe4f11d3b.jpg?v=1609429694&width=416",
       "descripcion": "Simplemente atar las manos con sogas, cintos, corbatas, precintos, etc",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://www.youtube.com/watch?v=xQd-wwRcV8c", "https://www.wikihow.com/Make-Handcuffs-Out-of-a-Belt"]
+      "urls_ejemplo": [
+        "https://www.youtube.com/watch?v=xQd-wwRcV8c",
+        "https://www.wikihow.com/Make-Handcuffs-Out-of-a-Belt"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -417,7 +877,18 @@
       "imagen": "https://gifcandy.net/wp-content/uploads/2016/04/gifcandy-bdsm-50.gif",
       "descripcion": "Similares a las esposas, pero atan los pies.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -426,7 +897,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -435,7 +917,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -444,7 +937,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -453,7 +957,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -462,7 +977,18 @@
       "imagen": "https://gifcandy.net/wp-content/uploads/2016/04/gifcandy-bdsm-58.gif",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -471,7 +997,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -480,16 +1017,38 @@
       "imagen": " ",
       "descripcion": "Anillo que mantiene la boca abierta, permite que entre un pene o dildo.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-      {
+    {
       "tematica": "Bondage / Restricción",
       "actividad": "Mordaza - Cinta",
       "emoji": "🤐",
       "imagen": " ",
       "descripcion": "Cinta adhesiva, hay versiones sexuales que no duelen.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -498,7 +1057,23 @@
       "imagen": "https://m.media-amazon.com/images/I/51T6VZ9UX5L._AC_UF1000,1000_QL80_.jpg",
       "descripcion": "Cinta adhesiva, hay versiones sexuales que no duelen.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://wayshare.cc/tbb3apjgownp/latb_MimiDroolingThroughPenisGag.mp4", "https://es.pornhub.com/view_video.php?viewkey=ph63a39fda4aba7", "https://gifcandy.net/wp-content/uploads/2016/04/gifcandy-bdsm-34.gif"]
+      "urls_ejemplo": [
+        "https://wayshare.cc/tbb3apjgownp/latb_MimiDroolingThroughPenisGag.mp4",
+        "https://es.pornhub.com/view_video.php?viewkey=ph63a39fda4aba7",
+        "https://gifcandy.net/wp-content/uploads/2016/04/gifcandy-bdsm-34.gif"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -507,7 +1082,18 @@
       "imagen": "https://www.bondageblog.com/bondage-pictures/fucked-and-bound-marie-luv-chained-01.jpg",
       "descripcion": "Ser atadx sólo con cadenas",
       "ejemplo_notas": "Ej: Sólo un rato porque el metal me da mucho frío",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -516,7 +1102,18 @@
       "imagen": " ",
       "descripcion": "Técnica de restricción japonesa usando sólo cuerdas y nudos",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -525,7 +1122,18 @@
       "imagen": " ",
       "descripcion": "Más pragmático que el shibari con nudos náuticos, de boy-scout o cowboys.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Bondage / Restricción",
@@ -534,10 +1142,19 @@
       "imagen": "https://cdn.porngifs.com/img/38920",
       "descripcion": "Oídos tapados, auriculares, etc",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
     {
       "tematica": "Estimulación",
       "actividad": "Masajes",
@@ -545,8 +1162,19 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },    
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
     {
       "tematica": "Estimulación",
       "actividad": "Caricias suaves",
@@ -554,7 +1182,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: No me gusta, quiero que me traten duro toda la escena. Luego sí voy a necesitar mimos.",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -563,7 +1202,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: Plumas, peine, lija, etc",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -572,16 +1222,38 @@
       "imagen": " ",
       "descripcion": "Nalgadas, tirones de pelo, latigazos",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "Estimulación",
       "actividad": "Dolor - Severo",
       "emoji": "",
       "imagen": " ",
       "descripcion": "Piñas al estómago, varias cachetadas sin parar, agujas",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -590,7 +1262,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -599,7 +1282,18 @@
       "imagen": " ",
       "descripcion": "Uñas metálicas que se usan como dedales",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -608,16 +1302,38 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: Sólo en los pies",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
       "actividad": "Mordidas",
       "emoji": "",
-      "imagen": " ",
+      "imagen": "https://ic-vt-nss.xhcdn.com/a/MTZhNTM5N2IzMGEwYWNjY2MzN2VhODgwOTczMzdlMzI/s(w:2560,h:1440),webp/028/793/439/v2/2560x1440.211.webp",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -626,7 +1342,18 @@
       "imagen": "https://porngifmag.com/content/2018/12/porn-star-callie-calypso_002.gif",
       "descripcion": "...",
       "ejemplo_notas": "Ej: Prefiero que me agarren la cara y no el cuello",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -635,7 +1362,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -644,16 +1382,47 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "Estimulación",
-      "actividad": "Pinzas en los pezones",
+      "actividad": "Pezoneras (nipple clamps)",
       "emoji": "",
-      "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2018/12/08/20325841.gif?width=460",
+      "imagen": [
+        "https://www.bondageblog.com/bondage-pictures/training-of-o-nipple-clamp.jpg",
+        "https://photos.xgroovy.com/contents/albums/sources/981000/981455/1275892.jpg",
+        "https://photos.xgroovy.com/contents/albums/sources/955000/955566/1222027.jpg",
+        "https://cdn.shopify.com/s/files/1/1141/3026/files/nipple-clamps-motorbunny-736486_1400x1400_61ebc505-a886-4971-84c3-c37aa0daac14_480x480.jpg?v=1738352644",
+        "https://imagex1.sx.cdn.live/images/pinporn/2018/12/08/20325841.gif?width=460"
+      ],
       "descripcion": "...",
       "ejemplo_notas": "Ej: También pueden usarse broches",
-      "urls_ejemplo": ["https://imagex1.sx.cdn.live/images/pinporn/2018/12/08/20325841.gif?width=460"]
+      "urls_ejemplo": [
+        "https://imagex1.sx.cdn.live/images/pinporn/2018/12/08/20325841.gif?width=460"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -662,7 +1431,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -671,7 +1451,21 @@
       "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2021/02/09/24553837.gif?width=460",
       "descripcion": "Tortura de orgasmo",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/gloriousbluevioletdobermanpinscher"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/gloriousbluevioletdobermanpinscher"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Estimulación",
@@ -680,10 +1474,19 @@
       "imagen": " ",
       "descripcion": "Se usan desde 5 voltios hasta picanas.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
     {
       "tematica": "Dominación / Sumisión",
       "actividad": "Dominación",
@@ -691,7 +1494,18 @@
       "imagen": "https://porngifs.ca/wp-content/uploads/2020/06/gif-light-bondage-in-knee-socks_5ee23a4665f2a.gif",
       "descripcion": "Dom exige obediencia con la palabra y la fuerza",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Humillación",
@@ -700,7 +1514,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -709,7 +1534,18 @@
       "imagen": " ",
       "descripcion": "Dominatrix",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -718,7 +1554,18 @@
       "imagen": " ",
       "descripcion": "Le sub es desafiante y le Dom debe obligarle a comportarse",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -727,7 +1574,18 @@
       "imagen": "https://cdn.porngifs.com/img/38783",
       "descripcion": "Halagar verbalmente, felicitar.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -736,7 +1594,18 @@
       "imagen": "https://cdn.porngifs.com/img/38783",
       "descripcion": "Prestarle atención especial a una parte del cuerpo por varios minutos.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -745,7 +1614,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: Me gusta pedir de rodillas que me hagan cosas, evitemos las mordazas",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -754,7 +1634,18 @@
       "imagen": " ",
       "descripcion": "Le sub acata órdenes verbales explícitas",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -763,7 +1654,18 @@
       "imagen": " ",
       "descripcion": "Dom restringe o exige el contacto visual",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -772,7 +1674,18 @@
       "imagen": " ",
       "descripcion": "Dom controla qué puede decir o no le sub",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -781,7 +1694,18 @@
       "imagen": " ",
       "descripcion": "Dom decide cuándo está permitido acabar",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -790,7 +1714,18 @@
       "imagen": " ",
       "descripcion": "Dom elige la ropa para le sub",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -799,7 +1734,18 @@
       "imagen": " ",
       "descripcion": "Dom exige que le sub se saque la prendia que le pida cuando se lo pida.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -808,7 +1754,18 @@
       "imagen": " ",
       "descripcion": "Usar lenguaje explícito e insultos",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -817,7 +1774,18 @@
       "imagen": " ",
       "descripcion": "Sub forcejea y se resiste como parte del juego",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -826,7 +1794,18 @@
       "imagen": " ",
       "descripcion": "Sub forcejea y se resiste como parte del juego",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Dominación / Sumisión",
@@ -835,15 +1814,19 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: Si llego a la escena con collar es porque quiero que me pongan correa / Me gusta que me hagan un té antes de una escena.",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
-
-
-
     {
       "tematica": "Sexo grupal",
       "actividad": "Harem",
@@ -851,7 +1834,18 @@
       "imagen": " ",
       "descripcion": "Servir junto a otros sub para complacer a 1 Dom",
       "ejemplo_notas": "Ej: Sólo lo hago con el sexo opuesto",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -860,7 +1854,22 @@
       "imagen": " ",
       "descripcion": "Hombre-Hombre-Mujer",
       "ejemplo_notas": "Ej: Sólo con mi sexo opuesto",
-      "urls_ejemplo": ["https://www.redgifs.com/watch/discretecanineannelida", "https://www.redgifs.com/watch/damagedsympathetichalicore"]
+      "urls_ejemplo": [
+        "https://www.redgifs.com/watch/discretecanineannelida",
+        "https://www.redgifs.com/watch/damagedsympathetichalicore"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -869,7 +1878,18 @@
       "imagen": "https://cdn.porngifs.com/img/38773",
       "descripcion": "...",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -878,7 +1898,18 @@
       "imagen": " ",
       "descripcion": "Muchas personas tienen sexo con 1 sola persona",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -887,25 +1918,58 @@
       "imagen": " ",
       "descripcion": "Lxs Swingers hacen intercambio de parejas.",
       "ejemplo_notas": "Ej: Sólo lo hago con el sexo opuesto",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "Sexo grupal",
       "actividad": "Unicornio",
       "emoji": "➕",
       "imagen": " ",
       "descripcion": "Una persona que se presta a tener tríos con una pareja formal.",
       "ejemplo_notas": "Ej: Sólo lo hago con el sexo opuesto",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "Sexo grupal",
       "actividad": "Felación Doble",
       "emoji": "➕",
       "imagen": "http://gaybf.com/wp-content/uploads/2022/01/Gay-Man-Suck-Cock-Better.gif",
       "descripcion": ".",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -914,7 +1978,18 @@
       "imagen": "",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Sexo grupal",
@@ -923,12 +1998,19 @@
       "imagen": "https://img1.thatpervert.com/pics/post/Straponess-femdom-porn-threesome-7564659.gif",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
     {
       "tematica": "Voyeurismo / Exhibición",
       "actividad": "Masturbación - Propia",
@@ -936,7 +2018,18 @@
       "imagen": " ",
       "descripcion": "Frente a parejas sexuales",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -945,7 +2038,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -954,7 +2058,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -963,7 +2078,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -972,7 +2098,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -981,7 +2118,18 @@
       "imagen": " ",
       "descripcion": "Dom hace que sub mire porno, o intentan copiar la escena.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -990,7 +2138,18 @@
       "imagen": " ",
       "descripcion": "",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -999,7 +2158,18 @@
       "imagen": " ",
       "descripcion": "Ver a terceros teniendo relaciones sexuales.",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -1008,7 +2178,18 @@
       "imagen": " ",
       "descripcion": "Ver a tu pareja teniendo relaciones sexuales con otra persona",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Voyeurismo / Exhibición",
@@ -1017,12 +2198,19 @@
       "imagen": " ",
       "descripcion": "Sub debe mirarse en el espejo mientras recibe",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
     {
       "tematica": "Humillación",
       "actividad": "Insultos verbales",
@@ -1030,7 +2218,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Humillación",
@@ -1039,16 +2238,38 @@
       "imagen": " ",
       "descripcion": "En la cara",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "Humillación",
       "actividad": "Masturbación Forzada",
       "emoji": "",
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Humillación",
@@ -1057,7 +2278,18 @@
       "imagen": " ",
       "descripcion": "Llevar vibrador debajo de la ropa, generalmente controlado a control remoto por Dom. Puede ser vaginal o anal",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "Humillación",
@@ -1066,25 +2298,41 @@
       "imagen": " ",
       "descripcion": "Llevar un plug anal a actividades al aire libre y lugares públicos.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
-
-
-
-
-
     {
       "tematica": "💥 Impacto",
       "actividad": "Marcas visibles",
       "emoji": "🩹",
-      "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
+      "imagen": "https://upload.wikimedia.org/wikipedia/commons/8/88/Love_bite.jpg",
       "descripcion": "Moretones en las piernas, rasguños, chupones en el cuello, etc",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1093,7 +2341,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "En zonas cubiertas normalmente por ropa.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1102,7 +2364,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1111,7 +2387,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1120,7 +2410,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej: Spanking, nalgadas, chirlos, en las piernas, muslos",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo, https://www.redgifs.com/watch/shadyfatherlybronco"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo, https://www.redgifs.com/watch/shadyfatherlybronco"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1129,7 +2433,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "Golpe de palma abierta en la cara",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1138,7 +2456,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "Golpe de palma en los pechos",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1147,7 +2479,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "Golpes a puño cerrado en el pecho o los senos",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1156,7 +2502,21 @@
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "Golpes a puño cerrado en la espalda.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1165,52 +2525,136 @@
       "imagen": "https://pictocum.com/m/bdsm-whipping-ass-307368",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "Látigo - Nalgas",
       "emoji": "💥🏓",
       "imagen": "https://s2.pictoa.com/media/galleries/276/114/2761145fdff1d2c4fb6/37576655fdff1d9be6d6.gif",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "Látigo - Pechos",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "Látigo - Genitales",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "Raqueta",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "Látigo - Fuerte",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "Especificar en dónde",
       "ejemplo_notas": "Ej: En la espalda / no más de 10 azotes",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💥 Impacto",
@@ -1219,33 +2663,68 @@
       "imagen": "https://gifcandy.net/get-damn-here/",
       "descripcion": "Puede derivar en luchas y se conecta con el fetiche de Resistencia",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
-    },
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💥 Impacto",
       "actividad": "",
       "emoji": "💥🏓",
       "imagen": "https://res.cloudinary.com/i8s/image/upload/v1740576517/content/pc/blog/tbrxsxu6sabw8vrrw7qt.jpg",
       "descripcion": "tooltip",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"]
+      "urls_ejemplo": [
+        "https://kinkyvibe.ar/material/donde-y-como-golpear-un-cuerpo"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
-    
-
-
     {
       "tematica": "🎭​Juego de Roles",
       "actividad": "Pet Play (Mascota)",
@@ -1253,7 +2732,21 @@
       "imagen": "https://asubmissivesinitiative.wordpress.com/wp-content/uploads/2013/06/tumblr_mcgqoz0bma1r8pgcgo1_500.jpg",
       "descripcion": "Jugar a ser un perritx, gatitx, etc. Puede incluir sonidos.",
       "ejemplo_notas": "Ej: Me da vergüenza ladrar o maullar / Me gusta que me saquen a pasear con correa",
-      "urls_ejemplo": ["https://imagex1.sx.cdn.live/images/pinporn/2016/09/04/16490776.jpg?width=300"]
+      "urls_ejemplo": [
+        "https://imagex1.sx.cdn.live/images/pinporn/2016/09/04/16490776.jpg?width=300"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "🎭​Juego de Roles",
@@ -1262,16 +2755,46 @@
       "imagen": " ",
       "descripcion": "Dom ayuda al sub a mejorar en una actividad sexual con premios y castigos.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.pornhub.com/view_video.php?viewkey=ph62e3cdc537a45", "https://es.pornhub.com/view_video.php?viewkey=ph628b71b8ea8b1", "https://www.redgifs.com/watch/antiqueroughfrigatebird"]
-    },
+      "urls_ejemplo": [
+        "https://es.pornhub.com/view_video.php?viewkey=ph62e3cdc537a45",
+        "https://es.pornhub.com/view_video.php?viewkey=ph628b71b8ea8b1",
+        "https://www.redgifs.com/watch/antiqueroughfrigatebird"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "🎭​Juego de Roles",
       "actividad": "Cambio de roles (Switch)",
       "emoji": "🔃",
       "imagen": " ",
       "descripcion": "Intercambiar la dinámica de poder como parte de la escena",
       "ejemplo_notas": "Ej: Quiero hacer de un preso que se escapa y se coje al policía",
-      "urls_ejemplo": [""]
+      "urls_ejemplo": [
+        ""
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "🎭​Juego de Roles",
@@ -1280,7 +2803,21 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: Me gustaría que sea con uniformes, empezar vestidx y que nos saquemos de a poco la ropa.",
-      "urls_ejemplo": [""]
+      "urls_ejemplo": [
+        ""
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "🎭​Juego de Roles",
@@ -1289,7 +2826,21 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": [""]
+      "urls_ejemplo": [
+        ""
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "🎭​Juego de Roles",
@@ -1298,7 +2849,21 @@
       "imagen": " ",
       "descripcion": "Sub cometió un crimen y debe soportar la condena",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": [""]
+      "urls_ejemplo": [
+        ""
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "🎭​Juego de Roles",
@@ -1307,11 +2872,22 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej: ",
-      "urls_ejemplo": [""]
+      "urls_ejemplo": [
+        ""
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
     {
       "tematica": "💧 Fluidos",
       "actividad": "Sabor de tus propios fluidos genitales",
@@ -1319,7 +2895,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1328,7 +2915,18 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1337,7 +2935,21 @@
       "imagen": " ",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://gayfetishgoth.com/images/resources/sperm_nutritional_facts.jpg"]
+      "urls_ejemplo": [
+        "https://gayfetishgoth.com/images/resources/sperm_nutritional_facts.jpg"
+      ],
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1346,7 +2958,18 @@
       "imagen": " ",
       "descripcion": "Escupir el semen en la boca a otros lugares, como el pene, senos o cara de otrx persona.",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1355,7 +2978,18 @@
       "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuF9IroN0UDEmq2BfWtDTGBCeQesoNxFIxGA&s",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1364,7 +2998,18 @@
       "imagen": "https://pbs.twimg.com/media/DPwfMIIX0AUFXjy.jpg",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1373,25 +3018,58 @@
       "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2017/11/21/18687327.gif?width=460",
       "descripcion": "Snowballing / Cum Kiss / Cum Swapping",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💧 Fluidos",
       "actividad": "Lluvia Blanca",
       "emoji": "🌧️​",
       "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2017/11/21/18687327.gif?width=460",
       "descripcion": "",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💧 Fluidos",
       "actividad": "Lluvia Dorada",
       "emoji": "🌧️​",
       "imagen": "https://imagex1.sx.cdn.live/images/pinporn/2017/11/21/18687327.gif?width=460",
       "descripcion": "",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "💧 Fluidos",
@@ -1400,21 +3078,39 @@
       "imagen": " ",
       "descripcion": "Oral al ano, no confundir con Skat",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "💧 Fluidos",
       "actividad": "Skat",
       "emoji": "💩",
       "imagen": " ",
       "descripcion": "Juegos con caca",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
-
-
-
-
     {
       "tematica": "⚠️​Extremas",
       "actividad": "Asfixia",
@@ -1422,16 +3118,38 @@
       "imagen": "",
       "descripcion": ",,,",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
-    },
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
         {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
+    },
+    {
       "tematica": "⚠️​Extremas",
       "actividad": "Knife Play (Cuchillos)",
       "emoji": "🔞",
       "imagen": "",
       "descripcion": ",,,",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "⚠️​Extremas",
@@ -1440,7 +3158,18 @@
       "imagen": "",
       "descripcion": ",,,",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "⚠️​Extremas",
@@ -1449,7 +3178,18 @@
       "imagen": "",
       "descripcion": ",,,",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "warnings": [
+        "0"
+      ],
+      "tags": [
+        ""
+      ],
+      "external_links": [
+        {
+          "texto_visible": "Link",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
+      ]
     },
     {
       "tematica": "⚠️​Extremas",
@@ -1458,7 +3198,9 @@
       "imagen": "",
       "descripcion": ",,,",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "urls_ejemplo": [
+        "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+      ]
     }
   ]
 }

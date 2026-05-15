@@ -314,7 +314,12 @@
       "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRooRubYpXxg2uKlB0lpf7F7rAdNSLxRFdO0Q&s",
       "descripcion": "...",
       "ejemplo_notas": "Ej:",
-      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"]
+      "urls_ejemplo": ["https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"],
+      "external_links": 
+        {
+          "texto-visible": "Kamasutra Online",
+          "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+        }
     },
     {
       "tematica": "Sexo (vainilla)",

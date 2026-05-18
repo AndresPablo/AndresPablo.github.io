@@ -15,9 +15,12 @@ thead th {
     color: var(--bg-color);
 }
 
-.scrollable-table-container {
-    overflow-x: auto; /* Enables horizontal scroll when table is wider than div */
-    max-width: 100%;  /* Ensures container doesn't exceed screen width */
+.contenedor-scroll {
+  width: 100%;       /* Ancho deseado */
+  height: 600px;     /* Altura fija (obligatorio para que funcione) */
+  overflow-y: auto;  /* Muestra el scroll vertical solo si el contenido lo rebasa */
+  border: 1px solid #ccc;
+  padding: 15px;
 }
 
 table{
@@ -29,4 +32,18 @@ table{
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+
+
+
+.terminal-info {
+  border: 1px dashed var(--accent);
+  padding: 2px 4px;
+  margin-bottom: 5px;
+}
+
+.terminal-dotted-container{
+    margin: 20px 0; 
+    padding: 10px;
 }

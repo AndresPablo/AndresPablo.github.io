@@ -4,7 +4,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-		<title>Terminal.css | Semantic styles for the simple web</title>
 		
 		<meta name="description" content="A custom set of semantic styles derived from Terminal Theme for Hugo you always wanted.">
 		<meta name="author" content="Radek Kozieł (@panr)">
@@ -12,10 +11,10 @@
 		<!-- OG data -->
 		<meta property="og:locale" content="en">
 		<meta property="og:type" content="website">
-		<meta property="og:title" content="Terminal.css">
+		<meta property="og:title" content="Mothership Companion">
 		<meta property="og:description" content="A custom set of semantic styles derived from Terminal Theme for Hugo you always wanted.">
 		<meta property="og:url" content="https://panr.github.io/terminal-css/">
-		<meta property="og:site_name" content="Terminal.css">
+		<meta property="og:site_name" content="Mothership Companion">
 		<meta property="og:image" content="https://panr.github.io/terminal-css/og-image.png">
 		<link rel="shortcut icon" href="https://panr.github.io/terminal-css/favicon.png">
 		<title>Mothership Companion</title>
@@ -49,10 +48,149 @@
 			
 		</nav>
 
-		<section class="content">
+		<section id="character-section">
+			<div class="content-fluid">
+				<div class="row">
+
+					<!-- Col #1: Bio-->
+					<div class="col col-md-3">
+						<h2 id="bio-character-form">
+							Clase: Técnico<a href="https://panr.github.io/terminal-css/#forms" class="hanchor" arialabel="Anchor">Regen</a>
+						</h2>
+
+						<fieldset>
+							<label for="">Bio</label>
+							<input type="text" id="character-name" placeholder="Nombre del personaje" value="Ellen Ripley"><br>
+							<input type="number" id="character-age" placeholder="Edad" value="30"><br>
+							<input type="text" placeholder="Título, apodo" value=""><br>
+							<select>
+								<option value="1">Técnico</option>
+								<option value="2">Científico</option>
+								<option value="3">Androide</option>
+								<option value="3">Marine</option>
+								<option value="3">Corpo</option>
+							</select><br>
+							<textarea placeholder="Notas de color sobre la vida de este personaje"></textarea><br>
+							<button type="submit">Regenerar todo</button>
+						</fieldset>
+					</div>
+
+					<!-- Col #2: STATS -->
+					<div class="col-6">
+						<div class="row">
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<h3>ESTADÍSTICAS</h3></div>
+										<p><small>Tira los dados con una para realizar <code>/acciones</code></small></p>
+										<div class="row">
+											<div class="col"><p><abbr title="Fuerza">FUE</abbr></p></div>
+											<div class="col"><p><abbr title="Velocidad">VEL</abbr></p></div>
+											<div class="col"><p><abbr title="Intelecto">INT</abbr></p></div>
+											<div class="col"><p><abbr title="Combate">COM</abbr></p></div>
+										</div>
+										<div class="row">
+											<div class="col"><button>50</button></div>
+											<div class="col"><button>50</button></div>
+											<div class="col"><button>50</button></div>
+											<div class="col"><button>50</button></div>
+										</div>
+									</div>
+							</div>
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<h3>SALVACIONES</h3></div>
+										<p><small>Tira para <code>/salvarte</code> de los horrores espaciales.</small></p>
+										<div class="row">
+											<div class="col"><p><abbr title="Sanidad">CORDURA</abbr></p></div>
+											<div class="col"><p><abbr title="Fear">MIEDO</abbr></p></div>
+											<div class="col"><p><abbr title="Body">CUERPO</abbr></p></div>
+										</div>
+										<div class="row">
+											<div class="col"><button>??</button></div>
+											<div class="col"><button>??</button></div>
+											<div class="col"><button>??</button></div>
+										</div>
+									</div>
+							</div>
+						</div>
+						<br><hr><br>
+						<div class="row">
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<h3>DEFENSA</h3>
+										<div class="row">
+											<div class="col"><p><abbr title="Cuando se agotan, pierde 'una vida' y sufre una herida grave.">Puntos de Vida</abbr></p></div>
+											<div class="col"><p><abbr title="Si el personaje obtiene más heridas graves, muere...">Heridas Máx</abbr></p></div>
+											<div class="col"><p><abbr title="Combate">Armadura</abbr></p></div>
+										</div>
+										<div class="row">
+											<div class="col"><button><span>&hearts;</span> 12</button></div>
+											<div class="col"><button>2</button></div>
+											<div class="col"><button>1 PA / RD-0</button></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<h3>ESTRÉS</h3></div>
+										<div class="row">
+											<div class="col"><p>Estrés Máximo = <kbd>18</kbd> </p></div>
+											<div class="terminal-info terminal-dotted-container"><p>Los personajes de la clase <code>.TÉCNICO</code> pueden volver a tirar un dado de <strong>PÁNICO</strong> una vez por sesión.</p></div>
+										</div>
+										<div class="row">
+											ver que iba acá
+										</div>
+									</div>
+								</div>
+							</div>
+
+						<br><hr><br>
+
+						<div class="row">
+							<h3>Habilidades</h3>
+							<p><strong>Básicas=</strong> Gravedad-Zero, Maquinaria Pesada</p>
+							<p><strong>Avanzadas=</strong> Minería</p>
+							<p><strong>Expertas=</strong> Xeno-biología</p>
+						</div>
+					</div>
+
+					<!-- Col #3: Inventario-->
+					<div class="col col-md-3 ">
+						<h2>Inventario</h2>
+						<div class="terminal-info terminal-dotted-container" id="character-loadout">
+							<h3>Kit de Especialización</h3>
+							<ul>
+								<li>Item</li>
+								<li>Item</li>
+								<li>Item</li>
+								<li>Item</li>
+								<li>Item</li>
+								<li>Item</li>
+							</ul>
+						</div>
+						<h3>Otros objetos</h3>
+						<div class="terminal-info terminal-dotted-container">
+							<ul>
+								<li>Parche "GAME OVER"</li>
+								<li>Amuleto de la suerte</li>
+								<li><code>/tablet_PDA</code></li>
+							</ul>
+						</div>
+						<button>Regenerar</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="items-section" class="content d-none">
 			<div class="tab-panel fade show active" id="inventory" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
-                    <div class="col col-3 left-col ">
+                    <div class="col col-2-lg col-3-md left-col ">
                         <h1>Catálogo</h1>
                         <label for="site-search">Buscar:</label><input type="search" id="site-search" name="q" /><button>Search</button>
                         <br><br><hr><br><br>
@@ -73,62 +211,92 @@
                             <li>Servicios</li>
                         </ul>
                     </div>
-                    <div class="col col-6 mid-col">
-                        <h3 id="titulo-lista-inventario">Objetos</h3>
-                        <table>
-                            <thead id="items-table">
-								<th>Ico</th>
-								<th>Nombre</th>
-								<th>Daño</th>
-								<th>Alcance</th>
-								<th>Capacidad</th>
-								<th>Especial</th>
-								<th>Precio</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-									<td></td>
-                                    <td>Nombre</td>
-                                    <td>1d10</td>
-                                    <td>Largo</td>
-                                    <td>2</td>
-                                    <td>...</td>
-                                    <td>250 cr</td>
-                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-								<tr><td></td><td>Nombre</td><td>1d10</td><td>Largo</td><td>2</td><td>...</td><td>250 cr</td>                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col col-6-md col-8-lg mid-col">
+						<h2>Listas</h2>
+						<div class="contenedor-scroll" id="tables-container">
+							
+							<div id="weapons-list">
+									<h3 id="titulo-lista-inventario">Armas</h3>
+									<table>
+										<thead id="items-table">
+											<th>Ico</th>
+											<th>Nombre</th>
+											<th>Daño</th>
+											<th>Alcance</th>
+											<th>Capacidad</th>
+											<th>Especial</th>
+											<th>Precio</th>
+										</thead>
+										<tbody>
+											<tr>
+												<td></td>
+												<td>Nombre</td>
+												<td>1d10</td>
+												<td>Largo</td>
+												<td>2</td>
+												<td>...</td>
+												<td>250 cr</td>
+											</tr>
+											</tbody>
+									</table>
+							</div>
+							<div id="armor-list">
+									<h3 id="titulo-lista-inventario">Armaduras</h3>
+									<p><small>* todas las armaduras se destruyen al recibir daño mayor a su PA</small></p>
+									<table>
+										<thead id="items-table">
+											<th>Ico</th>
+											<th>Nombre</th>
+											<th>Puntos de Armadura (PA)</th>
+											<th>Red. de Daño (RD)</th>
+											<th>Especial</th>
+											<th>Precio</th>
+										</thead>
+										<tbody>
+											<tr>
+												<td></td>
+												<td>Nombre</td>
+												<td>2 PA</td>
+												<td>-1 DR</td>
+												<td>...</td>
+												<td>250 cr</td>
+											</tr>
+											<tr><td></td><td>Nombre</td><td>3</td><td>-</td><td>...</td><td>250 cr</td>                                </tr>
+											</tbody>
+									</table>
+							</div>
+							<div id="cyberware-list">
+									<h3 id="titulo-lista-inventario">Ciberware</h3>
+									<table>
+										<thead id="items-table">
+											<th>Ico</th>
+											<th>Nombre</th>
+											<th>Slots</th>
+											<th>Descripción</th>
+											<th>Requerimiento</th>
+											<th>Precio</th>
+										</thead>
+										<tbody>
+											<tr>
+												<td></td>
+												<td>Nombre</td>
+												<td>1</td>
+												<td>...descripcion</td>
+												<td>---requerimiento</td>
+												<td>250 cr</td>
+											</tr>
+											</tbody>
+									</table>
+							</div>
+						</div>
+
+
                     </div>
-                    <div class="col col-3 right-col">
+                    <div class="col col-3-md right-col">
                         <h3 id="titulo-objeto">Nombre</h3>
-                        <div><img src="" alt=""></div>
+                        <div style="width: 256px; height: 256px; background-color: rgba(255, 255, 255, 0.055);">
+							<img  src="../ico/atom.svg" alt="">
+						</div>
                         <p>El objeto default de esta tabla. Se usa sólo en fase de prueba.</p>
                         <hr>
                         <table>
@@ -159,6 +327,7 @@
 
 	<footer style="border-top: 2px solid var(--accent); margin-top: 40px; padding-top: 20px;">
 		Made by <a href="https://radoslawkoziel.pl/" target="_blank">panr</a>. Derived from <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Terminal</a> theme. Source code on <a href="https://github.com/panr/terminal-css/" target="_blank">Github</a>.
+		<a href="https://cdn.shopify.com/s/files/1/0022/2727/3817/files/Mothership_Warden_s_Screen.pdf?v=1718223085">WARDEN SCREEN</a>
 	</footer>
 
 	<script defer="" type="module" src="./Terminal.css _ Semantic styles for the simple web_files/script.js.descarga"></script>

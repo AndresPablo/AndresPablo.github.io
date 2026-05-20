@@ -7,6 +7,8 @@ let tooltipTriggerList = [];
 const contenedor = document.getElementById("tablasContainer");
 const DEFAULT_IMG = "assets/default.png";
 
+
+
 function getIconoInteres(interes) {
     switch(interes) {
         case "Odio": return '<i class="fas fa-ban"></i>';
@@ -32,39 +34,88 @@ function getClaseInteres(interes) {
 function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
 
 
+function getContainerId(categoriaId) {
+    return `categoria-${categoriaId}`;
+}
 
+function getCategoriaById(categoriaId) {
+    return categorias.find(cat => cat.id === categoriaId);
+}
+
+function getNombreVisible(categoriaId) {
+    const cat = getCategoriaById(categoriaId);
+    return cat ? cat.display_name : categoriaId;
+}
+
+
+
+function reasignarIds() {
+    if (!items || !Array.isArray(items)) {
+        items = [];
+        return;
+    }
+    items.forEach((item, idx) => { 
+        item.id = idx + 1; 
+    });
+}
 
 function renderizarTablas() {
-    let html = '';
-    for (let cat of categorias) {
-        const itemsFiltrados = items.filter(item => item.tematica === cat);
-        if (itemsFiltrados.length === 0) continue;
-        html+= `h2>${cat.display-name}</h2>`;
-        html += `<div id="tabla${tem.replace(/ /g, '')}" class="section-title"><h3> ${tem}</h3></div><div class="table"><table class="table table-hover table-bordered align-middle "><thead class="table-dark"><tr class="table-dark sticky-md-top"><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></thead><tbody>`;
+    // Iterar sobre todas las categorías
+    for (const cat of categorias) {
+        const containerId = getContainerId(cat.id);
+        
+        const container = document.getElementById(containerId);
+        
+        if (!container) continue;
+        const itemsFiltrados = items.filter(item => item.categoria === cat.id);
+        
+        
+
+        if (itemsFiltrados.length === 0) {
+            container.innerHTML = '<div><div class="alert alert-secondary">No hay actividades en esta categoría</div></div>';
+            continue;
+        }
+        
+        let html = `
+            <div class="section-title">
+                <h3><i class=""></i> ${cat.display_name}</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></tr>
+                    </thead>
+                    <tbody>
+        `;
+        
         itemsFiltrados.forEach((item) => {
             const globalIndex = items.findIndex(i => i.id === item.id);
             const claseFila = getClaseInteres(item.interes);
             const iconoInteres = getIconoInteres(item.interes);
-            html += `<tr class="${claseFila}" data-global-index="${globalIndex}">
-                        <td>${item.emoji || ''}</td>
-                        <td><span class="actividad-tooltip" data-bs-toggle="tooltip" title="${escapeHtml(item.descripcion || '')}">${escapeHtml(item.actividad)}</span></td>
-                        <td>${item.experiencia || ''}</td>
-                        <td>${iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span>` : ''}${item.interes || ''}</td>
-                        <td>${item.rol || ''}</td>
-                        <td>${item.notas || ''}</td>
-                        <td><button class="btn-editar-fila" data-index="${globalIndex}"><i class="fas fa-edit"></i></button></td>
-                      </tr>`;
+            
+            html += `
+                <tr class="${claseFila}">
+                    <td>${item.emoji || ''}</td>
+                    <td><span class="actividad-tooltip" data-bs-toggle="tooltip" title="${escapeHtml(item.descripcion || '')}">${escapeHtml(item.actividad)}</span></td>
+                    <td>${item.experiencia || ''}</td>
+                    <td>${iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span>` : ''}${item.interes || ''}</td>
+                    <td>${item.rol || ''}</td>
+                    <td>${item.notas || ''}</td>
+                    <td><button class="btn-editar-fila" data-index="${globalIndex}"><i class="fas fa-edit"></i></button></td>
+                </tr>
+            `;
         });
-        html += `<tr class="custom-table-head-divider"> <th scope="rowgroup">DIVIDER</td><td><td><td><td><td><td> </tr>`;
-        html += `<tr class="table-light"> <td>DIVIDER</td> </tr>`;
-        html += `<caption class="caption-bottom"> ${tem}</caption>`;
-        html += `</tbody></table></div>`;
+        
+        html += `</tbody></tr></div>`;
+        container.innerHTML = html;
     }
-    contenedor.innerHTML = html;
+    
+    // Tooltips y botones editar...
     if (window.bootstrap && bootstrap.Tooltip) {
-        tooltipTriggerList = [].slice.call(document.querySelectorAll('.actividad-tooltip'));
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('.actividad-tooltip'));
         tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
     }
+    
     document.querySelectorAll('.btn-editar-fila').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const idx = parseInt(btn.getAttribute('data-index'));
@@ -75,52 +126,59 @@ function renderizarTablas() {
             }
         });
     });
+    
     generarDropdownCategorias();
 }
-
 
 function generarDropdownCategorias() {
     const dropdownMenu = document.getElementById('tematicasDropdown');
     if (!dropdownMenu) return;
     dropdownMenu.innerHTML = '';
-    /*tematicasOrden.forEach(tem => {
+    
+    for (const cat of categorias) {
+        const containerId = getContainerId(cat.id);
+        const container = document.getElementById(containerId);
+        if (!container) continue;
+        
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.className = 'dropdown-item';
-        a.href = `#tabla${tem.replace(/ /g, '')}`;
-        a.textContent = tem;
+        a.href = `#${containerId}`;
+        a.textContent = cat.display_name;
         a.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = a.getAttribute('href').substring(1);
-            const target = document.getElementById(targetId);
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            container.scrollIntoView({ behavior: 'smooth' });
         });
         li.appendChild(a);
         dropdownMenu.appendChild(li);
-    });*/
+    }
 }
 
-function guardarEnLocalStorage() {
-    localStorage.setItem('eventoActividades', JSON.stringify(items));
-}
 
 async function cargarDatosIniciales() {
     const stored = localStorage.getItem('eventoActividades');
     if (stored) {
-        const data = JSON.parse(stored);
-        items = data.items;
-        categorias = data.categorias;
+        try {
+            const data = JSON.parse(stored);
+            items = data.items || [];
+            categorias = data.categorias || [];
+        } catch(e) {
+            items = [];
+            categorias = [];
+        }
     } else {
         try {
             const response = await fetch('data.json');
             const data = await response.json();
-            items = data.items;
-            categorias = data.categorias;
+            
+            // Asegurar que existan las propiedades
+            items = data.items || [];
+            categorias = data.categorias || [];
             
             // Guardar en localStorage
             guardarEnLocalStorage();
         } catch(e) {
-            console.warn('No se pudo cargar data.json');
+            console.warn('No se pudo cargar data.json', e);
             items = [];
             categorias = [];
         }
@@ -130,8 +188,43 @@ async function cargarDatosIniciales() {
     renderizarTablas();
 }
 
+// Función auxiliar para convertir el formato anidado al plano
+function transformarDesdeFormatoAnidado(data) {
+    categorias = [];
+    items = [];
+    
+    for (const grupo of data.categorias) {
+        // Crear objeto categoría
+        const categoriaObj = {
+            id: grupo.id,
+            nombre_visible: grupo.nombre_visible
+        };
+        categorias.push(categoriaObj);
+        
+        // Agregar cada item del grupo, asignándole la categoría (usando el id string)
+        if (grupo.items && Array.isArray(grupo.items)) {
+            for (const item of grupo.items) {
+                items.push({
+                    ...item,
+                    categoria: grupo.id,        // el identificador corto (ej: "soccer")
+                    categoria_nombre: grupo.nombre_visible, // opcional para mostrar
+                    id: null // se reasignará después
+                });
+            }
+        }
+    }
+}
+
 function guardarEnLocalStorage() {
-    const dataToStore = { items, categorias };
+    localStorage.setItem('eventoActividades', JSON.stringify(items));
+}
+
+
+function guardarEnLocalStorage() {
+    const dataToStore = { 
+        items: items || [], 
+        categorias: categorias || [] 
+    };
     localStorage.setItem('eventoActividades', JSON.stringify(dataToStore));
 }
 
@@ -148,58 +241,13 @@ function getItemsPorCategoria(categoriaId) {
     return items.filter(item => item.categoria_id === categoriaId);
 }
 
-/*
-async function cargarDatosIniciales() {
-    const stored = localStorage.getItem('eventoActividades');
-    if (stored) {
-        items = JSON.parse(stored);
-        // Si los items están en localStorage, recalculamos tematicasOrden desde items
-        tematicasOrden = obtenerTematicas(items, 'aparicion');
-    } else {
-        try {
-            const response = await fetch('data.json');
-            const data = await response.json();
-            items = data.items;
-            // TODO: revisar
-            items = data.items.map(item => ({
-                ...item,
-                id: 0, // temporal, luego reasignamos
-                experiencia: "",
-                interes: "",
-                rol: "",
-                notas: ""
-            }));
-            // Si el JSON tiene un array explícito 'tematicasOrden', úsalo
-            if (data.tematicasOrden && Array.isArray(data.tematicasOrden)) {
-                tematicasOrden = data.tematicasOrden;
-            } else {
-                tematicasOrden = obtenerTematicas(items, 'aparicion');
-            }
-        } catch(e) {
-            console.warn('No se pudo cargar data.json, usando datos por defecto');
-            items = [];
-            tematicasOrden = obtenerTematicas(items, 'aparicion');
-        }
-    }
-    reasignarIds();
-    renderizarTablas();
-}*/
-
-function obtenerTematicas(items, orden = 'aparicion') {
-    const tematicas = [...new Map(items.map(item => [item.tematica, item.tematica])).values()];
-    if (orden === 'alfabetico') {
-          // si es 'aparicion' se mantiene el orden en que aparecen por primera vez, puede ser ´alfabetico´
-        tematicas.sort((a,b) => a.localeCompare(b));
-    }
-    return tematicas;
-}
 
 function reasignarIds() { items.forEach((item, idx) => { item.id = idx + 1; }); }
 
 function normalizarItem(item) {
     return {
         id: item.id || 0,
-        tematica: item.display-name,
+        tematica: item.display_name,
         actividad: item.actividad,
         emoji: item.emoji || '',
         imagen: item.imagen || '',
@@ -227,8 +275,11 @@ function actualizarBotonesInteres(interesValor) {
 function cargarItemEnModal(index) {
     const item = items[index];
     if (!item) return;
+    
+    const nombreCategoria = getNombreVisible(item.categoria);
+
     document.getElementById('modalTitulo').innerText = `${item.actividad}`;
-    document.getElementById('modalSubtitulo').innerText =  `${item.tematica}`;
+    document.getElementById('modalSubtitulo').innerText =  `${nombreCategoria}`;
     document.getElementById('modalDescripcion').innerText = `${item.descripcion}`;
     const imgElement = document.getElementById('modalImagen');
     if (item.imagen && item.imagen.trim() !== '') {

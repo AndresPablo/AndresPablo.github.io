@@ -13,14 +13,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/bootstrap-table.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/bootstrap-table.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/locale/bootstrap-table-zh-CN.js"></script>
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="css/custom.css">
+    <!-- Vapor theme for Bootstrap 5 -->
+    <link rel="stylesheet" href="css/themes/Vapor/bootstrap.css">
     <!-- JS to XLSX (Excel) -->
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <!-- JS to PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- HTML Canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
 
@@ -53,164 +55,336 @@
 </nav>
 
 <!-- DATOS DEL USUARIO -->
-<div class="container mt-4">
-    <div class="user-info-card">
-        <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
-        <h5><i class="fas fa-user-circle"></i> Información personal</h5>
-        <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <label class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombreUsuario" placeholder="Ej: Ana">
-                <small class="text-muted">Tu nombre o cómo te gusta que te llamen.</small>
-            </div>
-            <div class="col-md-1">
-                <label class="form-label">Edad</label>
-                <input type="number" class="form-control" id="edadUsuario" min="0" value="18" placeholder="Ej: 28">
-                <small class="text-muted">Años</small>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label">Pronombres</label>
-                <input type="text" class="form-control" id="pronombresUsuario" placeholder="Ej: ella/él/elle">
-                <small class="text-muted">Separados por barras.</small>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Apodo</label>
-                <input type="text" class="form-control" id="apodoUsuario" placeholder="Ej: Ani">
-                <small class="text-muted">Nombre corto o alias.</small>
-            </div>
-        </div>
+<div class="container-fluid mt-4">
 
-        <!-- Campo adicional: Cuidado posterior (multilínea) -->
-        <div class="row mb-3">
-            <div class="col-12">
-                <label class="form-label">❤️‍🩹Cuidado posterior</label>
-                <textarea class="form-control" id="cuidadoPosterior" rows="2" placeholder="Indica si necesitas algún cuidado especial después de la actividad"></textarea>
-                <small class="text-muted">Ej: Mimos, silencio, chocolates, pasear, etc</small>
-            </div>
-        </div>
+    <div class="container">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <section id="user-info">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsePersonalInfo" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <h5><i class="fas fa-user"></i> 1 - Información personal</h5>
+                    </button>
+                    </h2>
+                    <div id="flush-collapsePersonalInfo" class="accordion-collapse show" data-bs-parent="#accordionFlushExample">
+                        <!-- SECCIÓN 1: INFORMACIÓN PERSONAL -->
+                        <div class="container">
+                            <br>
+                            <div class="card border-primary mb-3">
+                                <div class="card-header d-none">Datos</div>
+                                <div class="card-body">
+                                    <div>
+                                        <form action="">
+                                            <fieldset>
+                                                <div>
+                                                    <label for="nombreUsuario" class="form-label mt-4">Tu nombre</label>
+                                                    <input type="nombre" class="form-control" id="nombreUsuario" aria-describedby="nameHelp" placeholder="Nombre">
+                                                    <small id="nameHelp" class="form-text text-muted">Puede ser un honofrífico, como perritx, esclavx, etc</small>
+                                                </div>
+                                                <div>
+                                                    <label for="edadUsuario" class="form-label mt-4">Edad</label>
+                                                    <input type="email" class="form-control" id="edadUsuario" aria-describedby="emailHelp" placeholder="18">
+                                                    <small id="emailHelp" class="form-text text-muted">Sólo +18</small>
+                                                </div>
+                                                <div>
+                                                    <label for="pronombresUsuario" class="form-label mt-4">Pronombres</label>
+                                                    <input type="email" class="form-control" id="pronombresUsuario" aria-describedby="emailHelp" placeholder="Él/ella/elle">
+                                                    <small id="emailHelp" class="form-text text-muted">Separados por /.</small>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                        
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseIntimate" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <h5><i class="fas fa-heart"></i> 2 - Datos Íntimos</h5>
+                    </button>
+                    </h2>
+                    <div id="flush-collapseIntimate" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="col">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="card border-primary" style="min-height: 280px;">
+                                            <div class="card-header"><h5>Sumisión-Dominación</h5></div>
+                                            <div class="card-body">
+                                                <label class="form-label">En la escala de sumisión-dominación, ¿Dónde te ubicas?</label>
+                                                <div class="custom-slider-wrapper">
+                                                    <div class="custom-slider-container">
+                                                        <input type="range" id="energiaSlider" class="custom-range" min="0" max="10" step="1" value="5">
+                                                        <div class="slider-labels">
+                                                            <span>😇 0: sub</span>
+                                                            <span>10: dom 😈</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="slider-value-badge">
+                                                        <span id="energiaValor" class="badge bg-secondary">5</span>
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">texto pequeño</small>
+                                                <br>
+                                                <hr>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="domCheckUnsure">
+                                                    <label class="form-check-label" for="domCheckUnsure">
+                                                        No lo sé, me gustaría descubrirlo.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card border-primary" style="min-height: 280px;">
+                                            <div class="card-header"><h5>Tolerancia al Dolor</h5></div>
+                                            <div class="card-body">
+                                                <label class="form-label">¿Qué tan sensible sos al dolor?</label>
+                                                <div class="custom-slider-wrapper">
+                                                    <div class="custom-slider-container">
+                                                        <input type="range" id="dolorSlider" class="custom-range" min="0" max="10" step="1" value="5">
+                                                        <div class="slider-labels">
+                                                            <span>muy sensible</span>
+                                                            <span>me cuesta sentir dolor</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="slider-value-badge">
+                                                        <span id="dolorValor" class="badge bg-secondary">5</span>
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">texto pequeño</small>
+                                                <br><hr>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="painCheckUnsure">
+                                                    <label class="form-check-label" for="painCheckUnsure">
+                                                        No lo sé, me gustaría descubrirlo.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card border-danger mb-3">
+                                            <div class="card-header">
+                                                <h5>Cuidado posterior <span class="badge text-bg-secondary ">Aftercare</span> </h5>  
+                                            </div>
+                                            <div class="card-body">   
+                                                <label class="form-label" for="cuidadoPosterior">❤️‍🩹Cuidado posterior</label>
+                                                <textarea class="form-control" id="cuidadoPosterior" rows="2" placeholder="Indica cuáles cuidados especiales necesitas después de una escena."></textarea>
+                                                <small class="text-muted">Ej: Mimos, silencio, chocolates, pasear, etc</small>                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <!-- Slider de 10 pasos (0-10) -->
-        <div class="row mb-3">
-            <br>
-            <div class="col-12">
-                <h6>Escala de dominación</h4>
-            </div>
-            <div class="col-12">
-                <label class="form-label">En la escala de sumisión-dominación, ¿Dónde te ubicas?</label>
-                <div class="custom-slider-wrapper">
-                    <div class="custom-slider-container">
-                        <input type="range" id="energiaSlider" class="custom-range" min="0" max="10" step="1" value="5">
-                        <div class="slider-labels">
-                            <span>😇 0</span>
-                            <span>10 😈</span>
                         </div>
                     </div>
-                    <div class="slider-value-badge">
-                        <span id="energiaValor" class="badge bg-secondary">5</span>
+                </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSafety" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <h5><i class="fas fa-shield"></i> 3 - Seguridad</h5>
+                    </button>
+                    </h2>
+                    <div id="flush-collapseSafety" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <!-- SECCIÓN 2: SEGURIDAD Y PREFERENCIAS -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card border-warning mb-3">
+                                        <div class="card-header"><h5>Palabra Segura <span class="badge text-bg-danger">Safeword</span></h5></div>
+                                        <div class="card-body">
+                                            <label class="form-label">¿Cuál es tu <span class="badge text-bg-danger">Safeword</span>?</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">🛑</span>
+                                                <input type="text" class="form-control" id="palabraClaveUsuario" placeholder="Ej: 'CACAO, PIEDAD, ROJO'">
+                                            </div>
+                                            <small class="text-muted">La escena se detiene cuando se menciona la palabra de seguridad.</small>
+                                            <br>
+                                            <br>
+                                            <p>En el mundo BDSM, una palabra de seguridad o palabra segura, hace referencia a una palabra o serie de palabras clave u otra señal utilizada por una persona para comunicar su estado físico o emocional, generalmente cuando se acerca o cruza un límite físico, emocional o moral. Algunas palabras de seguridad se utilizan para detener la escena por completo, mientras que otras pueden comunicar la voluntad de continuar, pero a un nivel reducido de intensidad.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card border-warning mb-3">
+                                        <div class="card-header"><h5>Semáforo</h5>  </div>
+                                        <div class="card-body">
+                                            <p>El sistema del <span class="badge text-bg-warning">semáforo</span> es una alternativa muy utilizada, especializada en comunicar estados de confort y seguridad durante las actividades.</p>
+                                            <div class="semaforo-info p-2 bg-dark rounded">
+                                                <p class="text-muted d-block"><strong>Colores del Semáforo:</strong></p>
+                                                <p class="d-block"> <span style="color:#dc3545;">🔴 Rojo</span> – Detenemos todo y vemos si continuamos.</p>
+                                                <p class="d-block"> <span style="color:#ffc107;">🟡 Amarillo</span> – Llamado de atención, un cambio de intensidad. </p>
+                                                <p class="d-block"> <span style="color:#198754;">🟢 Verde</span> – Todo OK, seguir así.</p>
+                                                <p class="d-block"> <span style="color:#d63384;"><i class="fas fa-heart"></i>     Rosa*</span> – Cerca de acabar.</p>
+                                            </div>                 
+                                            <small>* Opcional, se usa en juegos de orgasmo. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-danger mb-3">
+                                    <div class="card-header">
+                                        <h5>Médicas</h5>  
+                                    </div>
+                                    <div class="card-body">   
+                                        <label class="form-label" for="enfermedadesUsuario">Enfermedades y Condiciones Médicas</label>
+                                        <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, dolores de articulación, medicamentos, etc."></textarea>
+                                        <small class="text-muted">Obligatorio.</small>                             
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <small class="text-muted">texto pequeño</small>
-            </div>
-        </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDisclaimer" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <h5><i class="fas fa-file-signature"></i> 4 - Legales</h5>
+                    </button>
+                    </h2>
+                    <div id="flush-collapseDisclaimer" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            
+                            <div class="container row">
+                                <div class="col">
+                                    <div class="card card-primary border-danger">
+                                        <div class="card-header">
+                                            <h4>Obligatorio</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="col-12 disclaimer-text">
+                                                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios, todos pueden saltarse.
+                                                <div class="form-check mt-2"><input class="form-check-input" type="checkbox" id="checkDisclaimer1"><label class="form-check-label" for="checkDisclaimer1">Acepto que todas las personas involucradas son voluntarias y mayores de edad.</label>
+                                                </div>
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkDisclaimer2"><label class="form-check-label" for="checkDisclaimer2">Entiendo que las personas pueden detener la escena cuando quieran, incluso con las actividades aprobadas en este formulario. <strong>EL CONSENTIMIENTO ES REVOCABLE EN CUALQUIER MOMENTO.</strong></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col">
 
-        <!-- SECCIÓN 2: SEGURIDAD Y PREFERENCIAS -->
-        <h5><i class="fas fa-shield-alt"></i> Seguridad</h5>
-        <div class="row g-3">
-            <div class="col-12">
-                <label class="form-label">😷 Enfermedades / condiciones</label>
-                <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, dolores de articulación, medicamentos, etc."></textarea>
-                <small class="text-muted">Obligatorio.</small>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Palabra de Seguridad <span class="badge text-bg-danger">Safeword</span></label>
-                <div class="input-group">
-                    <span class="input-group-text">🛑</span>
-                    
-                    <input type="text" class="form-control" id="palabraClaveUsuario" placeholder="Ej: 'CACAO, PIEDAD, ROJO'">
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
                 </div>
-                <small class="text-muted">La escena se detiene cuando se menciona la palabra de seguridad.</small>
-            </div>
-            <div class="col-12">
-                <p>El sistema del <span class="badge text-bg-warning">semáforo</span> es una alternativa muy utilizada, especializada en comunicar estados de confort y seguridad durante las actividades.</p>
-                <div class="semaforo-info p-2 bg-light rounded">
-                    <small class="text-muted d-block"><strong>📊 Semáforo de Seguridad (semáforo):</strong></small>
-                    <small class="d-block"><span style="color:#dc3545;">🔴 Rojo</span> – Detenemos todo y vemos si continuamos.</small>
-                    <small class="d-block"><span style="color:#ffc107;">🟡 Amarillo</span> – Llamado de atención o un cambio de intensidad.</small>
-                    <small class="d-block"><span style="color:#198754;">🟢 Verde</span> – Todo OK, seguir así</small>
-                    <small class="d-block"><span style="color:#d63384;"><i class="fas fa-heart"></i>  Rosa</span> – Clímax inminente</small>
+            </section>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseActivities" aria-expanded="false" aria-controls="flush-collapseThree">
+                    <h5><i class="fas fa-list"></i> 5 - Lista de Actividades</h5>
+                </button>
+                </h2>
+                <div id="flush-collapseActivities" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <section id="actividades">
+                            <div class="container" id="categoria-vanilla">
+                                
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h4 class="card-title section-title">Título 1</h4>
+                                        <p class="card-cateogry">Subtítulo</p>
+                                    </div>
+                                    <div class="card-body" > 
+                                        <div id="table-container"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="container" id="categoria-intimidad">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container"> </div>
+                            </div>
+                            <div class="container" id="categoria-bondage">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-dolor">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-juguetes">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-grupal">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+
+                            </div>
+                            <div class="container" id="categoria-roleplay">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-ropa">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-estimulacion">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                                    <div class="container" id="categoria-humillacion">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+
+                            </div>
+                            <div class="container" id="categoria-voyeur">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-taboo">
+                                <h3 class="section-title">Título 1</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 disclaimer-text">
-                <i class="fas fa-info-circle"></i> <strong>Disclaimers:</strong> Los datos recopilados son anónimos. No hay campos obligatorios, todos pueden saltarse.
-                <div class="form-check mt-2"><input class="form-check-input" type="checkbox" id="checkDisclaimer1"><label class="form-check-label" for="checkDisclaimer1">Acepto que las respuestas son voluntarias</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="checkDisclaimer2"><label class="form-check-label" for="checkDisclaimer2">Ambas partes pueden detener la escena cuando quieran, incluso con las actividades consentidas. El consentimiento es revocable en todo momento.</label></div>
             </div>
         </div>
     </div>
 
 
-    <!-- SECCIÓN 3: TABLA DE ACTIVIDADES -->
-    <SECTion>
-        <div class="vanilla-container"></div>
-        <h3 class="section-title">Título</h3>
-        <div id="table-container" class="">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered align-middle ">
+    <div class="container">
+        <section id="user-info">
+            <div class="user-info-card">
+            
 
-                </table>
+
+                
             </div>
-        </div>
+        </section>
+        <!-- SECCIÓN 3: TABLA DE ACTIVIDADES -->
 
-        <h3 class="section-title" id="bondage-table">Título</h3>
-        <div id="tablasContainer" class="">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered align-middle ">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Icono</th>
-                            <th>Actividad</th>
-                            <th>Experiencia</th>
-                            <th>Interés</th>
-                            <th>Rol</th>
-                            <th>Notas</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
+    </div>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <h3 class="section-title" id="activity-table">Título</h3>
-        <div id="tablasContainer" class="">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered align-middle ">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Icono</th>
-                            <th>Actividad</th>
-                            <th>Experiencia</th>
-                            <th>Interés</th>
-                            <th>Rol</th>
-                            <th>Notas</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-    </SECTion>
+
+
+
+
 </div>
 
-<footer>
+<footer id="footer">
     <h6>Inspiraciones</h6>
+    <a href="https://bootswatch.com/vapor/">Vapor theme</a>
     <ul>
         <li><a href="https://knki.fun/tools/checklist/start">Yes/No/Maybe</a></li>
         <li><a href="https://kinksheet.com/">Kink Sheet</a></li>

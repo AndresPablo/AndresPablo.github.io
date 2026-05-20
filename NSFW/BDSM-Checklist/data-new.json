@@ -1,0 +1,62 @@
+{
+  "categorias": [
+    {
+      "toys": [{    
+        "id": "juguetes",
+        "visible_name": "🎤 Juguetes",
+        "emoji": "🎤",
+        "items": [
+          {
+            "name": "Vibradores",
+            "emoji": "🎤",
+            "imagenes": "",
+            "descripcion": "Uso de vibradores para estimulación sexual.",
+            "ejemplo_notas": "Ej: Vibrador de varita mágica, vibrador de bala, etc.",
+            "warnings": [
+              "0"
+            ],
+            "tags": [
+              ""
+            ],
+            "external_links": [
+              {
+                "texto_visible": "Guía de Vibradores",
+                "url": "https://www.sexualidad.com/vibradores/"
+              },
+              {
+                "texto_visible": "Link",
+                "url": "https://www.sexualidad.com/vibradores/"
+              }
+            ]
+          }
+        ]
+      }],
+      "vanilla": [{    
+        "id": "vanilla",
+        "visible_name": "🍾 Vainilla",
+        "emoji": "🍾",
+        "items": [
+          {
+            "name": "Sexo penetrativo",
+            "emoji": "",
+            "imagenes": "",
+            "descripcion": "Práctica sexual que involucra la penetración vaginal o anal.",
+            "ejemplo_notas": "Ej: Sexo vaginal, sexo anal, etc.",
+            "warnings": [
+              "0"
+            ],
+            "tags": [
+              ""
+            ],
+            "external_links": [
+              {
+                "texto_visible": "Kamasutra Online",
+                "url": "https://es.slideshare.net/slideshow/kamasutra-ilustrado-22514408/22514408"
+              }
+            ]
+          }
+        ]
+      }]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "categorias": [
+    {
+      "deportes": [{    
+        "id": "deportes",
+        "visible_name": "Deportes y Ejercicio",
+        "emoji": "",
+        "items": [
+          {
+            "name": "Soccer",
+            "emoji": "",
+            "imagenes": "",
+            "descripcion": "patean una pelota y hay un arquero.",
+            "ejemplo_notas": "Ej: De 5 u 11.",
+            "warnings": [
+              "0"
+            ],
+            "tags": [
+              ""
+            ],
+            "external_links": [
+            ]
+          }
+        ]
+      }],
+      "tabletop": [{    
+        "id": "tabletop",
+        "visible_name": "Juegos de Mesa",
+        "emoji": "",
+        "items": [
+          {
+            "name": "Ajedrez",
+            "emoji": "",
+            "imagenes": "",
+            "descripcion": "...",
+            "ejemplo_notas": "Ej:",
+            "warnings": [
+              "0"
+            ],
+            "tags": [
+              ""
+            ],
+            "external_links": [
+              {
+                "texto_visible": "Reglas Online",
+                "url": ""
+              }
+            ]
+          }
+        ]
+      }]
+    }
+  ]
+}

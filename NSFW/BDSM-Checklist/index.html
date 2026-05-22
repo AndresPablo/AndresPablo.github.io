@@ -58,6 +58,11 @@
 <div class="container-fluid mt-4">
 
     <div class="container">
+        <div id="tablasContainer">
+    <div id="categoria-deportes" class="categoria-container"></div>
+    <div id="categoria-tabletop" class="categoria-container"></div>
+    <!-- más categorías según tu JSON -->
+</div>
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <section id="user-info">
                 <div class="accordion-item">
@@ -297,7 +302,7 @@
                                 
                                 <div class="card">
                                     <div class="card-header card-header-primary">
-                                        <h4 class="card-title section-title">Título 1</h4>
+                                        <h4 class="card-title section-title">h3</h4>
                                         <p class="card-cateogry">Subtítulo</p>
                                     </div>
                                     <div class="card-body" > 
@@ -307,49 +312,52 @@
                                 
                             </div>
                             <div class="container" id="categoria-intimidad">
-                                <h3 class="section-title">Título 1</h3>
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container"> </div>
                             </div>
+                            <div class="container" id="categoria-juguetes">
+                                <h3 class="section-title">h3</h3>
+                                <div id="table-container" > </div>
+                            </div>
                             <div class="container" id="categoria-bondage">
-                                <h3 class="section-title">Título 1</h3>
+                                <h3 class="section-title">h3</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-dominacion">
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
                             <div class="container" id="categoria-dolor">
-                                <h3 class="section-title">Título 1</h3>
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
-                            <div class="container" id="categoria-juguetes">
-                                <h3 class="section-title">Título 1</h3>
+                           <div class="container" id="categoria-fluidos">
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
-                            <div class="container" id="categoria-grupal">
-                                <h3 class="section-title">Título 1</h3>
+                            <div class="container" id="categoria-estimulacion">
+                                <h3 class="section-title">h3</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-ropa">
+                                <h3 class="section-title">h3</h3>
+                                <div id="table-container" > </div>
+                            </div>
+                            <div class="container" id="categoria-disciplina">
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
 
                             </div>
                             <div class="container" id="categoria-roleplay">
-                                <h3 class="section-title">Título 1</h3>
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
-                            <div class="container" id="categoria-ropa">
-                                <h3 class="section-title">Título 1</h3>
-                                <div id="table-container" > </div>
-                            </div>
-                            <div class="container" id="categoria-estimulacion">
-                                <h3 class="section-title">Título 1</h3>
-                                <div id="table-container" > </div>
-                            </div>
-                                    <div class="container" id="categoria-humillacion">
-                                <h3 class="section-title">Título 1</h3>
-                                <div id="table-container" > </div>
-
-                            </div>
-                            <div class="container" id="categoria-voyeur">
-                                <h3 class="section-title">Título 1</h3>
+                            <div class="container" id="categoria-grupal">
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
                             <div class="container" id="categoria-taboo">
-                                <h3 class="section-title">Título 1</h3>
+                                <h3 class="section-title">h3</h3>
                                 <div id="table-container" > </div>
                             </div>
                         </section>
@@ -421,30 +429,23 @@
 <div class="modal fade" id="inmersivoModal" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
+            <div class="modal-header bg-light text-dark">
                 <h5 class="modal-title"><i class="fas fa-edit"></i> Actividad</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body bg-dark">
                 <div class="row">
-                    <div class="col-md-4 text-center">
-                        <div id="carouselExampleAutoplaying" class="carousel slide " data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img id="modalImagen" src="assets/default.png" class="d-block w-100" alt="...">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <img id="modalImagen" class="d-none" src="" alt="Imagen actividad">
-                    </div>
+                    <div class="col-md-4">
+            <div id="carruselActividad" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" id="carruselInner"></div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carruselActividad" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carruselActividad" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
                     <div class="col-md-5">
                         <div class="actividad-titulo-modal" id="modalTitulo">Actividad</div>
                         <div class="actividad-subtitulo-modal" id="modalSubtitulo"><h4>a<span class="badge badge-secondary"></span></h4></div>
@@ -508,7 +509,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer justify-content-between">
+            <div class="modal-footer justify-content-between bg-dark">
                 <div>
                     <button class="btn btn-secondary" id="btnAnteriorItem"><i class="fas fa-arrow-left"></i> Anterior</button>
                     <span class="mx-3" id="contadorModal" style="font-weight:bold;">1/20</span>

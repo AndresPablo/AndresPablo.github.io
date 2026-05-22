@@ -1,14 +1,12 @@
-let items = [];
-let categorias = [];
+let items = [];           // Array plano de actividades (normalizadas)
+let categorias = [];      // Array de objetos { id, display_name, emoji }
 let indiceItemActual = 0;
 let inmersivoModalInstance;
 let tooltipTriggerList = [];
 
-const contenedor = document.getElementById("tablasContainer");
 const DEFAULT_IMG = "assets/default.png";
 
-
-
+// ======================== FUNCIONES AUXILIARES ========================
 function getIconoInteres(interes) {
     switch(interes) {
         case "Odio": return '<i class="fas fa-ban"></i>';
@@ -31,54 +29,124 @@ function getClaseInteres(interes) {
     }
 }
 
-function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-
-
-function getContainerId(categoriaId) {
-    return `categoria-${categoriaId}`;
+function escapeHtml(str) {
+    return String(str).replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
 }
-
-function getCategoriaById(categoriaId) {
-    return categorias.find(cat => cat.id === categoriaId);
-}
-
-function getNombreVisible(categoriaId) {
-    const cat = getCategoriaById(categoriaId);
-    return cat ? cat.display_name : categoriaId;
-}
-
-
 
 function reasignarIds() {
     if (!items || !Array.isArray(items)) {
         items = [];
         return;
     }
-    items.forEach((item, idx) => { 
-        item.id = idx + 1; 
-    });
+    items.forEach((item, idx) => { item.id = idx + 1; });
 }
 
+function guardarEnLocalStorage() {
+    const dataToStore = {
+        items: items,
+        categorias: categorias
+    };
+    localStorage.setItem('eventoActividades', JSON.stringify(dataToStore));
+}
+
+// Transforma el formato anidado (categorías con items) a los arrays planos
+function transformarDesdeFormatoAnidado(data) {
+    categorias = [];
+    items = [];
+    if (!data.categorias || !Array.isArray(data.categorias)) return;
+
+    for (const grupo of data.categorias) {
+        const catId = grupo.id;
+        const catDisplay = grupo.display_name;
+        const catEmoji = grupo.emoji || '';
+        categorias.push({
+            id: catId,
+            display_name: catDisplay,
+            emoji: catEmoji
+        });
+
+        if (grupo.items && Array.isArray(grupo.items)) {
+            for (const act of grupo.items) {
+                items.push({
+                    id: null,
+                    categoria: catId,
+                    actividad: act.name,
+                    emoji: act.emoji || '',
+                    // IMPORTANTE: leer imagenes como array
+                    imagenes: Array.isArray(act.imagenes) ? act.imagenes : (act.imagen ? [act.imagen] : []),
+                    descripcion: act.descripcion || '',
+                    ejemplo_notas: act.ejemplo_notas || '',
+                    external_links: Array.isArray(act.external_links) ? act.external_links : [],
+                    experiencia: '',
+                    interes: '',
+                    rol: '',
+                    notas: ''
+                });
+            }
+        }
+    }
+    reasignarIds();
+}
+
+// Cargar datos (desde localStorage o data.json)
+async function cargarDatosIniciales() {
+    const stored = localStorage.getItem('eventoActividades');
+    if (stored) {
+        try {
+            const data = JSON.parse(stored);
+            if (data.items && data.categorias) {
+                items = data.items;
+                categorias = data.categorias;
+            } else {
+                // formato antiguo o incorrecto, lo ignoramos y recargamos
+                throw new Error('Formato inválido');
+            }
+        } catch(e) {
+            items = [];
+            categorias = [];
+        }
+    } else {
+        try {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            transformarDesdeFormatoAnidado(data);
+            guardarEnLocalStorage();
+        } catch(e) {
+            console.error('Error cargando data.json', e);
+            items = [];
+            categorias = [];
+        }
+    }
+    reasignarIds();
+    renderizarTablas();
+}
+
+// Obtener el ID del contenedor HTML para una categoría
+function getContainerId(categoriaId) {
+    return `categoria-${categoriaId}`;
+}
+
+// Renderizar todas las tablas a partir de los arrays items y categorias
 function renderizarTablas() {
-    // Iterar sobre todas las categorías
     for (const cat of categorias) {
         const containerId = getContainerId(cat.id);
-        
         const container = document.getElementById(containerId);
-        
         if (!container) continue;
-        const itemsFiltrados = items.filter(item => item.categoria === cat.id);
-        
-        
 
+        const itemsFiltrados = items.filter(item => item.categoria === cat.id);
         if (itemsFiltrados.length === 0) {
-            container.innerHTML = '<div><div class="alert alert-secondary">No hay actividades en esta categoría</div></div>';
+            container.innerHTML = '<div class="alert alert-secondary">No hay actividades en esta categoría</div>';
             continue;
         }
-        
+
         let html = `
             <div class="section-title">
-                <h3><i class=""></i> ${cat.display_name}</h3>
+                <h3>${cat.display_name}</h3>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered align-middle">
@@ -87,35 +155,36 @@ function renderizarTablas() {
                     </thead>
                     <tbody>
         `;
-        
-        itemsFiltrados.forEach((item) => {
+
+        for (const item of itemsFiltrados) {
             const globalIndex = items.findIndex(i => i.id === item.id);
             const claseFila = getClaseInteres(item.interes);
             const iconoInteres = getIconoInteres(item.interes);
-            
+
             html += `
                 <tr class="${claseFila}">
                     <td>${item.emoji || ''}</td>
-                    <td><span class="actividad-tooltip" data-bs-toggle="tooltip" title="${escapeHtml(item.descripcion || '')}">${escapeHtml(item.actividad)}</span></td>
+                    <td><span class="actividad-tooltip" data-bs-toggle="tooltip" title="${escapeHtml(item.descripcion)}">${escapeHtml(item.actividad)}</span></td>
                     <td>${item.experiencia || ''}</td>
-                    <td>${iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span>` : ''}${item.interes || ''}</td>
+                    <td>${iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span> ` : ''}${item.interes || ''}</td>
                     <td>${item.rol || ''}</td>
                     <td>${item.notas || ''}</td>
                     <td><button class="btn-editar-fila" data-index="${globalIndex}"><i class="fas fa-edit"></i></button></td>
                 </tr>
             `;
-        });
-        
-        html += `</tbody></tr></div>`;
+        }
+
+        html += `</tbody></div>`;
         container.innerHTML = html;
     }
-    
-    // Tooltips y botones editar...
+
+    // Reinicializar tooltips
     if (window.bootstrap && bootstrap.Tooltip) {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('.actividad-tooltip'));
-        tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+        const tooltips = document.querySelectorAll('.actividad-tooltip');
+        tooltips.forEach(el => new bootstrap.Tooltip(el));
     }
-    
+
+    // Eventos para botones de editar
     document.querySelectorAll('.btn-editar-fila').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const idx = parseInt(btn.getAttribute('data-index'));
@@ -126,20 +195,19 @@ function renderizarTablas() {
             }
         });
     });
-    
+
     generarDropdownCategorias();
 }
 
+// Generar dropdown en la navbar
 function generarDropdownCategorias() {
     const dropdownMenu = document.getElementById('tematicasDropdown');
     if (!dropdownMenu) return;
     dropdownMenu.innerHTML = '';
-    
     for (const cat of categorias) {
         const containerId = getContainerId(cat.id);
         const container = document.getElementById(containerId);
         if (!container) continue;
-        
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.className = 'dropdown-item';
@@ -155,112 +223,129 @@ function generarDropdownCategorias() {
 }
 
 
-async function cargarDatosIniciales() {
-    const stored = localStorage.getItem('eventoActividades');
-    if (stored) {
-        try {
-            const data = JSON.parse(stored);
-            items = data.items || [];
-            categorias = data.categorias || [];
-        } catch(e) {
-            items = [];
-            categorias = [];
-        }
+
+// Cargar datos de un item en el modal inmersivo
+function cargarItemEnModal(index) {
+    const item = items[index];
+    if (!item) {
+        console.error("Item no encontrado en índice", index);
+        return;
+    }
+
+    console.log("Cargando item:", item);
+
+    // Actualizar textos
+    const tituloElem = document.getElementById('modalTitulo');
+    if (tituloElem) tituloElem.innerText = item.actividad;
+    const subtituloElem = document.getElementById('modalSubtitulo');
+    if (subtituloElem) {
+        const nombreCategoria = categorias.find(c => c.id === item.categoria)?.display_name || item.categoria;
+        subtituloElem.innerText = nombreCategoria;
+    }
+    const descElem = document.getElementById('modalDescripcion');
+    if (descElem) descElem.innerText = item.descripcion || '';
+
+    // --- Generar carrusel ---
+    const carruselInner = document.getElementById('carruselInner');
+    if (!carruselInner) {
+        console.error("No se encontró el elemento #carruselInner en el DOM");
+        return;
+    }
+
+    const imagenes = item.imagenes || [];
+    console.log("Imágenes a cargar:", imagenes);
+
+    if (imagenes.length === 0) {
+        carruselInner.innerHTML = `<div class="carousel-item active">
+            <img src="${DEFAULT_IMG}" class="d-block w-100" alt="Sin imagen" style="border-radius: 12px;">
+        </div>`;
     } else {
+        let slidesHtml = '';
+        imagenes.forEach((imgUrl, idx) => {
+            const activeClass = idx === 0 ? 'active' : '';
+            slidesHtml += `
+                <div class="carousel-item ${activeClass}">
+                    <img src="${imgUrl}" class="d-block w-100" alt="Imagen ${idx+1}" style="border-radius: 12px; object-fit: cover; max-height: 300px;"
+                         onerror="this.onerror=null; this.src='${DEFAULT_IMG}'">
+                </div>
+            `;
+        });
+        carruselInner.innerHTML = slidesHtml;
+    }
+
+    // Reiniciar el carrusel (para que empiece desde la primera)
+    const carouselElement = document.getElementById('carruselActividad');
+    if (carouselElement && window.bootstrap) {
         try {
-            const response = await fetch('data.json');
-            const data = await response.json();
-            
-            // Asegurar que existan las propiedades
-            items = data.items || [];
-            categorias = data.categorias || [];
-            
-            // Guardar en localStorage
-            guardarEnLocalStorage();
+            const bsCarousel = bootstrap.Carousel.getOrCreateInstance(carouselElement);
+            bsCarousel.to(0);
         } catch(e) {
-            console.warn('No se pudo cargar data.json', e);
-            items = [];
-            categorias = [];
+            console.warn("No se pudo reiniciar el carrusel", e);
         }
     }
-    
-    reasignarIds();
-    renderizarTablas();
-}
 
-// Función auxiliar para convertir el formato anidado al plano
-function transformarDesdeFormatoAnidado(data) {
-    categorias = [];
-    items = [];
-    
-    for (const grupo of data.categorias) {
-        // Crear objeto categoría
-        const categoriaObj = {
-            id: grupo.id,
-            nombre_visible: grupo.nombre_visible
-        };
-        categorias.push(categoriaObj);
-        
-        // Agregar cada item del grupo, asignándole la categoría (usando el id string)
-        if (grupo.items && Array.isArray(grupo.items)) {
-            for (const item of grupo.items) {
-                items.push({
-                    ...item,
-                    categoria: grupo.id,        // el identificador corto (ej: "soccer")
-                    categoria_nombre: grupo.nombre_visible, // opcional para mostrar
-                    id: null // se reasignará después
-                });
-            }
+    // Cargar valores en los campos editables
+    document.getElementById('editExperiencia').value = item.experiencia || '';
+    document.getElementById('editInteres').value = item.interes || '';
+    actualizarBotonesInteres(item.interes);
+    document.getElementById('editRol').value = item.rol || '';
+    document.getElementById('editNotas').value = item.notas || '';
+    document.getElementById('ejemploNotasTexto').innerText = item.ejemplo_notas || '';
+
+    // Enlaces externos
+    const urlsContainer = document.getElementById('urlsEjemploContainer');
+    if (urlsContainer) {
+        urlsContainer.innerHTML = '';
+        if (item.external_links && item.external_links.length) {
+            item.external_links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.target = '_blank';
+                a.className = 'btn btn-sm btn-outline-primary me-1 mb-1';
+                a.textContent = link.texto_visible || 'Enlace';
+                urlsContainer.appendChild(a);
+            });
+        } else {
+            urlsContainer.innerHTML = '<span class="text-muted">Sin enlaces externos</span>';
         }
     }
+
+    document.getElementById('contadorModal').innerText = `${index+1}/${items.length}`;
 }
 
-function guardarEnLocalStorage() {
-    localStorage.setItem('eventoActividades', JSON.stringify(items));
-}
-
-
-function guardarEnLocalStorage() {
-    const dataToStore = { 
-        items: items || [], 
-        categorias: categorias || [] 
-    };
-    localStorage.setItem('eventoActividades', JSON.stringify(dataToStore));
-}
-
-function reasignarIds() {
-    items.forEach((item, idx) => { item.id = idx + 1; });
-}
-
-function getNombreCategoria(categoriaId) {
-    const cat = categorias.find(c => c.id === categoriaId);
-    return cat ? cat.nombre_visible : 'Sin categoría';
-}
-
-function getItemsPorCategoria(categoriaId) {
-    return items.filter(item => item.categoria_id === categoriaId);
-}
-
-
-function reasignarIds() { items.forEach((item, idx) => { item.id = idx + 1; }); }
-
-function normalizarItem(item) {
-    return {
-        id: item.id || 0,
-        tematica: item.display_name,
-        actividad: item.actividad,
-        emoji: item.emoji || '',
-        imagen: item.imagen || '',
-        descripcion: item.descripcion || '',
-        ejemplo_notas: item.ejemplo_notas || '',
-        urls_ejemplo: Array.isArray(item.urls_ejemplo) ? item.urls_ejemplo : (item.url_ejemplo ? [item.url_ejemplo] : []),
-        external_links: Array.isArray(item.external_links) ? item.external_links : (item.external_links ? [item.external_links] : []),
-        // campos que se editan en el modal, siempre vacíos al inicio
-        experiencia: '',
-        interes: '',
-        rol: '',
-        notas: ''
-    };
+function generarCarrusel(imagenes, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!imagenes || imagenes.length === 0) {
+        container.innerHTML = `<img src="${DEFAULT_IMG}" class="d-block w-100 img-preview-modal" alt="Imagen por defecto">`;
+        return;
+    }
+    let itemsHtml = '';
+    imagenes.forEach((imgUrl, idx) => {
+        const activeClass = idx === 0 ? 'active' : '';
+        itemsHtml += `
+            <div class="carousel-item ${activeClass}">
+                <img src="${imgUrl}" class="d-block w-100 img-preview-modal" alt="Imagen ${idx+1}" onerror="this.src='${DEFAULT_IMG}'">
+            </div>
+        `;
+    });
+    container.innerHTML = `
+        <div id="carruselActividad" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                ${itemsHtml}
+            </div>
+            ${imagenes.length > 1 ? `
+            <button class="carousel-control-prev" type="button" data-bs-target="#carruselActividad" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carruselActividad" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+            ` : ''}
+        </div>
+    `;
 }
 
 function actualizarBotonesInteres(interesValor) {
@@ -270,58 +355,6 @@ function actualizarBotonesInteres(interesValor) {
             btn.classList.add('activo');
         }
     });
-}
-
-function cargarItemEnModal(index) {
-    const item = items[index];
-    if (!item) return;
-    
-    const nombreCategoria = getNombreVisible(item.categoria);
-
-    document.getElementById('modalTitulo').innerText = `${item.actividad}`;
-    document.getElementById('modalSubtitulo').innerText =  `${nombreCategoria}`;
-    document.getElementById('modalDescripcion').innerText = `${item.descripcion}`;
-    const imgElement = document.getElementById('modalImagen');
-    if (item.imagen && item.imagen.trim() !== '') {
-        imgElement.src = item.imagen;
-        imgElement.onerror = () => { imgElement.src = DEFAULT_IMG; };
-    } else {
-        imgElement.src = DEFAULT_IMG;
-    }
-    document.getElementById('editExperiencia').value = item.experiencia || '';
-    document.getElementById('editInteres').value = item.interes || '';
-    actualizarBotonesInteres(item.interes);
-    document.getElementById('editRol').value = item.rol || '';
-    document.getElementById('editNotas').value = item.notas || '';
-    document.getElementById('ejemploNotasTexto').innerText = item.ejemplo_notas || '';
-    const urlEjemplo = item.url_ejemplo || '#';
-    const extLink = item.external_links || '#';
-    document.getElementById('contadorModal').innerText = `${index+1}/${items.length}`;
-    const urlsContainer = document.getElementById('urlsEjemploContainer');
-    urlsContainer.innerHTML = '';
-    if(item.external_links){
-        item.external_links.forEach((url, idx) => {
-            const link = document.createElement('a');
-            link.href = url.url;
-            link.target = '_blank';
-            link.className = 'btn btn-sm btn-outline-primary me-1 mb-1';
-            link.textContent = `${url.texto_visible}`;
-            urlsContainer.appendChild(link);
-        });
-    /*}
-    if (item.urls_ejemplo && item.urls_ejemplo.length) {
-        item.urls_ejemplo.forEach((url, idx) => {
-            const link = document.createElement('a');
-            link.href = url;
-            link.target = '_blank';
-            link.className = 'btn btn-sm btn-outline-primary me-1 mb-1';
-            link.textContent = `Ejemplo ${idx+1}`;
-            urlsContainer.appendChild(link);
-        });*/
-    } else {
-        console.warn('No se pudo cargar los links externos');
-        urlsContainer.innerHTML = '<span class="text-muted">Sin enlaces</span>';
-    }
 }
 
 function guardarItemDesdeModal() {
@@ -335,7 +368,7 @@ function guardarItemDesdeModal() {
     guardarEnLocalStorage();
 }
 
-// Eventos del modal
+// ======================== EVENTOS DEL MODAL ========================
 document.getElementById('btnAnteriorItem').addEventListener('click', () => {
     if (indiceItemActual > 0) {
         guardarItemDesdeModal();
@@ -373,11 +406,12 @@ document.querySelectorAll('.interes-boton').forEach(btn => {
     });
 });
 
-// Exportar a Excel
+// ======================== EXPORTACIONES ========================
 function exportarExcel() {
     const wb = XLSX.utils.book_new();
-    for (let tem of tematicasOrden) {
-        const itemsFiltrados = items.filter(i => i.tematica === tem);
+    // Una hoja por categoría
+    for (const cat of categorias) {
+        const itemsFiltrados = items.filter(i => i.categoria === cat.id);
         if (itemsFiltrados.length === 0) continue;
         const data = itemsFiltrados.map(i => ({
             "Icono": i.emoji,
@@ -390,7 +424,7 @@ function exportarExcel() {
             "Ejemplo Notas": i.ejemplo_notas
         }));
         const ws = XLSX.utils.json_to_sheet(data);
-        XLSX.utils.book_append_sheet(wb, ws, tem.slice(0,31));
+        XLSX.utils.book_append_sheet(wb, ws, cat.display_name.slice(0, 31));
     }
     const usuarioData = [{
         "Nombre": document.getElementById('nombreUsuario').value,
@@ -410,14 +444,13 @@ function exportarExcel() {
 }
 document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
 
-// Exportar a PDF
 async function exportarPDF() {
     const pdfContent = document.createElement('div');
     pdfContent.style.padding = '20px';
     pdfContent.style.backgroundColor = 'white';
     pdfContent.style.fontFamily = 'Arial';
     pdfContent.style.width = '100%';
-    
+
     const style = document.createElement('style');
     style.textContent = `
         .interes-Odio { background-color: #f8d7da !important; }
@@ -426,19 +459,19 @@ async function exportarPDF() {
         .interes-Me-gusta { background-color: #d1e7dd !important; }
         .interes-Amo { background-color: #f8c8e8 !important; }
         table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top;}
-        th { background-color: #ff0000; }
-        .tabla-pdf th:nth-child(1), .tabla-pdf td:nth-child(1) { width: 60px; }   /* Icono */
-        .tabla-pdf th:nth-child(2), .tabla-pdf td:nth-child(2) { width: 25%; }    /* Actividad */
-        .tabla-pdf th:nth-child(3), .tabla-pdf td:nth-child(3) { width: 100px; }  /* Experiencia */
-        .tabla-pdf th:nth-child(4), .tabla-pdf td:nth-child(4) { width: 150px; }  /* Interés */
-        .tabla-pdf th:nth-child(5), .tabla-pdf td:nth-child(5) { width: 80px; }   /* Rol */
-        .tabla-pdf th:nth-child(6), .tabla-pdf td:nth-child(6) { width: auto; }   /* Notas */
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+        th { background-color: #f2f2f2; }
+        .tabla-pdf th:nth-child(1), .tabla-pdf td:nth-child(1) { width: 60px; }
+        .tabla-pdf th:nth-child(2), .tabla-pdf td:nth-child(2) { width: 25%; }
+        .tabla-pdf th:nth-child(3), .tabla-pdf td:nth-child(3) { width: 100px; }
+        .tabla-pdf th:nth-child(4), .tabla-pdf td:nth-child(4) { width: 150px; }
+        .tabla-pdf th:nth-child(5), .tabla-pdf td:nth-child(5) { width: 80px; }
+        .tabla-pdf th:nth-child(6), .tabla-pdf td:nth-child(6) { width: auto; }
         .interes-icono-tabla { margin-right: 6px; font-size: 0.9rem; display: inline-block; width: 1.2rem; text-align: center; }
     `;
     pdfContent.appendChild(style);
 
-    // Obtener valores del formulario de usuario
+    // Datos del usuario
     const nombre = document.getElementById('nombreUsuario').value || "No especificado";
     const edad = document.getElementById('edadUsuario').value || "—";
     const pronombres = document.getElementById('pronombresUsuario').value || "—";
@@ -457,19 +490,16 @@ async function exportarPDF() {
     <p><strong>Disclaimers:</strong> ${disclaimer1} / ${disclaimer2}</p>
     <hr>`;
 
-    for (let tem of tematicasOrden) {
-        const itemsFiltrados = items.filter(i => i.tematica === tem);
+    for (const cat of categorias) {
+        const itemsFiltrados = items.filter(i => i.categoria === cat.id);
         if (!itemsFiltrados.length) continue;
-        let tabla = `<h3>${tem}</h3>
+        let tabla = `<h3>${cat.display_name}</h3>
         <table class="tabla-pdf">
-            <thead>
-                <tr><th></th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr>
-            </thead>
+            <thead><tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr></thead>
             <tbody>`;
-        itemsFiltrados.forEach(i => {
+        for (const i of itemsFiltrados) {
             const clase = getClaseInteres(i.interes);
             const iconoInteres = getIconoInteres(i.interes);
-            // Mostrar icono + texto en la celda de Interés
             const celdaInteres = iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span> ${i.interes || ''}` : (i.interes || '');
             tabla += `<tr class="${clase}">
                         <td>${i.emoji || ''}</td>
@@ -478,10 +508,9 @@ async function exportarPDF() {
                         <td>${celdaInteres}</td>
                         <td>${i.rol || ''}</td>
                         <td>${i.notas || ''}</td>
-                       `;
-        });
-        tabla += `</tbody>
-        </table>`;
+                       </tr>`;
+        }
+        tabla += `</tbody></table>`;
         mainHtml += tabla;
     }
 
@@ -505,7 +534,9 @@ async function exportarPDF() {
 document.getElementById('exportarPdfBtn').addEventListener('click', exportarPDF);
 
 function exportarJson() {
-    const dataStr = JSON.stringify({ items }, null, 2);
+    // Exportar el estado actual (items + categorías) como JSON plano (compatible con guardado)
+    const dataToExport = { items, categorias };
+    const dataStr = JSON.stringify(dataToExport, null, 2);
     const blob = new Blob([dataStr], {type: "application/json"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -524,54 +555,37 @@ async function resetearDatos() {
 }
 document.getElementById('resetJsonBtn').addEventListener('click', resetearDatos);
 
-// Inicialización al cargar la página
+// ======================== INICIALIZACIÓN ========================
 window.addEventListener('load', async () => {
     await cargarDatosIniciales();
     inmersivoModalInstance = new bootstrap.Modal(document.getElementById('inmersivoModal'));
+
     const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'), { backdrop: 'static' });
     welcomeModal.show();
     document.getElementById('btnSiModal').onclick = () => welcomeModal.hide();
     document.getElementById('btnNoModal').onclick = () => welcomeModal.hide();
-    // Control de teclado para el modal inmersivo
+
+    // Controles de teclado
     document.addEventListener('keydown', function(e) {
         const modalElement = document.getElementById('inmersivoModal');
         if (!modalElement.classList.contains('show')) return;
-
         switch(e.key) {
-            case 'ArrowLeft':
-                e.preventDefault();
-                document.getElementById('btnAnteriorItem').click();
-                break;
-            case 'ArrowRight':
-                e.preventDefault();
-                document.getElementById('btnSiguienteItem').click();
-                break;
-            case 'Enter':
-                e.preventDefault();
-                document.getElementById('btnGuardarItemModal').click();
-                break;
-            case 'Escape':
-                inmersivoModalInstance.hide();
-                break;
-            default: break;
+            case 'ArrowLeft': e.preventDefault(); document.getElementById('btnAnteriorItem').click(); break;
+            case 'ArrowRight': e.preventDefault(); document.getElementById('btnSiguienteItem').click(); break;
+            case 'Enter': e.preventDefault(); document.getElementById('btnGuardarItemModal').click(); break;
+            case 'Escape': inmersivoModalInstance.hide(); break;
         }
-     });
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-        });
-    // Slider interactivo
+    });
+
+    // Slider de energía
     const slider = document.getElementById('energiaSlider');
     const valorSpan = document.getElementById('energiaValor');
     if (slider && valorSpan) {
-        slider.addEventListener('input', function() {
-            valorSpan.innerText = this.value;
-        });
+        slider.addEventListener('input', function() { valorSpan.innerText = this.value; });
     }
-    // Asegurar edad mínima 18 por defecto si está vacío
+    // Edad por defecto
     const edadInput = document.getElementById('edadUsuario');
     if (edadInput && (edadInput.value === '' || edadInput.value === null)) {
         edadInput.value = '18';
     }
-    });
 });
-

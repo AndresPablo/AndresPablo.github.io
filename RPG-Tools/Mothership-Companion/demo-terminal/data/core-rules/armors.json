@@ -1,0 +1,20 @@
+{
+    "armors": [
+        {
+            "id": "vest",
+            "name": "Chaleco antibalas",
+            "pa": 2,
+            "rd": -1,
+            "special": "",
+            "price": 500
+        },
+        {
+            "id": "combat-armor",
+            "name": "Armadura de combate",
+            "pa": 4,
+            "rd": -2,
+            "special": "Pesada",
+            "price": 1500
+        }
+    ]
+}

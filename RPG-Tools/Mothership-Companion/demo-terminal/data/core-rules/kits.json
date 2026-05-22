@@ -1,0 +1,72 @@
+{
+    "kits": {
+        "Marine Kit": {
+            "1": {
+                "Clothes": {
+                    "item-id": "",
+                    "visible-text": "Tank Top and Camo Pants (AP1)"
+                },
+                "Knife": {
+                    "item-id": "scalpel",
+                    "visible-text": "Combat Knife (DMG+)"
+                },
+                "Stims": {
+                    "item-id": "stim",
+                    "visible-text": "Stims (x5)"
+                }
+                
+            }
+        },
+        "Scientist Kit": {
+            "1": {
+                "Clothes": {
+                    "item-id": "",
+                    "visible-text": "Tank Top and Camo Pants (AP1)"
+                },
+                "Knife": {
+                    "item-id": "scalpel",
+                    "visible-text": "Combat Knife (DMG+)"
+                },
+                "Stims": {
+                    "item-id": "stim",
+                    "visible-text": "Stims (x5)"
+                }
+                
+            }
+        },
+        "Android Kit": {
+            "1": {
+                "Clothes": {
+                    "item-id": "",
+                    "visible-text": "Tank Top and Camo Pants (AP1)"
+                },
+                "Knife": {
+                    "item-id": "scalpel",
+                    "visible-text": "Combat Knife (DMG+)"
+                },
+                "Stims": {
+                    "item-id": "stim",
+                    "visible-text": "Stims (x5)"
+                }
+                
+            }
+        },
+        "Teamster Kit": {
+            "1": {
+                "Clothes": {
+                    "item-id": "",
+                    "visible-text": "Tank Top and Camo Pants (AP1)"
+                },
+                "Knife": {
+                    "item-id": "scalpel",
+                    "visible-text": "Combat Knife (DMG+)"
+                },
+                "Stims": {
+                    "item-id": "stim",
+                    "visible-text": "Stims (x5)"
+                }
+                
+            }
+        }
+    }
+}

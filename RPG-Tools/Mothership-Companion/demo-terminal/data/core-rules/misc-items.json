@@ -1,0 +1,37 @@
+{
+    "misc-items": {
+        "Revolver": {
+            "id": "revolver",
+            "name": "Revolver",
+            "range": "close",
+            "damage": "1d10+1",
+            "shots": 6,
+            "wound-table": "gunshot",
+            "wound-modifier": "",
+            "special": "",
+            "price": "750",
+            "description": "",
+            "tags": [
+                "weapon",
+                "one-handed"
+                ]
+        },
+		"Flare Gun": {
+            "id": "flare-gun",
+            "name": "Flare Gun",
+            "range": "long",
+            "damage": "1d5",
+            "shots": 2,
+            "wound-table": "fire-explosives",
+            "wound-modifier": "-",
+            "special": "High intensity flare. Visible day and night.",
+            "price": "25",
+            "description": "",
+            "tags": [
+                "weapon",
+                "one-handed",
+                "tool"
+                ]
+        }
+    }
+}

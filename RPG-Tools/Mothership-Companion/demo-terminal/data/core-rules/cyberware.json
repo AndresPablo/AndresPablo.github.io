@@ -1,0 +1,20 @@
+{
+    "cyberware": [
+        {
+            "id": "cyber-eye",
+            "name": "Ojo cibernético",
+            "slots": 1,
+            "description": "Visión nocturna y zoom",
+            "requirement": "Cirugía",
+            "price": 2000
+        },
+        {
+            "id": "data-jack",
+            "name": "Enchufe de datos",
+            "slots": 1,
+            "description": "Conexión directa a ordenadores",
+            "requirement": "Hackeo",
+            "price": 1500
+        }
+    ]
+}

@@ -1,0 +1,289 @@
+{
+  "linguistics": {
+    "display_name_ENG": "Linguistics",
+    "description_ENG": "Understanding and deciphering languages, codes, and communication systems.",
+    "display_name_SPA": "Lingüística",
+    "description_SPA": "Comprensión y descifrado de idiomas, códigos y sistemas de comunicación.",
+    "requires": []
+  },
+  "zoology": {
+    "display_name_ENG": "Zoology",
+    "description_ENG": "Knowledge of animal life, behavior, and biology.",
+    "display_name_SPA": "Zoología",
+    "description_SPA": "Conocimiento de la vida animal, comportamiento y biología.",
+    "requires": []
+  },
+  "botany": {
+    "display_name_ENG": "Botany",
+    "description_ENG": "Study of plants, fungi, and alien flora.",
+    "display_name_SPA": "Botánica",
+    "description_SPA": "Estudio de plantas, hongos y flora alienígena.",
+    "requires": []
+  },
+  "geology": {
+    "display_name_ENG": "Geology",
+    "description_ENG": "Understanding of planetary composition, minerals, and tectonic activity.",
+    "display_name_SPA": "Geología",
+    "description_SPA": "Comprensión de la composición planetaria, minerales y actividad tectónica.",
+    "requires": []
+  },
+  "industrial_equipment": {
+    "display_name_ENG": "Industrial Equipment",
+    "description_ENG": "Operation and repair of heavy machinery, loaders, and industrial tools.",
+    "display_name_SPA": "Maquinaria Industrial",
+    "description_SPA": "Operación y reparación de maquinaria pesada, cargadores y herramientas industriales.",
+    "requires": []
+  },
+  "jury_rigging": {
+    "display_name_ENG": "Jury Rigging",
+    "description_ENG": "Improvised repairs and temporary fixes using scrap.",
+    "display_name_SPA": "Reparación",
+    "description_SPA": "Reparaciones improvisadas y arreglos con las herramientas y materiales disponibles.",
+    "requires": ["industrial_equipment"]
+  },
+  "chemistry": {
+    "display_name_ENG": "Chemistry",
+    "description_ENG": "Knowledge of chemical compounds, reactions, and synthesis.",
+    "display_name_SPA": "Química",
+    "description_SPA": "Conocimiento de compuestos químicos, reacciones y síntesis.",
+    "requires": []
+  },
+  "zero_g": {
+    "display_name_ENG": "Zero-G",
+    "description_ENG": "Movement and operations in microgravity environments.",
+    "display_name_SPA": "Cero-G",
+    "description_SPA": "Movimiento y operaciones en entornos de microgravedad.",
+    "requires": [""]
+  },
+  "mathematics": {
+    "display_name_ENG": "Mathematics",
+    "description_ENG": "Advanced calculation, geometry, and data analysis.",
+    "display_name_SPA": "Matemáticas",
+    "description_SPA": "Cálculo avanzado, geometría y análisis de datos.",
+    "requires": []
+  },
+  "arts": {
+    "display_name_ENG": "Arts",
+    "description_ENG": "Creative expression, art history, and performance.",
+    "display_name_SPA": "Artes",
+    "description_SPA": "Expresión creativa, historia del arte y actuación.",
+    "requires": []
+  },
+  "archaeology": {
+    "display_name_ENG": "Archaeology",
+    "description_ENG": "Recovery and analysis of material remains from past civilizations.",
+    "display_name_SPA": "Arqueología",
+    "description_SPA": "Recuperación y análisis de restos materiales de civilizaciones pasadas.",
+    "requires": []
+  },
+  "theology": {
+    "display_name_ENG": "Theology",
+    "description_ENG": "Study of religious beliefs, rituals, and esoteric traditions.",
+    "display_name_SPA": "Teología",
+    "description_SPA": "Estudio de creencias religiosas, rituales y tradiciones esotéricas.",
+    "requires": []
+  },
+  "military_training": {
+    "display_name_ENG": "Military Training",
+    "description_ENG": "Tactical drills, weapons handling, and combat protocols.",
+    "display_name_SPA": "Entrenamiento Militar",
+    "description_SPA": "Ejercicios tácticos, manejo de armas y protocolos de combate.",
+    "requires": []
+  },
+  "rimwise": {
+    "display_name_ENG": "Rimwise",
+    "description_ENG": "Frontier survival, asteroid mining know-how, and outer rim customs.",
+    "display_name_SPA": "Saber Fronterizo",
+    "description_SPA": "Supervivencia en la frontera, conocimientos de minería de asteroides y costumbres del borde exterior.",
+    "requires": []
+  },
+  "athletics": {
+    "display_name_ENG": "Athletics",
+    "description_ENG": "Physical conditioning, climbing, swimming, and stamina.",
+    "display_name_SPA": "Atletismo",
+    "description_SPA": "Condición física, escalada, natación y resistencia.",
+    "requires": []
+  },
+  "psychology": {
+    "display_name_ENG": "Psychology",
+    "description_ENG": "Study of behavior and the human (or alien) mind.",
+    "display_name_SPA": "Psicología",
+    "description_SPA": "Estudio del comportamiento de la mente humana (o alienígena).",
+    "requires": ["linguistics", "zoology"]
+  },
+  "pathology": {
+    "display_name_ENG": "Pathology",
+    "description_ENG": "Identification and study of diseases and their effects.",
+    "display_name_SPA": "Patología",
+    "description_SPA": "Identificación y estudio de enfermedades y sus efectos.",
+    "requires": ["zoology", "botany"]
+  },
+  "field_medicine": {
+    "display_name_ENG": "Field Medicine",
+    "description_ENG": "Emergency trauma care, stitching wounds, and administering drugs.",
+    "display_name_SPA": "Medicina de Campo",
+    "description_SPA": "Cuidados de emergencia, sutura de heridas y administración de fármacos.",
+    "requires": ["zoology"]
+  },
+  "ecology": {
+    "display_name_ENG": "Ecology",
+    "description_ENG": "Relationships between organisms and their environments.",
+    "display_name_SPA": "Ecología",
+    "description_SPA": "Relaciones entre organismos y sus entornos.",
+    "requires": ["botany", "geology"]
+  },
+  "asteroid_mining": {
+    "display_name_ENG": "Asteroid Mining",
+    "description_ENG": "Techniques for extracting resources from asteroids.",
+    "display_name_SPA": "Minería de Asteroides",
+    "description_SPA": "Técnicas para extraer recursos de asteroides.",
+    "requires": ["industrial_equipment", "geology"]
+  },
+    "mechanial_repair": {
+    "display_name_ENG": "Mechanical Repair",
+    "description_ENG": "...",
+    "display_name_SPA": "Reparación Mecánica",
+    "description_SPA": "Reparar aparatos complejos y maquinaria pesada.",
+    "requires": ["industrial_equipment", "geology"]
+  },
+  "explosives": {
+    "display_name_ENG": "Explosives",
+    "description_ENG": "Handling, placement, and disposal of explosive materials.",
+    "display_name_SPA": "Explosivos",
+    "description_SPA": "Manejo, colocación y desactivación de materiales explosivos.",
+    "requires": ["jury_rigging", "military_training", "chemistry"]
+  },
+  "pharmacology": {
+    "display_name_ENG": "Pharmacology",
+    "description_ENG": "Preparation and application of drugs, antidotes, and stimulants.",
+    "display_name_SPA": "Farmacología",
+    "description_SPA": "Preparación y aplicación de drogas, antídotos y estimulantes.",
+    "requires": ["chemistry"]
+  },
+  "hacking": {
+    "display_name_ENG": "Hacking",
+    "description_ENG": "Bypassing digital security, cracking systems, and data manipulation.",
+    "display_name_SPA": "Hackeo",
+    "description_SPA": "Eludir seguridad digital, cracking de sistemas y manipulación de datos.",
+    "requires": ["computers"]
+  },
+  "piloting": {
+    "display_name_ENG": "Piloting",
+    "description_ENG": "Operating spacecraft, shuttles, and atmospheric flyers.",
+    "display_name_SPA": "Pilotar",
+    "description_SPA": "Operar naves espaciales, lanzaderas y vehículos atmosféricos.",
+    "requires": ["zero_g"]
+  },
+  "physics": {
+    "display_name_ENG": "Physics",
+    "description_ENG": "Understanding of matter, energy, and fundamental forces.",
+    "display_name_SPA": "Física",
+    "description_SPA": "Comprensión de la materia, energía y fuerzas fundamentales.",
+    "requires": ["mathematics"]
+  },
+  "mysticism": {
+    "display_name_ENG": "Mysticism",
+    "description_ENG": "Unexplained phenomena, rituals, and psionic sensitivity.",
+    "display_name_SPA": "Misticismo",
+    "description_SPA": "Fenómenos inexplicables, rituales y sensibilidad psiónica.",
+    "requires": ["theology", "arts", "archaeology"]
+  },
+  "wilderness_survival": {
+    "display_name_ENG": "Wilderness Survival",
+    "description_ENG": "Living off the land, tracking, and shelter building.",
+    "display_name_SPA": "Supervivencia",
+    "description_SPA": "Vivir del medio, rastreo y construcción de refugios.",
+    "requires": ["botany", "military_training"]
+  },
+  "firearms": {
+    "display_name_ENG": "Firearms",
+    "description_ENG": "Use and maintenance of projectile weapons.",
+    "display_name_SPA": "Armas de Fuego",
+    "description_SPA": "Uso y mantenimiento de armas de proyectil.",
+    "requires": ["military_training", "rimwise"]
+  },
+  "hand_to_hand_combat": {
+    "display_name_ENG": "Hand-to-Hand Combat",
+    "description_ENG": "Fighting techniques without weapons.",
+    "display_name_SPA": "Combate Cuerpo a Cuerpo",
+    "description_SPA": "Técnicas de lucha sin armas.",
+    "requires": ["athletics", "rimwise"]
+  },
+  "sophontology": {
+    "display_name_ENG": "Sophontology",
+    "description_ENG": "Study of sentient life, consciousness, and alien cognition.",
+    "display_name_SPA": "Sofontología",
+    "description_SPA": "Estudio de la vida consciente, la conciencia y la cognición alienígena.",
+    "requires": ["psychology"]
+  },
+  "exobiology": {
+    "display_name_ENG": "Exobiology",
+    "description_ENG": "Biology of extraterrestrial organisms.",
+    "display_name_SPA": "Exo-biología",
+    "description_SPA": "Biología de organismos extraterrestres.",
+    "requires": ["pathology"]
+  },
+  "surgery": {
+    "display_name_ENG": "Surgery",
+    "description_ENG": "Invasive medical procedures and organ transplants.",
+    "display_name_SPA": "Cirugía",
+    "description_SPA": "Procedimientos médicos invasivos y trasplantes de órganos.",
+    "requires": ["field_medicine", "pathology"]
+  },
+  "planetology": {
+    "display_name_ENG": "Planetology",
+    "description_ENG": "Formation and evolution of planets, atmospheres, and geology.",
+    "display_name_SPA": "Planetología",
+    "description_SPA": "Formación y evolución de planetas, atmósferas y geología.",
+    "requires": ["ecology", "asteroid_mining"]
+  },
+  "robotics": {
+    "display_name_ENG": "Robotics",
+    "description_ENG": "Design, repair, and programming of robots and androids.",
+    "display_name_SPA": "Robótica",
+    "description_SPA": "Diseño, reparación y programación de robots y androides.",
+    "requires": ["mechanical_repair"]
+  },
+  "engineering": {
+    "display_name_ENG": "Engineering",
+    "description_ENG": "Complex system design, structural integrity, and power generation.",
+    "display_name_SPA": "Ingeniería",
+    "description_SPA": "Diseño de sistemas complejos, integridad estructural y generación de energía.",
+    "requires": ["mechanical_repair"]
+  },
+  "cybernetics": {
+    "display_name_ENG": "Cybernetics",
+    "description_ENG": "Integration of organic tissue with machinery, implants and prosthetics.",
+    "display_name_SPA": "Cibernética",
+    "description_SPA": "Integración de tejido orgánico con maquinaria, implantes y prótesis.",
+    "requires": ["mechanical_repair"]
+  },
+  "artificial_intelligence": {
+    "display_name_ENG": "Artificial Intelligence",
+    "description_ENG": "Creation and modification of AI systems and neural networks.",
+    "display_name_SPA": "Inteligencia Artificial",
+    "description_SPA": "Creación y modificación de sistemas de IA y redes neuronales.",
+    "requires": ["hacking"]
+  },
+  "hyperspace": {
+    "display_name_ENG": "Hyperspace",
+    "description_ENG": "Understanding of FTL travel, dimensional anomalies, and jump calculations.",
+    "display_name_SPA": "Hiperespacio",
+    "description_SPA": "Comprensión de viajes FTL, anomalías dimensionales y cálculos de salto.",
+    "requires": ["physics", "piloting", "mysticism"]
+  },
+  "xeno_esoterism": {
+    "display_name_ENG": "Xeno-Esoterism",
+    "description_ENG": "Obscure alien beliefs, cosmic horrors, and non-human rituals.",
+    "display_name_SPA": "Xeno-esoterismo",
+    "description_SPA": "Creencias alienígenas oscuras, horrores cósmicos y rituales no humanos.",
+    "requires": ["mysticism"]
+  },
+  "command": {
+    "display_name_ENG": "Command",
+    "description_ENG": "Leadership, tactics, and coordination of crew in crisis.",
+    "display_name_SPA": "Comandar",
+    "description_SPA": "Liderazgo, táctica y coordinación de la tripulación en crisis.",
+    "requires": ["firearms", "piloting"]
+  }
+}

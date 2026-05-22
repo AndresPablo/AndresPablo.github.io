@@ -1,0 +1,104 @@
+{
+    "classes": {
+        "teamster": {
+            "id": "teamster",
+            "display_name": "Teamster",
+            "trauma_response": "ONCE PER SESSION, YOU MAY TAKE ADVANTAGE ON A PANIC CHECK.",
+            "max_wounds_bonus": 0,
+            "min_stress": 2,
+            "strength_bonus": 5,
+            "speed_bonus": 5,
+            "intellect_bonus": 5,
+            "combat_bonus": 5,
+            "sanity_bonus": 10,
+            "fear_bonus": 10,
+            "body_bonus": 10,
+            "choose_stat_bonus": 0,
+            "choose_save_bonus": 0,
+            "credits_bonus": 0,
+            "bonus_trained_skills": 1,
+            "bonus_expert_skills": 1,
+            "bonus_master_skills": 0,
+            "skill_points": 0,
+            "description": "Rough and tumble blue-collar space workers, mechanics, engineers, miners, and pilots.",
+            "starting_skills": [
+                "industrial_equipment", "zero_g"
+            ]
+        },
+        "android": {
+            "id": "android",
+            "display_name": "Androide",
+            "trauma_response": "FEAR SAVES MADE BY CLOSE FRIENDLY PLAYERS ARE AT DISADVANTAGE.",
+            "max_wounds_bonus": 1,
+            "min_stress": 2,
+            "strength_bonus": 0,
+            "speed_bonus": 0,
+            "intellect_bonus": 20,
+            "combat_bonus": 0,
+            "sanity_bonus": 0,
+            "fear_bonus": 60,
+            "body_bonus": 0,
+            "choose_stat_bonus": -10,
+            "choose_save_bonus": 0,
+            "credits_bonus": 0,
+            "bonus_trained_skills": 0,
+            "bonus_expert_skills": 0,
+            "bonus_master_skills": 0,
+            "skill_points": 2,
+            "description": "A terrifying and exciting addition to any crew. They tend to unnerve other crewmembers with their cold inhumanity.",
+            "starting_skills": [
+                "linguistics", "computers", "mathematics"
+            ]
+        },
+        "scientist": {
+            "id": "scientist",
+            "display_name": "Científico",
+            "trauma_response": "WHENEVER YOU FAIL A SANITY SAVE, ALL CLOSE FRIENDLY PLAYERS GAIN 1 STRESS.",
+            "max_wounds_bonus": 0,
+            "min_stress": 2,
+            "strength_bonus": 0,
+            "speed_bonus": 0,
+            "intellect_bonus": 10,
+            "combat_bonus": 0,
+            "sanity_bonus": 30,
+            "fear_bonus": 0,
+            "body_bonus": 0,
+            "choose_stat_bonus": 5,
+            "choose_save_bonus": 0,
+            "credits_bonus": 0,
+            "bonus_trained_skills": 2,
+            "bonus_expert_skills": 1,
+            "bonus_master_skills": 1,
+            "skill_points": 0,
+            "description": "Doctors, researchers, or anyone who wants to slice open creatures (or infected crewmembers) with a scalpel.",
+            "starting_skills": [
+                "", ""
+            ]
+        },
+        "marine": {
+            "id": "marine",
+            "display_name": "Marine",
+            "trauma_response": "WHENEVER YOU PANIC, EVERY CLOSE FRIENDLY PLAYER MUST MAKE A FEAR SAVE.",
+            "max_wounds_bonus": 1,
+            "min_stress": 2,
+            "strength_bonus": 0,
+            "speed_bonus": 0,
+            "intellect_bonus": 0,
+            "combat_bonus": 10,
+            "sanity_bonus": 0,
+            "fear_bonus": 20,
+            "body_bonus": 10,
+            "choose_stat_bonus": 0,
+            "choose_save_bonus": 0,
+            "credits_bonus": 0,
+            "bonus_trained_skills": 0,
+            "bonus_expert_skills": 0,
+            "bonus_master_skills": 0,
+            "skill_points": 2,
+            "description": "They are handy in a fight, but whenever they Panic it may cause problems for the rest of the crew.",
+            "starting_skills": [
+                "military_training", "athletics"
+            ]
+        }
+    }
+}

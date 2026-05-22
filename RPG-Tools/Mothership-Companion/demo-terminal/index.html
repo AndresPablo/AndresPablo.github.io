@@ -41,37 +41,40 @@
 	<main style=" max-width: 100%;">
 		<nav>
 			<h1 id="headline">Mother.Co</h1>
-			<a href="index_demo.html">
-			<button>PERSONAJES</button></a>
-			<button>CATÁLOGO</button></a>
-			<button>MERCS</button></a>
-			
+			<a href="index_demo.html">demo</a>
+			<button id="btnPersonajes">PERSONAJES</button>
+			<a href="" id="btnCatalogo"><button >CATÁLOGO</button></a>
+			<button>MERCS</button>
 		</nav>
 
 		<section id="character-section">
-			<div class="content-fluid">
+			<div class="content-fluid" >
 				<div class="row">
 
 					<!-- Col #1: Bio-->
-					<div class="col col-md-3">
-						<h2 id="bio-character-form">
-							Clase: Técnico<a href="https://panr.github.io/terminal-css/#forms" class="hanchor" arialabel="Anchor">Regen</a>
+					<div class="col col-md-3" id="bio-character-form">
+						<h2 >
+							 Clase: <span id="characterClassSpan">Técnico</span> <a href="https://panr.github.io/terminal-css/#forms" class="hanchor" arialabel="Anchor">Regen</a>
 						</h2>
 
 						<fieldset>
 							<label for="">Bio</label>
-							<input type="text" id="character-name" placeholder="Nombre del personaje" value="Ellen Ripley"><br>
-							<input type="number" id="character-age" placeholder="Edad" value="30"><br>
-							<input type="text" placeholder="Título, apodo" value=""><br>
-							<select>
+							<input type="text" id="characterName" placeholder="Nombre del personaje" value="Ellen Ripley"><br>
+							<input type="number" id="characterAge" placeholder="Edad" value="30"><br>
+							<input type="text" id="characterNickname" placeholder="Título, apodo" value=""><br>
+
+							<textarea id="characterBackstory" placeholder="Notas de color sobre la vida de este personaje"></textarea><br>
+							<textarea id="characterPersonality" placeholder="Personalidad, secretos, etc"></textarea><br>
+
+							<br><hr><br>
+							<select id="characterClassDropdown">
 								<option value="1">Técnico</option>
 								<option value="2">Científico</option>
 								<option value="3">Androide</option>
-								<option value="3">Marine</option>
-								<option value="3">Corpo</option>
-							</select><br>
-							<textarea placeholder="Notas de color sobre la vida de este personaje"></textarea><br>
-							<button type="submit">Regenerar todo</button>
+								<option value="4">Marine</option>
+							</select>
+							<button id="classRegenBtn" type="submit">Regenerar clase</button>
+							<button id="fullRegenBtn" type="submit">Regenerar todo</button>
 						</fieldset>
 					</div>
 
@@ -90,10 +93,10 @@
 											<div class="col"><p><abbr title="Combate">COM</abbr></p></div>
 										</div>
 										<div class="row">
-											<div class="col"><button>50</button></div>
-											<div class="col"><button>50</button></div>
-											<div class="col"><button>50</button></div>
-											<div class="col"><button>50</button></div>
+											<div class="col"><button id="rerollStatsBtn"><span id="strengthStatValue">50</span></button></div>
+											<div class="col"><button id="rerollStatsBtn"><span id="speedStatValue">50</span></button></div>
+											<div class="col"><button id="rerollStatsBtn"><span id="intelectStatValue">50</span></button></div>
+											<div class="col"><button id="rerollStatsBtn"><span id="combatStatValue">50</span></button></div>
 										</div>
 									</div>
 							</div>
@@ -108,9 +111,9 @@
 											<div class="col"><p><abbr title="Body">CUERPO</abbr></p></div>
 										</div>
 										<div class="row">
-											<div class="col"><button>??</button></div>
-											<div class="col"><button>??</button></div>
-											<div class="col"><button>??</button></div>
+											<div class="col"><button><span id="sanitySaveValue">50</span></button></div>
+											<div class="col"><button><span id="fearSaveValue">50</span></button></div>
+											<div class="col"><button><span id="bodySaveValue">50</span></button></div>
 										</div>
 									</div>
 							</div>
@@ -127,9 +130,9 @@
 											<div class="col"><p><abbr title="Combate">Armadura</abbr></p></div>
 										</div>
 										<div class="row">
-											<div class="col"><button><span>&hearts;</span> 12</button></div>
-											<div class="col"><button>2</button></div>
-											<div class="col"><button>1 PA / RD-0</button></div>
+											<div class="col"><button><span >&hearts;</span> <span id="healthPoints">12</span> </button></div>
+											<div class="col"><button> <span id="wounds">2</span> </button></div>
+											<div class="col"><button> <span id="equipedArmorPoints">12</span> / <span id="equipedDamageReduction">12</span> </button></div>
 										</div>
 									</div>
 								</div>
@@ -137,13 +140,12 @@
 							<div class="col">
 								<div class="row">
 									<div class="col">
-										<h3>ESTRÉS</h3></div>
+										<h3>ESTRÉS</h3>
+									</div>
 										<div class="row">
-											<div class="col"><p>Estrés Máximo = <kbd>18</kbd> </p></div>
-											<div class="terminal-info terminal-dotted-container"><p>Los personajes de la clase <code>.TÉCNICO</code> pueden volver a tirar un dado de <strong>PÁNICO</strong> una vez por sesión.</p></div>
-										</div>
-										<div class="row">
-											ver que iba acá
+											<div class="col"><p>Estrés Mínimo = <span id="minStress">2</span>  </p></div>
+											<div class="col"><p>Estrés Actual = <span id="currentStress">2</span> </p></div>
+											<div class="terminal-info terminal-dotted-container"><p id="classTraumaResponse">Los personajes de la clase <code>.TÉCNICO</code> pueden volver a tirar un dado de <strong>PÁNICO</strong> una vez por sesión.</p></div>
 										</div>
 									</div>
 								</div>
@@ -153,18 +155,129 @@
 
 						<div class="row">
 							<h3>Habilidades</h3>
-							<p><strong>Básicas=</strong> Gravedad-Zero, Maquinaria Pesada</p>
-							<p><strong>Avanzadas=</strong> Minería</p>
-							<p><strong>Expertas=</strong> Xeno-biología</p>
+							<div class="terminal-info terminal-dotted-container" id="bonusSkillPointsBox">
+								<p>De regalo: <strong><span id="remainingBonusSkillPoints"></span>0</strong> puntos en habilidades cualquiera.</p>
+							</div>
+							<div class="col col-4-md">
+								<h5>ENTRENADAS</h5>
+								<p>BONUS: +<span id="trainedSkillBonus">10</span></p>
+								<div>
+									<form action="/action_page.php">
+										<input type="checkbox" id="linguistics" name="linguistics" value="">
+										<label for="langSkill"> Linguística</label><br>
+										<input type="checkbox" id="zoology" name="zoology" value="">
+										<label for="zoology"> Zoología</label><br>
+										<input type="checkbox" id="botany" name="botany" value="">
+										<label for="botany"> Botánica</label><br>
+										<input type="checkbox" id="geology" name="geology" value="">
+										<label for="geology"> Geología</label><br>
+										<input type="checkbox" id="industrial_equipment" name="industrial_equipment" value="">
+										<label for="industrial_equipment"> Maquinaria Industrial</label><br>
+										<input type="checkbox" id="jury_rigging" name="jury_rigging" value="">
+										<label for="jury_rigging"> Chatarra</label><br>
+										<input type="checkbox" id="chemistry" name="chemistry" value="">
+										<label for="chemistry"> Química</label><br>
+										<input type="checkbox" id="zero_g" name="zero_g" value="">
+										<label for="zero_g"> Cero-G</label><br>
+										<input type="checkbox" id="computers" name="computers" value="">
+										<label for="computers"> Computación</label><br>
+										<input type="checkbox" id="mathematics" name="mathematics" value="">
+										<label for="mathematics"> Matemáticas</label><br>
+										<input type="checkbox" id="arts" name="arts" value="">
+										<label for="arts"> Artes</label><br>
+										<input type="checkbox" id="archaeology" name="archaeology" value="">
+										<label for="archaeology"> Arqueología</label><br>
+										<input type="checkbox" id="theology" name="theology" value="">
+										<label for="theology"> Teología</label><br>
+										<input type="checkbox" id="military_training" name="military_training" value="">
+										<label for="military_training"> Entrenamiento Militar</label><br>
+										<input type="checkbox" id="rimwise" name="rimwise" value="">
+										<label for="rimwise"> Saber Fronterizo</label><br>
+										<input type="checkbox" id="athletics" name="athletics" value="">
+										<label for="athletics"> Atletismo</label><br>
+									</form>
+								</div>
+							</div>
+							<div class="col col-4-md">
+								<h5>EXPERTAS</h5>
+								<p>BONUS: +<span id="expertSkillBonus">15</span></p>
+								<div>
+									<p></p>
+									<form action="/action_page.php">
+										<input type="checkbox" id="psychology" name="psychology" value="psychology">
+										<label for="psychology"> Psicología</label><br>
+										<input type="checkbox" id="pathology" name="pathology" value="pathology">
+										<label for="pathology"> Patología</label><br>
+										<input type="checkbox" id="field_medicine" name="field_medicine" value="field_medicine">
+										<label for="field_medicine"> Medicina de Campo</label><br>
+										<input type="checkbox" id="ecology" name="ecology" value="ecology">
+										<label for="ecology"> Ecología</label><br>
+										<input type="checkbox" id="asteroid_mining" name="asteroid_mining" value="">
+										<label for="asteroid_mining"> Minería de Asteroides</label><br>
+										<input type="checkbox" id="explosives" name="explosives" value="">
+										<label for="explosives"> Explosivos</label><br>
+										<input type="checkbox" id="explosives" name="explosives" value="">
+										<label for="explosives"> Reparación Mecánica</label><br>
+										<input type="checkbox" id="pharmacology" name="pharmacology" value="">
+										<label for="pharmacology"> Farmacología</label><br>
+										<input type="checkbox" id="hacking" name="hacking" value="">
+										<label for="hacking"> Hackeo</label><br>
+										<input type="checkbox" id="piloting" name="piloting" value="">
+										<label for="piloting"> Pilotar</label><br>
+										<input type="checkbox" id="physics" name="physics" value="">
+										<label for="physics"> Física</label><br>
+										<input type="checkbox" id="mysticism" name="mysticism" value="">
+										<label for="mysticism"> Misticismo</label><br>
+										<input type="checkbox" id="wilderness_survival" name="wilderness_survival" value="">
+										<label for="wilderness_survival"> Supervivencia</label><br>
+										<input type="checkbox" id="firearms" name="firearms" value="">
+										<label for="firearms"> Armas de Fuego</label><br>
+										<input type="checkbox" id="hand_to_hand_combat" name="hand_to_hand_combat" value="">
+										<label for="hand_to_hand_combat"> Combate Cuerpo a Cuerpo</label><br>
+									</form>
+								</div>
+							</div>
+							<div class="col col-4-md">
+								<h5>MAESTRÍAS</h5>
+								<p>BONUS: +<span id="masterSkillBonus">20</span></p>
+								<div>
+									<form>
+										<input type="checkbox" id="sophontology" name="sophontology">
+										<label for="sophontology"> Sofontología</label><br>
+										<input type="checkbox" id="exobiology" name="exobiology">
+										<label for="exobiology"> Exo-biología</label><br>
+										<input type="checkbox" id="surgery" name="surgery">
+										<label for="surgery"> Cirugía</label><br>
+										<input type="checkbox" id="planetology" name="planetology">
+										<label for="planetology"> Planetología</label><br>
+										<input type="checkbox" id="robotics" name="robotics">
+										<label for="robotics"> Robótica</label><br>
+										<input type="checkbox" id="engineering" name="engineering">
+										<label for="engineering"> Ingeniería</label><br>
+										<input type="checkbox" id="cybernetics" name="cybernetics">
+										<label for="cybernetics"> Cibernética</label><br>
+										<input type="checkbox" id="artificial_intelligence" name="artificial_intelligence">
+										<label for="artificial_intelligence"> Inteligencia Artificial</label><br>
+										<input type="checkbox" id="hyperspace" name="hyperspace">
+										<label for="hyperspace"> Hiperespacio</label><br>
+										<input type="checkbox" id="xeno_esoterism" name="xeno_esoterism">
+										<label for="xeno_esoterism"> Xeno-esoterismo</label><br>
+										<input type="checkbox" id="command" name="command">
+										<label for="command"> Comandar</label><br>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Col #3: Inventario-->
 					<div class="col col-md-3 ">
 						<h2>Inventario</h2>
+						<strong>CREDITOS:</strong> <button id="randomCreditsBtn"><span id="credits">000</span> cr</button>
+						<br>
 						<div class="terminal-info terminal-dotted-container" id="character-loadout">
-							<h3>Kit de Especialización</h3>
-							<ul>
+							<h3 id="loadoutTitle">Loadout</h3>
+							<ul id="loadoutItemsList">
 								<li>Item</li>
 								<li>Item</li>
 								<li>Item</li>
@@ -175,7 +288,7 @@
 						</div>
 						<h3>Otros objetos</h3>
 						<div class="terminal-info terminal-dotted-container">
-							<ul>
+							<ul id="otherItemsList">
 								<li>Parche "GAME OVER"</li>
 								<li>Amuleto de la suerte</li>
 								<li><code>/tablet_PDA</code></li>
@@ -187,8 +300,8 @@
 			</div>
 		</section>
 
-		<section id="items-section" class="content d-none">
-			<div class="tab-panel fade show active" id="inventory" role="tabpanel" aria-labelledby="home-tab">
+		<section id="items-section" class="content" id="inventory-container">
+			<div class="tab-panel fade show active" id="inventory-container" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     <div class="col col-2-lg col-3-md left-col ">
                         <h1>Catálogo</h1>
@@ -331,7 +444,7 @@
 	</footer>
 
 	<script defer="" type="module" src="./Terminal.css _ Semantic styles for the simple web_files/script.js.descarga"></script>
-
+	<script src="js/custom-script.js" defer></script>
 
 
 </body></html>

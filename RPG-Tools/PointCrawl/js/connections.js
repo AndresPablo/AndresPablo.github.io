@@ -1,4 +1,4 @@
-function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc = null, iconShape = "circle", iconFillColor = "#ffffff", pattern = "none", patternCount = 0, patternSize = 1.0) {
+function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc = null, iconShape = "circle", iconFillColor = "#ffffff", pattern = "none", patternCount = 0, patternSize = 1.0, labelParallel = false, labelSide = "above", labelOffsetDistance = 15, labelBgColor = "#000000aa") {
     const connLabelFont = getThemeFont('connectionLabel');
     
     const conn = { 
@@ -7,7 +7,9 @@ function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, te
         iconSrc, iconImage: null, iconShape, iconFillColor, 
         pattern, patternCount, patternSize,
         // Font properties for connection label
-        labelFont: { ...connLabelFont }
+        labelFont: { ...connLabelFont },
+        // Parallel label properties
+        labelParallel, labelSide, labelOffsetDistance, labelBgColor
     };
     if (iconSrc) loadImageForConnection(conn, iconSrc);
     connections.push(conn);
@@ -36,7 +38,11 @@ function addConnectionInteractive(fromId, toId) {
         lastConnectionStyle.iconFillColor,
         lastConnectionStyle.pattern,
         lastConnectionStyle.patternCount,
-        lastConnectionStyle.patternSize
+        lastConnectionStyle.patternSize,
+        lastConnectionStyle.labelParallel,
+        lastConnectionStyle.labelSide,
+        lastConnectionStyle.labelOffsetDistance,
+        lastConnectionStyle.labelBgColor
     );
     renderCanvas();
     updatePropertiesPanel();
@@ -135,7 +141,7 @@ function drawPatternAlongCurve(ctx, fromX, fromY, toX, toY, pattern, count, line
         let x, y, angle;
         
         if (strokePattern === "wavy_wide") {
-            const amplitude = 7, frequency = 2.5;
+            const amplitude = 7, frequency = 6;
             x = fromX + (toX - fromX) * t;
             let baseY = fromY + (toY - fromY) * t;
             const offset = Math.sin(t * Math.PI * frequency) * amplitude;
@@ -151,7 +157,7 @@ function drawPatternAlongCurve(ctx, fromX, fromY, toX, toY, pattern, count, line
             angle = Math.atan2(nextY - y, nextX - x);
             
         } else if (strokePattern === "wavy_short") {
-            const amplitude = 5, frequency = 6;
+            const amplitude = 5, frequency = 20;
             x = fromX + (toX - fromX) * t;
             let baseY = fromY + (toY - fromY) * t;
             const offset = Math.sin(t * Math.PI * frequency) * amplitude;
@@ -253,8 +259,8 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
     else if (conn.strokePattern === "rayada") ctx.setLineDash([14, 10]);
     else ctx.setLineDash([]);
 
-    if (conn.strokePattern === "wavy_wide") drawWavyLine(ctx, fromX, fromY, toX, toY, 7, 2.5);
-    else if (conn.strokePattern === "wavy_short") drawWavyLine(ctx, fromX, fromY, toX, toY, 5, 6);
+    if (conn.strokePattern === "wavy_wide") drawWavyLine(ctx, fromX, fromY, toX, toY, 7, 6);
+    else if (conn.strokePattern === "wavy_short") drawWavyLine(ctx, fromX, fromY, toX, toY, 5, 20);
     else if (conn.strokePattern === "zigzag") drawZigzagLine(ctx, fromX, fromY, toX, toY, 10);
     else {
         ctx.beginPath();
@@ -301,16 +307,50 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
     if (conn.text && conn.text.trim() !== "") {
         // Get font settings from connection or use defaults
         const fontSettings = conn.labelFont || getThemeFont('connectionLabel');
-        ctx.font = `${fontSettings.weight} ${fontSettings.size}px ${fontSettings.family}`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+        const fontSize = Number(fontSettings.size) || 14;
+        ctx.font = `${fontSettings.weight} ${fontSize}px ${fontSettings.family}`;
         const tW = ctx.measureText(conn.text).width;
-        const padding = 5;
-        // Fondo centrado exactamente
-        ctx.fillStyle = "#000000aa";
-        ctx.fillRect(midX - tW / 2 - padding, midY - 10, tW + padding * 2, 20);
-        ctx.fillStyle = fontSettings.color || "#fef5e3";
-        ctx.fillText(conn.text, midX, midY);
+
+        // Padding scales with font size so background stays proportional
+        const padX = Math.max(4, Math.round(fontSize * 0.45));
+        const padY = Math.max(2, Math.round(fontSize * 0.28));
+        const tH = fontSize;
+        const bgColor = conn.labelBgColor || "#000000aa";
+
+        if (conn.labelParallel) {
+            // Draw parallel to line with offset
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const offsetDist = conn.labelOffsetDistance || 15;
+            const sideMultiplier = conn.labelSide === "above" ? -1 : 1;
+
+            // Calculate perpendicular offset
+            const perpX = -Math.sin(angle) * offsetDist * sideMultiplier;
+            const perpY = Math.cos(angle) * offsetDist * sideMultiplier;
+
+            ctx.save();
+            ctx.translate(midX + perpX, midY + perpY);
+            ctx.rotate(angle);
+
+            // Draw background (size scales with font)
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(-tW / 2 - padX, -tH / 2 - padY, tW + padX * 2, tH + padY * 2);
+
+            // Draw text
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = fontSettings.color || "#fef5e3";
+            ctx.fillText(conn.text, 0, 0);
+
+            ctx.restore();
+        } else {
+            // Original centered text but with scalable background
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(midX - tW / 2 - padX, midY - tH / 2 - padY, tW + padX * 2, tH + padY * 2);
+            ctx.fillStyle = fontSettings.color || "#fef5e3";
+            ctx.fillText(conn.text, midX, midY);
+        }
     }
     ctx.restore();
 }

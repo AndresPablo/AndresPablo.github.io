@@ -30,7 +30,11 @@ let lastConnectionStyle = {
     text: "1 jornada",
     pattern: "none",
     patternCount: 0,
-    patternSize: 1.0
+    patternSize: 1.0,
+    labelParallel: false,
+    labelSide: "above",
+    labelOffsetDistance: 15,
+    labelBgColor: "#000000aa"
 };
 
 let exportSolidBackground = false;
@@ -627,7 +631,7 @@ function resetFullMap() {
         addConnectionRaw(n1.id, n2.id, "#000000", "normal", 3, "2 días", null, "circle", "#ffffff");
         addConnectionRaw(n2.id, n3.id, "#000000", "rayada", 4, "1 día", null, "diamond", "#ffffff");
         addConnectionRaw(n1.id, n3.id, "#000000", "dotted", 2, "ruta oculta", null, "square", "#ffffff");
-        lastConnectionStyle = { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0 };
+        lastConnectionStyle = { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0, labelParallel: false, labelSide: "above", labelOffsetDistance: 15, labelBgColor: "#000000aa" };
         renderCanvas();
         updatePropertiesPanel();
         saveToLocalStorage();

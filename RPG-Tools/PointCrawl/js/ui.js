@@ -83,6 +83,14 @@ function updatePropertiesPanel() {
             updatePatternCountValue(conn.patternCount);
             updatePatternSizeValue(conn.patternSize || 1.0);
 
+            // Update parallel label controls
+            document.getElementById('connLabelParallel').checked = conn.labelParallel || false;
+            document.getElementById('connLabelSide').value = conn.labelSide || 'above';
+            document.getElementById('connLabelOffset').value = conn.labelOffsetDistance || 15;
+            document.getElementById('connLabelBgColor').value = conn.labelBgColor || '#000000';
+            const controlsDiv = document.getElementById('labelSideOffsetControls');
+            if (controlsDiv) controlsDiv.style.display = (conn.labelParallel ? 'flex' : 'none');
+
             const connIconPreview = document.getElementById('connIconPreview');
             if (conn.iconImage) {
                 connIconPreview.innerHTML = `<img src="${conn.iconSrc}">`;
@@ -123,9 +131,23 @@ function updatePatternSizeValue(value) {
 
 function updateStatusMessage(msg, isError = false) {
     const div = document.getElementById('statusMsg');
-    div.innerHTML = `<i class="bi ${isError ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'}"></i> ${msg}`;
-    div.style.background = isError ? "#992222" : "#2b2b2b";
-    setTimeout(() => { if(!isError) div.style.background = "#2b2b2b"; }, 2200);
+    const icon = isError ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill';
+    const alertClass = isError ? 'alert-danger' : 'alert-success';
+    
+    // Update content
+    div.innerHTML = `<button type="button" class="btn-close" data-bs-dismiss="alert"></button><div><i class="bi ${icon}"></i> ${msg}</div>`;
+    
+    // Remove all alert color classes and add the appropriate one
+    div.className = div.className.replace(/alert-\w+/g, '');
+    div.classList.add('alert', 'alert-dismissible', alertClass);
+    
+    // Show the alert
+    div.style.display = 'block';
+    
+    // Auto-hide after 2.2 seconds if not an error
+    if (!isError) {
+        setTimeout(() => { div.style.display = 'none'; }, 2200);
+    }
 }
 
 // ------------------------- MAP LOADING -------------------------

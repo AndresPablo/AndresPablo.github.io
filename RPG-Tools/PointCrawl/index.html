@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Pointcrawl Studio - Mapa para D&D</title>
+    <title>Crawl Cartographer - Mapa para D&D</title>
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -22,18 +22,18 @@
     <!-- NAVBAR SUPERIOR -->
     <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="bi bi-compass-fill"></i> Pointcrawl Studio</a>
+            <a class="navbar-brand" href="#"><i class="bi bi-compass-fill"></i> Crawl Cartographer</a>
             <div class="d-flex">
-                <button class="btn btn-outline-light me-2" id="newNodeNavBtn"><i class="bi bi-plus-circle"></i> Nuevo
+                <button class="btn btn-secondary me-2" id="newNodeNavBtn"><i class="bi bi-plus-circle"></i> Nuevo
                     nodo</button>
-                <button class="btn btn-outline-light me-2" id="duplicateNodeNavBtn"><i class="bi bi-files"></i>
+                <button class="btn btn-secondary me-2" id="duplicateNodeNavBtn"><i class="bi bi-files"></i>
                     Duplicar</button>
-                <button class="btn btn-outline-danger me-2" id="resetNavBtn"><i class="bi bi-trash3"></i> Reset</button>
-                <button class="btn btn-outline-info me-2" data-bs-toggle="modal" data-bs-target="#exportModal"><i
+                <button class="btn btn-danger me-2" id="resetNavBtn"><i class="bi bi-trash3"></i> Reset</button>
+                <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#exportModal"><i
                         class="bi bi-download"></i> Exportar</button>
-                <button class="btn btn-outline-success me-2" id="importJsonBtn"><i class="bi bi-upload"></i>
+                <button class="btn btn-success me-2" id="importJsonBtn"><i class="bi bi-upload"></i>
                     Importar</button>
-                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal"><i
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal"><i
                         class="bi bi-gear"></i> Configuración</button>
             </div>
             <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
@@ -246,13 +246,17 @@
 
 
     <div class="app-container">
+
+        
+
         <!-- Área del canvas con scroll para pan -->
         <div class="canvas-area col-8" id="canvasContainer">
             <canvas id="pointcanvas" width="1131" height="800"></canvas>
-            <div class="status-bar mt-2" id="statusMsg">
-                <i class="bi bi-cursor-fill"></i> Ctrl + arrastrar desde nodo para conexión | Supr elimina | Esc
-                deselecciona | Arrastra el fondo para mover
+            <div id="statusMsg" class="alert alert-secondary alert-dismissible" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1050; min-width: 300px; max-width: 500px; display: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <div><i class="bi bi-check-circle-fill"></i> Message</div>
             </div>
+            
         </div>
 
         <!-- Columna de propiedades de nodos -->
@@ -561,6 +565,30 @@
                                                 <label class="form-label"><i class="bi bi-chat-text-fill"></i> Texto</label>
                                                 <input type="text" id="connText" class="form-control" placeholder="Ej: 2 días">
                                             </div>
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="connLabelParallel">
+                                    <label class="form-check-label" for="connLabelParallel">Texto paralelo a la línea</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2" id="labelSideOffsetControls" style="display: none;">
+                            <div class="col-6">
+                                <label class="form-label">Lado</label>
+                                <select id="connLabelSide" class="form-select">
+                                    <option value="above">Arriba</option>
+                                    <option value="below">Abajo</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Distancia</label>
+                                <input type="number" id="connLabelOffset" class="form-control" min="5" max="50" value="15" step="1">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+
+                        </div>
                         <div class="form-check form-switch col-12">
                             <input class="form-check-input" type="checkbox" data-bs-toggle="collapse" data-bs-target="#connectionTextCollapse" id="connectionTextEnabled" value="">
                             <label class="form-check-label" for="connectionTextEnabled">Avanzado</label>
@@ -591,9 +619,14 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-6">
-                                                <label class="form-label">Color</label>
+                                            <div class="col-3">
+                                                <label class="form-label">Color de Fuente</label>
                                                 <input type="color" id="connLabelFontColor" class="form-control form-control-color"
+                                                    value="#000000">
+                                            </div>
+                                            <div class="col-3">
+                                                <label class="form-label"> Color de Fondo</label>
+                                                <input type="color" id="connLabelBgColor" class="form-control form-control-color"
                                                     value="#000000">
                                             </div>
                                             <div class="col-6">
@@ -653,7 +686,7 @@
                             <div class="col-12">
                                 <label class="form-label"><i class="bi bi-arrows-expand"></i> Tamaño del patrón</label>
                                 <div class="d-flex align-items-center gap-2">
-                                    <input type="range" id="patternSize" min="0.1" max="3" step="0.1" value="1.0"
+                                    <input type="range" id="patternSize" min="1.5" max="5" step="0.1" value="1.0"
                                         class="form-range">
                                     <span id="patternSizeValue"
                                         class="pattern-size-value badge bg-secondary">1.00</span>

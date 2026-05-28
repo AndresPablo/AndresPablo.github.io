@@ -431,7 +431,8 @@ function attachConnectionEvents(conn) {
     // Remove existing event listeners to prevent duplicates
     const elements = [
         'lineColor', 'strokePattern', 'lineWidthSlider', 'connText', 'connIconShape', 'connIconFill',
-        'connIconFile', 'loadConnIconUrl', 'removeConnIconBtn', 'connPattern', 'patternCount', 'patternSize', 'deleteConnBtn'
+        'connIconFile', 'loadConnIconUrl', 'removeConnIconBtn', 'connPattern', 'patternCount', 'patternSize', 'deleteConnBtn',
+        'connLabelParallel', 'connLabelSide', 'connLabelOffset', 'connLabelBgColor'
     ];
 
     elements.forEach(id => {
@@ -506,6 +507,25 @@ function attachConnectionEvents(conn) {
         conn.patternSize = parseFloat(e.target.value);
         lastConnectionStyle.patternSize = conn.patternSize;
         updatePatternSizeValue(conn.patternSize);
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connLabelParallel')?.addEventListener('change', e => {
+        conn.labelParallel = e.target.checked;
+        const controlsDiv = document.getElementById('labelSideOffsetControls');
+        if (controlsDiv) controlsDiv.style.display = e.target.checked ? 'flex' : 'none';
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connLabelSide')?.addEventListener('change', e => {
+        conn.labelSide = e.target.value;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connLabelOffset')?.addEventListener('change', e => {
+        conn.labelOffsetDistance = parseInt(e.target.value);
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connLabelBgColor')?.addEventListener('change', e => {
+        conn.labelBgColor = e.target.value;
+        lastConnectionStyle.labelBgColor = conn.labelBgColor;
         renderCanvas(); saveToLocalStorage();
     });
     document.getElementById('deleteConnBtn')?.addEventListener('click', () => deleteConnectionById(conn.id));
@@ -587,7 +607,7 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             canvasOrientation = data.canvasOrientation || "landscape";
             showGrid = data.showGrid !== undefined ? data.showGrid : true;
             gridType = data.gridType || "hex";
-            lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0 };
+            lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0, labelParallel: false, labelSide: "above", labelOffsetDistance: 15, labelBgColor: "#000000aa" };
             
             setCanvasSizeByOrientation(false);
             

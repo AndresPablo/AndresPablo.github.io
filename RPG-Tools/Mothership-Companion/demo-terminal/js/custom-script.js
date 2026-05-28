@@ -336,46 +336,28 @@ async function loadCatalogData() {
         
         if (weaponsRes.ok) {
             let weaponsJson = await weaponsRes.json();
-            if (weaponsJson.weapons) {
-                weaponsData = Array.isArray(weaponsJson.weapons) 
-                    ? weaponsJson.weapons 
-                    : Object.values(weaponsJson.weapons);
-            } else {
-                weaponsData = [];
-            }
+            weaponsData = weaponsJson.weapons 
+                ? (Array.isArray(weaponsJson.weapons) ? weaponsJson.weapons : Object.values(weaponsJson.weapons))
+                : [];
         }
-        
         if (armorsRes.ok) {
             let armorsJson = await armorsRes.json();
-            if (armorsJson.armors) {
-                armorsData = Array.isArray(armorsJson.armors) 
-                    ? armorsJson.armors 
-                    : Object.values(armorsJson.armors);
-            } else {
-                armorsData = [];
-            }
+            armorsData = armorsJson.armors 
+                ? (Array.isArray(armorsJson.armors) ? armorsJson.armors : Object.values(armorsJson.armors))
+                : [];
         }
-        
         if (cyberwareRes.ok) {
             let cyberJson = await cyberwareRes.json();
-            if (cyberJson.cyberware) {
-                cyberwareData = Array.isArray(cyberJson.cyberware) 
-                    ? cyberJson.cyberware 
-                    : Object.values(cyberJson.cyberware);
-            } else {
-                cyberwareData = [];
-            }
+            cyberwareData = cyberJson.cyberware 
+                ? (Array.isArray(cyberJson.cyberware) ? cyberJson.cyberware : Object.values(cyberJson.cyberware))
+                : [];
         }
-        console.log("Armas cargadas:", weaponsData);
-        console.log("Armaduras cargadas:", armorsData);
-        console.log("Ciberware cargado:", cyberwareData);
     } catch (error) {
         console.error("Error cargando catálogo:", error);
-        weaponsData = [];
-        armorsData = [];
-        cyberwareData = [];
+        weaponsData = []; armorsData = []; cyberwareData = [];
     }
 }
+
 
 function renderWeaponsTable() {
     const tbody = document.querySelector("#weapons-list tbody");
@@ -444,24 +426,42 @@ function renderCyberwareTable() {
     });
 }
 
-function showCatalog() {
-    document.getElementById("character-section")?.classList.add("d-none");
-    document.getElementById("items-section")?.classList.remove("d-none");
+function hideAllTables() {
+    
+}
+
+
+function showCharacters() {
+    const charSection = document.getElementById('character-section');
+    const itemsSection = document.getElementById('items-section');
+    if (charSection) charSection.classList.remove('d-none');
+    if (itemsSection) itemsSection.classList.add('d-none');
+}
+
+function showItems() {
+    const charSection = document.getElementById('character-section');
+    const itemsSection = document.getElementById('items-section');
+    if (charSection) charSection.classList.add('d-none');
+    if (itemsSection) itemsSection.classList.remove('d-none');
     renderWeaponsTable();
     renderArmorsTable();
     renderCyberwareTable();
 }
 
-function showCharacters() {
-    document.getElementById("character-section")?.classList.remove("d-none");
-    document.getElementById("items-section")?.classList.add("d-none");
+function showMercenaries() {
+    const charSection = document.getElementById('character-section');
+    const itemsSection = document.getElementById('items-section');
+    if (charSection) charSection.classList.add('d-none');
+    if (itemsSection) itemsSection.classList.add('d-none');
 }
 
 function bindCatalogEvents() {
     const btnCatalogo = document.getElementById("btnCatalogo");
     const btnPersonajes = document.getElementById("btnPersonajes");
-    if (btnCatalogo) btnCatalogo.addEventListener("click", showCatalog);
+    const btnMercenaries = document.getElementById("btnMercenaries");
+    if (btnCatalogo) btnCatalogo.addEventListener("click", showItems);
     if (btnPersonajes) btnPersonajes.addEventListener("click", showCharacters);
+    if (btnMercenaries) btnMercenaries.addEventListener("click", showMercenaries);
 }
 
 // --------------------------------------------------------------

@@ -92,7 +92,11 @@ function loadFromLocalStorage() {
             text: "1 jornada",
             pattern: "none",
             patternCount: 0,
-            patternSize: 1.0
+            patternSize: 1.0,
+            labelParallel: false,
+            labelSide: "above",
+            labelOffsetDistance: 15,
+            labelBgColor: "#000000aa"
         };
 
         // Load theme

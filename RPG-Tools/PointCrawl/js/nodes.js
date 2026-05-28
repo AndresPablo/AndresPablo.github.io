@@ -1,5 +1,14 @@
-function drawShape(ctx, x, y, radius, shape, bgColor, isSelected) {
+function drawShape(ctx, x, y, radius, shape, bgColor, isSelected, glowEnabled = false, glowColor = "#ffff00", glowSize = 10) {
     ctx.save();
+    
+    // Draw glow if enabled
+    if (glowEnabled && glowSize > 0) {
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = glowSize;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+    }
+    
     ctx.beginPath();
     if (shape === "circle"){
         ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -71,13 +80,17 @@ function updateHexRadius() {
 function drawInnerText(ctx, node, radius) {
     if (!node.innerText) return;
     ctx.save();
-    ctx.font = "bold 14px 'Segoe UI'";
+    
+    // Get font settings from node or use defaults
+    const fontSettings = node.innerLabelFont || getThemeFont('innerLabel');
+    ctx.font = `${fontSettings.weight} ${fontSettings.size}px ${fontSettings.family}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.fillStyle = fontSettings.color || "#ffffff";
+    
     const text = node.innerText;
     const metrics = ctx.measureText(text);
     const padding = 6;
-    ctx.fillStyle = "#ffffff";
     ctx.fillText(text, node.x, node.y);
     ctx.restore();
 }
@@ -85,7 +98,14 @@ function drawInnerText(ctx, node, radius) {
 function drawLabel(ctx, node, radius) {
     if (!node.labelText || node.labelText.trim() === "") return;
     ctx.save();
-    ctx.font = "bold 11px 'Segoe UI'";
+    
+    // Get font settings from node or use defaults
+    const fontSettings = node.externalLabelFont || getThemeFont('externalLabel');
+    // Don't quote font family - Canvas API handles it better without quotes when comma-separated
+    const fontString = `${fontSettings.weight} ${fontSettings.size}px ${fontSettings.family}`;
+    ctx.font = fontString;
+    ctx.fillStyle = fontSettings.color || "#1D3557";
+    
     const text = node.labelText;
     const metrics = ctx.measureText(text);
     const textWidth = metrics.width;
@@ -132,7 +152,8 @@ function drawLabel(ctx, node, radius) {
     
     ctx.fillStyle = node.labelBgColor || "#ffffffaa";
     ctx.fillRect(rectX, rectY, textWidth + padding * 2, 17);
-    ctx.fillStyle = "#1e1a15";
+    // Reset fillStyle to font color for text rendering
+    ctx.fillStyle = fontSettings.color || "#1D3557";
     ctx.textAlign = textAlign;
     ctx.textBaseline = "middle";
     ctx.fillText(text, x, y);
@@ -254,12 +275,22 @@ function updateAllNodeRadii() {
 }
 
 function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, labelText = "", labelPosition = "bottom", labelBgColor = "#dbdbdb", innerText = "") {
+    const innerLabelFont = getThemeFont('innerLabel');
+    const externalLabelFont = getThemeFont('externalLabel');
+    
     const node = { 
         id: nextNodeId++, 
         x, y, bgColor, shape, 
         scale: scale, 
         labelText, labelPosition, labelBgColor, innerText, 
-        iconImage: null, iconSrc: null, iconColor: "#ffffff" 
+        iconImage: null, iconSrc: null, iconColor: "#ffffff",
+        // Font properties for labels
+        innerLabelFont: { ...innerLabelFont },
+        externalLabelFont: { ...externalLabelFont },
+        // Glow properties
+        glowEnabled: false,
+        glowColor: "#ffff00",
+        glowSize: 10
     };
     // Calculamos radius dinámicamente según la forma y el tamaño de celda actual
     node.radius = getRadiusFromScale(shape, scale, currentCellSize);
@@ -284,8 +315,18 @@ function duplicateSelectedNode() {
     if (!original) return;
     const newX = Math.min(canvas.width - getNodeRadius(original) - 5, original.x + 40);
     const newY = Math.min(canvas.height - getNodeRadius(original) - 5, original.y + 40);
-    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.radius, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
+    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.scale, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
     newNode.iconColor = original.iconColor || '#ffffff';
+    
+    // Copy font properties
+    if (original.innerLabelFont) newNode.innerLabelFont = { ...original.innerLabelFont };
+    if (original.externalLabelFont) newNode.externalLabelFont = { ...original.externalLabelFont };
+    
+    // Copy glow properties
+    newNode.glowEnabled = original.glowEnabled || false;
+    newNode.glowColor = original.glowColor || '#ffff00';
+    newNode.glowSize = original.glowSize || 10;
+    
     if (original.iconSrc) loadImageForNode(newNode, original.iconSrc);
     renderCanvas();
     selectedNodeId = newNode.id;

@@ -235,3 +235,7 @@ footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: gray; }
 .glow-border {
     border-image: linear-gradient(to right, #0066ff, #ff32d6) 1 1 1 1;
 }
+
+.accordion-button::after{
+    background-color: var(--bs-accordion-bg);
+}

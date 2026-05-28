@@ -13,15 +13,36 @@ function updatePropertiesPanel() {
             connPanel.style.display = 'none';
 
             // Update node field values
-            document.getElementById('nodeBgColor').value = node.bgColor;
+            document.getElementById('nodeBgColor').value = node.bgColor || "#000000";
             document.getElementById('nodeShape').value = node.shape;
             document.getElementById('innerText').value = node.innerText || '';
             document.getElementById('labelText').value = node.labelText || '';
             document.getElementById('labelPos').value = node.labelPosition;
-            document.getElementById('labelBgColor').value = node.labelBgColor;
+            document.getElementById('labelBgColor').value = node.labelBgColor || "#000000";
             document.getElementById('iconColor').value = node.iconColor || '#ffffff';
-            if (scaleInput) scaleInput.value = node.scale.toFixed(2);
+            if (scaleInput) {
+                const scaleValue = (node.scale !== undefined && node.scale !== null) ? node.scale : 1.0;
+                scaleInput.value = scaleValue.toFixed(2);
+            }
             
+            // Update internal label font
+            if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');
+            document.getElementById('innerLabelFontFamily').value = node.innerLabelFont.family || 'Georgia, serif';
+            document.getElementById('innerLabelFontSize').value = node.innerLabelFont.size || 14;
+            document.getElementById('innerLabelFontColor').value = node.innerLabelFont.color || '#000000';
+            document.getElementById('innerLabelFontWeight').value = node.innerLabelFont.weight || 'bold';
+            
+            // Update external label font
+            if (!node.externalLabelFont) node.externalLabelFont = getThemeFont('externalLabel');
+            document.getElementById('externalLabelFontFamily').value = node.externalLabelFont.family || 'Georgia, serif';
+            document.getElementById('externalLabelFontSize').value = node.externalLabelFont.size || 12;
+            document.getElementById('externalLabelFontColor').value = node.externalLabelFont.color || '#000000';
+            document.getElementById('externalLabelFontWeight').value = node.externalLabelFont.weight || 'normal';
+
+            // Update glow settings
+            document.getElementById('nodeGlowEnabled').checked = node.glowEnabled || false;
+            document.getElementById('nodeGlowColor').value = node.glowColor || '#ffff00';
+            document.getElementById('nodeGlowSize').value = node.glowSize || 10;
 
             // Update icon preview
             const iconPreview = document.getElementById('iconPreview');
@@ -50,6 +71,13 @@ function updatePropertiesPanel() {
             document.getElementById('connPattern').value = conn.pattern;
             document.getElementById('patternCount').value = conn.patternCount;
             document.getElementById('patternSize').value = conn.patternSize || 1.0;
+
+            // Update connection label font
+            if (!conn.labelFont) conn.labelFont = getThemeFont('connectionLabel');
+            document.getElementById('connLabelFontFamily').value = conn.labelFont.family || 'Georgia, serif';
+            document.getElementById('connLabelFontSize').value = conn.labelFont.size || 11;
+            document.getElementById('connLabelFontColor').value = conn.labelFont.color || '#000000';
+            document.getElementById('connLabelFontWeight').value = conn.labelFont.weight || 'normal';
 
             updateWidthValue(conn.lineWidthLevel);
             updatePatternCountValue(conn.patternCount);
@@ -155,11 +183,10 @@ function populateMapSelection() {
                     <div class="card-text flex-grow-1">
                         <small class="text-muted">
                             ${map.data.author ? `Por ${map.data.author}` : 'Author'}<br>
-                            ${map.data.nodes ? map.data.nodes.length : 0} nodos
                         </small>
                     </div>
                     <button class="btn btn-primary btn-sm mt-2 load-map-btn" data-map-id="${map.id}">
-                        <i class="bi bi-play-circle"></i> Cargar
+                        Cargar
                     </button>
                 </div>
             </div>

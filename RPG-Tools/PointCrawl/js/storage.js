@@ -14,7 +14,8 @@ function saveToLocalStorage() {
         gridUnitsY,
         gridColor,
         gridAlpha,
-        canvasBgColor
+        canvasBgColor,
+        theme: exportThemeData()
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
@@ -26,12 +27,21 @@ function loadFromLocalStorage() {
         const data = JSON.parse(raw);
 
         // Cargar nodos (sin imágenes, sin variable newNode)
-        nodes = data.nodes.map(n => ({
-            ...n,
-            iconImage: null,
-            iconSrc: n.iconSrc,
-            iconColor: n.iconColor || '#ffffff'
-        }));
+        nodes = data.nodes.map(n => {
+            const innerLabelFont = n.innerLabelFont || getThemeFont('innerLabel');
+            const externalLabelFont = n.externalLabelFont || getThemeFont('externalLabel');
+            return {
+                ...n,
+                iconImage: null,
+                iconSrc: n.iconSrc,
+                iconColor: n.iconColor || '#ffffff',
+                innerLabelFont,
+                externalLabelFont,
+                glowEnabled: n.glowEnabled || false,
+                glowColor: n.glowColor || '#ffff00',
+                glowSize: n.glowSize || 10
+            };
+        });
 
         // Convertir nodos antiguos que usaban 'size' a 'radius' y 'scale'
         for (let node of nodes) {
@@ -50,12 +60,16 @@ function loadFromLocalStorage() {
         }
 
         // Cargar conexiones
-        connections = data.connections.map(c => ({
-            ...c,
-            iconImage: null,
-            iconSrc: c.iconSrc,
-            patternSize: c.patternSize || 1.0
-        }));
+        connections = data.connections.map(c => {
+            const labelFont = c.labelFont || getThemeFont('connectionLabel');
+            return {
+                ...c,
+                iconImage: null,
+                iconSrc: c.iconSrc,
+                patternSize: c.patternSize || 1.0,
+                labelFont
+            };
+        });
 
         // Resto de variables
         nextNodeId = data.nextNodeId || 1;
@@ -80,6 +94,11 @@ function loadFromLocalStorage() {
             patternCount: 0,
             patternSize: 1.0
         };
+
+        // Load theme
+        if (data.theme) {
+            importThemeData(data.theme);
+        }
 
         // Ajustar tamaño del canvas según orientación
         setCanvasSizeByOrientation(false);
@@ -119,10 +138,21 @@ function loadMapFromData(mapData) {
         if (mapData.gridAlpha !== undefined) gridAlpha = mapData.gridAlpha;
         if (mapData.lastConnectionStyle) lastConnectionStyle = mapData.lastConnectionStyle;
         
+        // Load theme
+        if (mapData.theme) {
+            importThemeData(mapData.theme);
+        }
+        
         // Load nodes
         if (mapData.nodes && Array.isArray(mapData.nodes)) {
             mapData.nodes.forEach(nodeData => {
                 const node = { ...nodeData };
+                node.iconImage = null;
+                node.innerLabelFont = node.innerLabelFont || getThemeFont('innerLabel');
+                node.externalLabelFont = node.externalLabelFont || getThemeFont('externalLabel');
+                node.glowEnabled = node.glowEnabled || false;
+                node.glowColor = node.glowColor || '#ffff00';
+                node.glowSize = node.glowSize || 10;
                 if (node.iconSrc) {
                     loadImageForNode(node, node.iconSrc);
                 }
@@ -134,6 +164,8 @@ function loadMapFromData(mapData) {
         if (mapData.connections && Array.isArray(mapData.connections)) {
             mapData.connections.forEach(connData => {
                 const conn = { ...connData };
+                conn.iconImage = null;
+                conn.labelFont = conn.labelFont || getThemeFont('connectionLabel');
                 if (conn.iconSrc) {
                     loadImageForConnection(conn, conn.iconSrc);
                 }

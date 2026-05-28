@@ -482,6 +482,10 @@ function loadFromLocalStorage() {
             }
         }
 
+        for (let node of nodes) {
+            if (node.scale === undefined) node.scale = 1.0;
+        }
+
         // Cargar conexiones
         connections = data.connections.map(c => ({
             ...c,
@@ -660,7 +664,7 @@ function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, la
     const node = { 
         id: nextNodeId++, 
         x, y, bgColor, shape, 
-        scale: scale, 
+        scale = (scale !== undefined && scale !== null) ? scale : 1.0,
         labelText, labelPosition, labelBgColor, innerText, 
         iconImage: null, iconSrc: null, iconColor: "#ffffff" 
     };
@@ -724,7 +728,7 @@ function duplicateSelectedNode() {
     if (!original) return;
     const newX = Math.min(canvas.width - getNodeRadius(original) - 5, original.x + 40);
     const newY = Math.min(canvas.height - getNodeRadius(original) - 5, original.y + 40);
-    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.radius, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
+    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.scale, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
     newNode.iconColor = original.iconColor || '#ffffff';
     if (original.iconSrc) loadImageForNode(newNode, original.iconSrc);
     renderCanvas();
@@ -1985,7 +1989,10 @@ function updatePropertiesPanel() {
             document.getElementById('labelPos').value = node.labelPosition;
             document.getElementById('labelBgColor').value = node.labelBgColor;
             document.getElementById('iconColor').value = node.iconColor || '#ffffff';
-            if (scaleInput) scaleInput.value = node.scale.toFixed(2);
+            if (scaleInput) {
+                const scaleValue = (node.scale !== undefined && node.scale !== null) ? node.scale : 1.0;
+                scaleInput.value = scaleValue.toFixed(2);
+            }
             
 
             // Update icon preview

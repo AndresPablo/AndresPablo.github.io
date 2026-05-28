@@ -35,13 +35,13 @@ let lastConnectionStyle = {
 
 let exportSolidBackground = false;
 let canvasOrientation = "landscape";
-let showGrid = false;
+let showGrid = true;
 let gridType = "square";
 let gridColor = "#616161";
 let gridAlpha = 0.25;
 let cellW = 32;
 let cellH = 32;
-let snappingEnabled = false;
+let snappingEnabled = true;
 let canvasBgColor = "#ffffff";
 const PORTRAIT_W = 800, PORTRAIT_H = 1131;
 const LANDSCAPE_W = 1131, LANDSCAPE_H = 800;
@@ -378,7 +378,7 @@ function renderCanvasTo(targetCtx, targetCanvas, includeGrid = true, includeBack
     }
     for (let node of nodes) {
         const radius = getNodeRadius(node);
-        drawShape(targetCtx, node.x, node.y, radius, node.shape, node.bgColor, selectedNodeId === node.id);
+        drawShape(targetCtx, node.x, node.y, radius, node.shape, node.bgColor, selectedNodeId === node.id, node.glowEnabled, node.glowColor, node.glowSize);
         drawIcon(targetCtx, node, radius);
         drawInnerText(targetCtx, node, radius);
         drawLabel(targetCtx, node, radius);
@@ -620,6 +620,7 @@ function resetFullMap() {
         selectedNodeId = null;
         selectedConnectionId = null;
         gridType = "hex-flat";
+        canvasBgColor = "#ffffff";
         const n1 = addNodeRaw(300, 250, "#2c2c2c", "circle", 1, "Cripta", "bottom", "#ffffff", "💀");
         const n2 = addNodeRaw(750, 380, "#3b965a", "square", 1, "Bosque", "bottom", "#ffffff", "🌲");
         const n3 = addNodeRaw(550, 600, "#473700", "isometric", 2, "Montaña", "bottom", "#ffffffaa", "⛰️");

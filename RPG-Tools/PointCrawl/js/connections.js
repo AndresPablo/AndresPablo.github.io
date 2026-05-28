@@ -1,5 +1,14 @@
 function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc = null, iconShape = "circle", iconFillColor = "#ffffff", pattern = "none", patternCount = 0, patternSize = 1.0) {
-    const conn = { id: nextConnId++, fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc, iconImage: null, iconShape, iconFillColor, pattern, patternCount, patternSize };
+    const connLabelFont = getThemeFont('connectionLabel');
+    
+    const conn = { 
+        id: nextConnId++, 
+        fromId, toId, color, strokePattern, lineWidthLevel, text, 
+        iconSrc, iconImage: null, iconShape, iconFillColor, 
+        pattern, patternCount, patternSize,
+        // Font properties for connection label
+        labelFont: { ...connLabelFont }
+    };
     if (iconSrc) loadImageForConnection(conn, iconSrc);
     connections.push(conn);
     return conn;
@@ -290,7 +299,9 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
     
     // Texto en el medio: corregido el centrado vertical
     if (conn.text && conn.text.trim() !== "") {
-        ctx.font = "bold 11px 'Segoe UI'";
+        // Get font settings from connection or use defaults
+        const fontSettings = conn.labelFont || getThemeFont('connectionLabel');
+        ctx.font = `${fontSettings.weight} ${fontSettings.size}px ${fontSettings.family}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         const tW = ctx.measureText(conn.text).width;
@@ -298,7 +309,7 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
         // Fondo centrado exactamente
         ctx.fillStyle = "#000000aa";
         ctx.fillRect(midX - tW / 2 - padding, midY - 10, tW + padding * 2, 20);
-        ctx.fillStyle = "#fef5e3";
+        ctx.fillStyle = fontSettings.color || "#fef5e3";
         ctx.fillText(conn.text, midX, midY);
     }
     ctx.restore();

@@ -96,6 +96,165 @@ function setupEventListeners() {
             renderCanvas(); saveToLocalStorage();
         }
     });
+
+    // ======================== FONT SETTINGS FOR NODES ========================
+    
+    // Internal label font
+    document.getElementById('innerLabelFontFamily')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');
+                node.innerLabelFont.family = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('innerLabelFontSize')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');
+                node.innerLabelFont.size = parseInt(e.target.value) || 14;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('innerLabelFontColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');
+                node.innerLabelFont.color = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('innerLabelFontWeight')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');
+                node.innerLabelFont.weight = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+
+    // External label font
+    document.getElementById('externalLabelFontFamily')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.externalLabelFont) node.externalLabelFont = getThemeFont('externalLabel');
+                node.externalLabelFont.family = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('externalLabelFontSize')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.externalLabelFont) node.externalLabelFont = getThemeFont('externalLabel');
+                node.externalLabelFont.size = parseInt(e.target.value) || 12;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('externalLabelFontColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.externalLabelFont) node.externalLabelFont = getThemeFont('externalLabel');
+                node.externalLabelFont.color = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('externalLabelFontWeight')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                if (!node.externalLabelFont) node.externalLabelFont = getThemeFont('externalLabel');
+                node.externalLabelFont.weight = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+
+    // ======================== FONT SETTINGS FOR CONNECTIONS ========================
+    
+    document.getElementById('connLabelFontFamily')?.addEventListener('change', (e) => {
+        if (selectedConnectionId !== null) {
+            const conn = connections.find(c => c.id === selectedConnectionId);
+            if (conn) {
+                if (!conn.labelFont) conn.labelFont = getThemeFont('connectionLabel');
+                conn.labelFont.family = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('connLabelFontSize')?.addEventListener('change', (e) => {
+        if (selectedConnectionId !== null) {
+            const conn = connections.find(c => c.id === selectedConnectionId);
+            if (conn) {
+                if (!conn.labelFont) conn.labelFont = getThemeFont('connectionLabel');
+                conn.labelFont.size = parseInt(e.target.value) || 11;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('connLabelFontColor')?.addEventListener('change', (e) => {
+        if (selectedConnectionId !== null) {
+            const conn = connections.find(c => c.id === selectedConnectionId);
+            if (conn) {
+                if (!conn.labelFont) conn.labelFont = getThemeFont('connectionLabel');
+                conn.labelFont.color = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('connLabelFontWeight')?.addEventListener('change', (e) => {
+        if (selectedConnectionId !== null) {
+            const conn = connections.find(c => c.id === selectedConnectionId);
+            if (conn) {
+                if (!conn.labelFont) conn.labelFont = getThemeFont('connectionLabel');
+                conn.labelFont.weight = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+
+    // ======================== GLOW SETTINGS FOR NODES ========================
+    document.getElementById('nodeGlowEnabled')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.glowEnabled = e.target.checked;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('nodeGlowColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.glowColor = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('nodeGlowSize')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.glowSize = parseInt(e.target.value) || 10;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+
     // Escala del nodo (input numérico)
     document.getElementById('nodeScaleInput')?.addEventListener('change', (e) => {
         if (selectedNodeId !== null) {
@@ -566,7 +725,47 @@ document.getElementById('gridVisibleToggle').addEventListener('change', (e) => {
     renderCanvas();
     updateStatusMessage(`Grilla ${showGrid ? 'visible' : 'oculta'}`, false);
 });
+// ======================== THEME SYSTEM EVENTS ========================
 
+// Manejador para cambiar el tema
+document.getElementById('themeSelect')?.addEventListener('change', (e) => {
+    const themeName = e.target.value;
+    setTheme(themeName);
+    updateThemePaletteDisplay();
+    saveToLocalStorage();
+    updateStatusMessage(`Tema cambiado a ${getCurrentTheme().name}`, false);
+});
+
+// Initialize color palettes for all color inputs
+function initializeUIColorPalettes() {
+    // Initialize existing color inputs
+    initializeColorPalettes();
+    
+    // Re-initialize whenever the DOM changes or modals are shown
+    const settingsModal = document.getElementById('settingsModal');
+    if (settingsModal) {
+        settingsModal.addEventListener('shown.bs.modal', () => {
+            updateThemePaletteDisplay();
+            initializeColorPalettes(settingsModal);
+        });
+    }
+    
+    // Also reinitialize when node properties panel updates
+    const observer = new MutationObserver(() => {
+        initializeColorPalettes();
+    });
+    
+    const nodePanel = document.getElementById('nodePropertiesPanel');
+    if (nodePanel) {
+        observer.observe(nodePanel, { childList: true, subtree: true });
+    }
+}
+
+
+// Call after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initializeUIColorPalettes, 100);
+});
 //#endregion EVENTOS
 
 
@@ -591,6 +790,14 @@ document.getElementById('resetNavBtn').addEventListener('click', () => resetFull
 setupEventListeners();
 renderCanvas();
 document.getElementById('canvasBgColorInput').value = canvasBgColor;
+
+// Initialize theme selector with current theme
+document.getElementById('themeSelect').value = getCurrentThemeName();
+updateThemePaletteDisplay();
+
+// Initialize color palettes for all color inputs
+initializeUIColorPalettes();
+
 populateIconPicker();
 
 // Show startup modal instead of auto-loading

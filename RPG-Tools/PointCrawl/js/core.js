@@ -31,6 +31,7 @@ let lastConnectionStyle = {
     pattern: "none",
     patternCount: 0,
     patternSize: 1.0,
+    opacity: 1.0,
     labelParallel: false,
     labelSide: "above",
     labelOffsetDistance: 15,
@@ -382,7 +383,7 @@ function renderCanvasTo(targetCtx, targetCanvas, includeGrid = true, includeBack
     }
     for (let node of nodes) {
         const radius = getNodeRadius(node);
-        drawShape(targetCtx, node.x, node.y, radius, node.shape, node.bgColor, selectedNodeId === node.id, node.glowEnabled, node.glowColor, node.glowSize);
+        drawShape(targetCtx, node.x, node.y, radius, node.shape, node.bgColor, selectedNodeId === node.id, node.glowEnabled, node.glowColor, node.glowSize, node.borderColor || '#000000', node.borderWidth !== undefined ? node.borderWidth : 0);
         drawIcon(targetCtx, node, radius);
         drawInnerText(targetCtx, node, radius);
         drawLabel(targetCtx, node, radius);

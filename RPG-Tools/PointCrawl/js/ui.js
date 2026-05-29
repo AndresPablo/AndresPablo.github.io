@@ -14,12 +14,19 @@ function updatePropertiesPanel() {
 
             // Update node field values
             document.getElementById('nodeBgColor').value = node.bgColor || "#000000";
+            document.getElementById('nodeBorderColor').value = node.borderColor || "#000000";
+            document.getElementById('nodeBorderWidth').value = node.borderWidth !== undefined ? node.borderWidth : 0;
             document.getElementById('nodeShape').value = node.shape;
             document.getElementById('innerText').value = node.innerText || '';
             document.getElementById('labelText').value = node.labelText || '';
             document.getElementById('labelPos').value = node.labelPosition;
             document.getElementById('labelBgColor').value = node.labelBgColor || "#000000";
             document.getElementById('iconColor').value = node.iconColor || '#ffffff';
+            document.getElementById('nodeIconFlipX').checked = node.iconFlipX || false;
+            document.getElementById('nodeIconFlipY').checked = node.iconFlipY || false;
+            document.getElementById('nodeIconRotation').value = node.iconRotation !== undefined ? node.iconRotation : 0;
+            document.getElementById('externalLabelRotation').value = node.externalLabelRotation !== undefined ? node.externalLabelRotation : 0;
+            document.getElementById('innerLabelRotation').value = node.innerLabelRotation !== undefined ? node.innerLabelRotation : 0;
             if (scaleInput) {
                 const scaleValue = (node.scale !== undefined && node.scale !== null) ? node.scale : 1.0;
                 scaleInput.value = scaleValue.toFixed(2);
@@ -64,6 +71,7 @@ function updatePropertiesPanel() {
             // Actualizar campos
             document.getElementById('lineColor').value = conn.color;
             document.getElementById('strokePattern').value = conn.strokePattern;
+            document.getElementById('connOpacitySlider').value = Math.round((conn.opacity !== undefined ? conn.opacity : 1.0) * 100);
             document.getElementById('lineWidthSlider').value = conn.lineWidthLevel;
             document.getElementById('connText').value = conn.text || '';
             document.getElementById('connIconShape').value = conn.iconShape;
@@ -80,6 +88,7 @@ function updatePropertiesPanel() {
             document.getElementById('connLabelFontWeight').value = conn.labelFont.weight || 'normal';
 
             updateWidthValue(conn.lineWidthLevel);
+            updateOpacityValue(conn.opacity !== undefined ? conn.opacity : 1.0);
             updatePatternCountValue(conn.patternCount);
             updatePatternSizeValue(conn.patternSize || 1.0);
 
@@ -97,6 +106,12 @@ function updatePropertiesPanel() {
             } else {
                 connIconPreview.innerHTML = "Sin ícono";
             }
+
+            // Caps
+            const startCapEl = document.getElementById('connStartCap');
+            const endCapEl = document.getElementById('connEndCap');
+            if (startCapEl) startCapEl.value = conn.startCap || 'none';
+            if (endCapEl) endCapEl.value = conn.endCap || 'none';
 
             attachConnectionEvents(conn);
             
@@ -120,6 +135,11 @@ function updateWidthValue(value) {
 function updatePatternCountValue(value) {
     const span = document.getElementById('patternCountValue');
     span.innerText = value;
+}
+
+function updateOpacityValue(value) {
+    const span = document.getElementById('opacityValue');
+    span.innerText = `${Math.round(value * 100)}%`;
 }
 
 function updatePatternSizeValue(value) {

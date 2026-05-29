@@ -1,4 +1,4 @@
-function drawShape(ctx, x, y, radius, shape, bgColor, isSelected, glowEnabled = false, glowColor = "#ffff00", glowSize = 10) {
+function drawShape(ctx, x, y, radius, shape, bgColor, isSelected, glowEnabled = false, glowColor = "#ffff00", glowSize = 10, borderColor = "#000000", borderWidth = 0) {
     ctx.save();
     
     // Draw glow if enabled
@@ -53,6 +53,13 @@ function drawShape(ctx, x, y, radius, shape, bgColor, isSelected, glowEnabled = 
     }
     ctx.fillStyle = bgColor;
     ctx.fill();
+    if (borderWidth && borderWidth > 0) {
+        ctx.save();
+        ctx.strokeStyle = borderColor;
+        ctx.lineWidth = borderWidth;
+        ctx.stroke();
+        ctx.restore();
+    }
     if (isSelected) {
         ctx.strokeStyle = "#ffcc55";
         ctx.lineWidth = 2.5;
@@ -80,6 +87,9 @@ function updateHexRadius() {
 function drawInnerText(ctx, node, radius) {
     if (!node.innerText) return;
     ctx.save();
+    const rotation = (node.innerLabelRotation || 0) * Math.PI / 180;
+    ctx.translate(node.x, node.y);
+    ctx.rotate(rotation);
     
     // Get font settings from node or use defaults
     const fontSettings = node.innerLabelFont || getThemeFont('innerLabel');
@@ -89,9 +99,7 @@ function drawInnerText(ctx, node, radius) {
     ctx.fillStyle = fontSettings.color || "#ffffff";
     
     const text = node.innerText;
-    const metrics = ctx.measureText(text);
-    const padding = 6;
-    ctx.fillText(text, node.x, node.y);
+    ctx.fillText(text, 0, 0);
     ctx.restore();
 }
 
@@ -118,45 +126,50 @@ function drawLabel(ctx, node, radius) {
             x = node.x;
             y = node.y - offset - 4;
             textAlign = "center";
-            rectX = node.x - textWidth/2 - padding;
-            rectY = y - 9;
+            rectX = -textWidth/2 - padding;
+            rectY = -9;
             break;
         case "bottom":
             x = node.x;
             y = node.y + offset + 6;
             textAlign = "center";
-            rectX = node.x - textWidth/2 - padding;
-            rectY = y - 9;
+            rectX = -textWidth/2 - padding;
+            rectY = -9;
             break;
         case "left":
             x = node.x - offset - 4;
             y = node.y;
             textAlign = "end";
-            rectX = node.x - offset - textWidth - padding * 1.5;
-            rectY = node.y - 9;
+            rectX = -offset - textWidth - padding * 1.5;
+            rectY = -9;
             break;
         case "right":
             x = node.x + offset + 4;
             y = node.y;
             textAlign = "start";
-            rectX = node.x + offset + 2;
-            rectY = node.y - 9;
+            rectX = offset + 2;
+            rectY = -9;
             break;
         default:
             x = node.x;
             y = node.y + radius + 12;
             textAlign = "center";
-            rectX = node.x - textWidth/2 - padding;
-            rectY = y - 9;
+            rectX = -textWidth/2 - padding;
+            rectY = -9;
     }
     
+    const rotation = (node.externalLabelRotation || 0) * Math.PI / 180;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+
     ctx.fillStyle = node.labelBgColor || "#ffffffaa";
     ctx.fillRect(rectX, rectY, textWidth + padding * 2, 17);
     // Reset fillStyle to font color for text rendering
     ctx.fillStyle = fontSettings.color || "#1D3557";
     ctx.textAlign = textAlign;
     ctx.textBaseline = "middle";
-    ctx.fillText(text, x, y);
+    ctx.fillText(text, 0, 0);
     ctx.restore();
 }
 
@@ -241,10 +254,20 @@ function drawIcon(ctx, node, radius) {
             }
             
             tempCtx.putImageData(imageData, 0, 0);
-            ctx.drawImage(tempCanvas, node.x - iconSize / 2, node.y - iconSize / 2, iconSize, iconSize);
+            ctx.save();
+            ctx.translate(node.x, node.y);
+            ctx.rotate((node.iconRotation || 0) * Math.PI / 180);
+            ctx.scale(node.iconFlipX ? -1 : 1, node.iconFlipY ? -1 : 1);
+            ctx.drawImage(tempCanvas, -iconSize / 2, -iconSize / 2, iconSize, iconSize);
+            ctx.restore();
         } else {
             // Draw normally for white/default color
-            ctx.drawImage(node.iconImage, node.x - iconSize / 2, node.y - iconSize / 2, iconSize, iconSize);
+            ctx.save();
+            ctx.translate(node.x, node.y);
+            ctx.rotate((node.iconRotation || 0) * Math.PI / 180);
+            ctx.scale(node.iconFlipX ? -1 : 1, node.iconFlipY ? -1 : 1);
+            ctx.drawImage(node.iconImage, -iconSize / 2, -iconSize / 2, iconSize, iconSize);
+            ctx.restore();
         }
         
         ctx.restore();
@@ -274,7 +297,7 @@ function updateAllNodeRadii() {
     saveToLocalStorage();
 }
 
-function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, labelText = "", labelPosition = "bottom", labelBgColor = "#dbdbdb", innerText = "") {
+function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, labelText = "", labelPosition = "bottom", labelBgColor = "#dbdbdb", innerText = "", borderColor = "#000000", borderWidth = 0) {
     const innerLabelFont = getThemeFont('innerLabel');
     const externalLabelFont = getThemeFont('externalLabel');
     
@@ -284,6 +307,13 @@ function addNodeRaw(x, y, bgColor = "#000000", shape = "circle", scale = 1.0, la
         scale: scale, 
         labelText, labelPosition, labelBgColor, innerText, 
         iconImage: null, iconSrc: null, iconColor: "#ffffff",
+        iconFlipX: false,
+        iconFlipY: false,
+        iconRotation: 0,
+        innerLabelRotation: 0,
+        externalLabelRotation: 0,
+        borderColor,
+        borderWidth,
         // Font properties for labels
         innerLabelFont: { ...innerLabelFont },
         externalLabelFont: { ...externalLabelFont },
@@ -315,7 +345,7 @@ function duplicateSelectedNode() {
     if (!original) return;
     const newX = Math.min(canvas.width - getNodeRadius(original) - 5, original.x + 40);
     const newY = Math.min(canvas.height - getNodeRadius(original) - 5, original.y + 40);
-    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.scale, original.labelText, original.labelPosition, original.labelBgColor, original.innerText);
+    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.scale, original.labelText, original.labelPosition, original.labelBgColor, original.innerText, original.borderColor || '#000000', original.borderWidth !== undefined ? original.borderWidth : 0);
     newNode.iconColor = original.iconColor || '#ffffff';
     
     // Copy font properties
@@ -327,6 +357,11 @@ function duplicateSelectedNode() {
     newNode.glowColor = original.glowColor || '#ffff00';
     newNode.glowSize = original.glowSize || 10;
     
+    newNode.iconFlipX = original.iconFlipX || false;
+    newNode.iconFlipY = original.iconFlipY || false;
+    newNode.iconRotation = original.iconRotation !== undefined ? original.iconRotation : 0;
+    newNode.innerLabelRotation = original.innerLabelRotation !== undefined ? original.innerLabelRotation : 0;
+    newNode.externalLabelRotation = original.externalLabelRotation !== undefined ? original.externalLabelRotation : 0;
     if (original.iconSrc) loadImageForNode(newNode, original.iconSrc);
     renderCanvas();
     selectedNodeId = newNode.id;

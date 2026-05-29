@@ -96,6 +96,53 @@ function setupEventListeners() {
             renderCanvas(); saveToLocalStorage();
         }
     });
+    document.getElementById('nodeIconFlipX')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.iconFlipX = e.target.checked;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('nodeIconFlipY')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) node.iconFlipY = e.target.checked;
+            renderCanvas(); saveToLocalStorage();
+        }
+    });
+    document.getElementById('nodeIconRotation')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                const rotation = parseFloat(e.target.value);
+                node.iconRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+                e.target.value = node.iconRotation;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('externalLabelRotation')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                const rotation = parseFloat(e.target.value);
+                node.externalLabelRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+                e.target.value = node.externalLabelRotation;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('innerLabelRotation')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                const rotation = parseFloat(e.target.value);
+                node.innerLabelRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+                e.target.value = node.innerLabelRotation;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
 
     // ======================== FONT SETTINGS FOR NODES ========================
     
@@ -254,6 +301,26 @@ function setupEventListeners() {
             }
         }
     });
+    document.getElementById('nodeBorderColor')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                node.borderColor = e.target.value;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
+    document.getElementById('nodeBorderWidth')?.addEventListener('change', (e) => {
+        if (selectedNodeId !== null) {
+            const node = nodes.find(n => n.id === selectedNodeId);
+            if (node) {
+                const width = parseInt(e.target.value, 10);
+                node.borderWidth = isNaN(width) ? 0 : width;
+                e.target.value = node.borderWidth;
+                renderCanvas(); saveToLocalStorage();
+            }
+        }
+    });
 
     // Escala del nodo (input numérico)
     document.getElementById('nodeScaleInput')?.addEventListener('change', (e) => {
@@ -353,7 +420,8 @@ document.getElementById('resetScaleBtn')?.addEventListener('click', () => {
 function attachNodeEvents(node) {
     // Remove existing event listeners to prevent duplicates
     const elements = [
-        'nodeBgColor', 'nodeShape', 'nodeRadius', 'innerText', 'labelText', 'labelPos', 'labelBgColor', 'iconColor',
+        'nodeBgColor', 'nodeBorderColor', 'nodeBorderWidth', 'nodeShape', 'nodeRadius', 'innerText', 'labelText', 'labelPos', 'labelBgColor', 'iconColor',
+        'nodeIconFlipX', 'nodeIconFlipY', 'nodeIconRotation', 'externalLabelRotation', 'innerLabelRotation',
         'iconFile', 'loadUrlIcon', 'selectIconBtn', 'removeIconBtn', 'deleteNodeBtn'
     ];
 
@@ -365,6 +433,9 @@ function attachNodeEvents(node) {
         }
     });
 
+    // Re-bind the color palette handlers for any replaced color inputs
+    try { initializeColorPalettes(document.getElementById('nodePropertiesPanel') || document); } catch (err) { initializeColorPalettes(); }
+
     // Re-attach event listeners
     document.getElementById('nodeBgColor')?.addEventListener('change', e => { node.bgColor = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('nodeShape')?.addEventListener('change', e => { node.shape = e.target.value; renderCanvas(); saveToLocalStorage(); });
@@ -372,7 +443,29 @@ function attachNodeEvents(node) {
     document.getElementById('labelText')?.addEventListener('change', e => { node.labelText = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('labelPos')?.addEventListener('change', e => { node.labelPosition = e.target.value; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('labelBgColor')?.addEventListener('change', e => { node.labelBgColor = e.target.value; renderCanvas(); saveToLocalStorage(); });
+    document.getElementById('nodeBorderColor')?.addEventListener('change', e => { node.borderColor = e.target.value; renderCanvas(); saveToLocalStorage(); });
+    document.getElementById('nodeBorderWidth')?.addEventListener('change', e => { const val = parseInt(e.target.value, 10); node.borderWidth = isNaN(val) ? 0 : val; renderCanvas(); saveToLocalStorage(); });
     document.getElementById('iconColor')?.addEventListener('change', e => { node.iconColor = e.target.value; renderCanvas(); saveToLocalStorage(); });
+    document.getElementById('nodeIconFlipX')?.addEventListener('change', e => { node.iconFlipX = e.target.checked; renderCanvas(); saveToLocalStorage(); });
+    document.getElementById('nodeIconFlipY')?.addEventListener('change', e => { node.iconFlipY = e.target.checked; renderCanvas(); saveToLocalStorage(); });
+    document.getElementById('nodeIconRotation')?.addEventListener('change', e => {
+        const rotation = parseFloat(e.target.value);
+        node.iconRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+        e.target.value = node.iconRotation;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('externalLabelRotation')?.addEventListener('change', e => {
+        const rotation = parseFloat(e.target.value);
+        node.externalLabelRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+        e.target.value = node.externalLabelRotation;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('innerLabelRotation')?.addEventListener('change', e => {
+        const rotation = parseFloat(e.target.value);
+        node.innerLabelRotation = isNaN(rotation) ? 0 : ((rotation % 360) + 360) % 360;
+        e.target.value = node.innerLabelRotation;
+        renderCanvas(); saveToLocalStorage();
+    });
     document.getElementById('iconFile')?.addEventListener('change', e => {
         const file = e.target.files[0];
         if (file) {
@@ -430,8 +523,9 @@ function attachNodeEvents(node) {
 function attachConnectionEvents(conn) {
     // Remove existing event listeners to prevent duplicates
     const elements = [
-        'lineColor', 'strokePattern', 'lineWidthSlider', 'connText', 'connIconShape', 'connIconFill',
+        'lineColor', 'connOpacitySlider', 'strokePattern', 'lineWidthSlider', 'connText', 'connIconShape', 'connIconFill',
         'connIconFile', 'loadConnIconUrl', 'removeConnIconBtn', 'connPattern', 'patternCount', 'patternSize', 'deleteConnBtn',
+        'connStartCap', 'connEndCap',
         'connLabelParallel', 'connLabelSide', 'connLabelOffset', 'connLabelBgColor'
     ];
 
@@ -447,6 +541,13 @@ function attachConnectionEvents(conn) {
     document.getElementById('lineColor')?.addEventListener('change', e => {
         conn.color = e.target.value;
         lastConnectionStyle.color = conn.color;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connOpacitySlider')?.addEventListener('input', e => {
+        const opacityValue = parseInt(e.target.value, 10) / 100;
+        conn.opacity = opacityValue;
+        lastConnectionStyle.opacity = conn.opacity;
+        updateOpacityValue(conn.opacity);
         renderCanvas(); saveToLocalStorage();
     });
     document.getElementById('strokePattern')?.addEventListener('change', e => {
@@ -495,6 +596,16 @@ function attachConnectionEvents(conn) {
     document.getElementById('connPattern')?.addEventListener('change', e => {
         conn.pattern = e.target.value;
         lastConnectionStyle.pattern = conn.pattern;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connStartCap')?.addEventListener('change', e => {
+        conn.startCap = e.target.value;
+        lastConnectionStyle.startCap = conn.startCap;
+        renderCanvas(); saveToLocalStorage();
+    });
+    document.getElementById('connEndCap')?.addEventListener('change', e => {
+        conn.endCap = e.target.value;
+        lastConnectionStyle.endCap = conn.endCap;
         renderCanvas(); saveToLocalStorage();
     });
     document.getElementById('patternCount')?.addEventListener('input', e => {
@@ -600,14 +711,15 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             }
             
             // Cargar los datos
-            nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff' }));
-            connections = data.connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc, patternSize: c.patternSize || 1.0 }));
+            nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff', iconFlipX: n.iconFlipX || false, iconFlipY: n.iconFlipY || false, iconRotation: n.iconRotation !== undefined ? n.iconRotation : 0, innerLabelRotation: n.innerLabelRotation !== undefined ? n.innerLabelRotation : 0, externalLabelRotation: n.externalLabelRotation !== undefined ? n.externalLabelRotation : 0, borderColor: n.borderColor || '#000000', borderWidth: n.borderWidth !== undefined ? n.borderWidth : 0 }));
+            connections = data.connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc, patternSize: c.patternSize || 1.0, opacity: c.opacity !== undefined ? c.opacity : 1.0, startCap: c.startCap || 'none', endCap: c.endCap || 'none' }));
             nextNodeId = data.nextNodeId || 1;
             nextConnId = data.nextConnId || 1;
             canvasOrientation = data.canvasOrientation || "landscape";
             showGrid = data.showGrid !== undefined ? data.showGrid : true;
             gridType = data.gridType || "hex";
-            lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0, labelParallel: false, labelSide: "above", labelOffsetDistance: 15, labelBgColor: "#000000aa" };
+            lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0, opacity: 1.0, startCap: 'none', endCap: 'none', labelParallel: false, labelSide: "above", labelOffsetDistance: 15, labelBgColor: "#000000aa" };
+            lastConnectionStyle.opacity = lastConnectionStyle.opacity !== undefined ? lastConnectionStyle.opacity : 1.0;
             
             setCanvasSizeByOrientation(false);
             
@@ -778,6 +890,10 @@ function initializeUIColorPalettes() {
     const nodePanel = document.getElementById('nodePropertiesPanel');
     if (nodePanel) {
         observer.observe(nodePanel, { childList: true, subtree: true });
+    }
+    const connPanel = document.getElementById('connectionPropertiesPanel');
+    if (connPanel) {
+        observer.observe(connPanel, { childList: true, subtree: true });
     }
 }
 

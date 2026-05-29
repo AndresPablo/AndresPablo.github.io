@@ -35,6 +35,13 @@ function loadFromLocalStorage() {
                 iconImage: null,
                 iconSrc: n.iconSrc,
                 iconColor: n.iconColor || '#ffffff',
+                iconFlipX: n.iconFlipX || false,
+                iconFlipY: n.iconFlipY || false,
+                iconRotation: n.iconRotation !== undefined ? n.iconRotation : 0,
+                innerLabelRotation: n.innerLabelRotation !== undefined ? n.innerLabelRotation : 0,
+                externalLabelRotation: n.externalLabelRotation !== undefined ? n.externalLabelRotation : 0,
+                borderColor: n.borderColor || '#000000',
+                borderWidth: n.borderWidth !== undefined ? n.borderWidth : 0,
                 innerLabelFont,
                 externalLabelFont,
                 glowEnabled: n.glowEnabled || false,
@@ -67,6 +74,9 @@ function loadFromLocalStorage() {
                 iconImage: null,
                 iconSrc: c.iconSrc,
                 patternSize: c.patternSize || 1.0,
+                opacity: c.opacity !== undefined ? c.opacity : 1.0,
+                startCap: c.startCap || 'none',
+                endCap: c.endCap || 'none',
                 labelFont
             };
         });
@@ -93,11 +103,15 @@ function loadFromLocalStorage() {
             pattern: "none",
             patternCount: 0,
             patternSize: 1.0,
+            opacity: 1.0,
+            startCap: 'none',
+            endCap: 'none',
             labelParallel: false,
             labelSide: "above",
             labelOffsetDistance: 15,
             labelBgColor: "#000000aa"
         };
+        lastConnectionStyle.opacity = lastConnectionStyle.opacity !== undefined ? lastConnectionStyle.opacity : 1.0;
 
         // Load theme
         if (data.theme) {

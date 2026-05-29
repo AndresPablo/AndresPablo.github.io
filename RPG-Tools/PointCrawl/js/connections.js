@@ -1,4 +1,4 @@
-function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc = null, iconShape = "circle", iconFillColor = "#ffffff", pattern = "none", patternCount = 0, patternSize = 1.0, labelParallel = false, labelSide = "above", labelOffsetDistance = 15, labelBgColor = "#000000aa") {
+function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, text, iconSrc = null, iconShape = "circle", iconFillColor = "#ffffff", pattern = "none", patternCount = 0, patternSize = 1.0, labelParallel = false, labelSide = "above", labelOffsetDistance = 15, labelBgColor = "#000000aa", opacity = 1.0, startCap = 'none', endCap = 'none') {
     const connLabelFont = getThemeFont('connectionLabel');
     
     const conn = { 
@@ -6,10 +6,12 @@ function addConnectionRaw(fromId, toId, color, strokePattern, lineWidthLevel, te
         fromId, toId, color, strokePattern, lineWidthLevel, text, 
         iconSrc, iconImage: null, iconShape, iconFillColor, 
         pattern, patternCount, patternSize,
+        opacity,
         // Font properties for connection label
         labelFont: { ...connLabelFont },
         // Parallel label properties
         labelParallel, labelSide, labelOffsetDistance, labelBgColor
+        , startCap, endCap
     };
     if (iconSrc) loadImageForConnection(conn, iconSrc);
     connections.push(conn);
@@ -42,7 +44,10 @@ function addConnectionInteractive(fromId, toId) {
         lastConnectionStyle.labelParallel,
         lastConnectionStyle.labelSide,
         lastConnectionStyle.labelOffsetDistance,
-        lastConnectionStyle.labelBgColor
+        lastConnectionStyle.labelBgColor,
+        lastConnectionStyle.opacity !== undefined ? lastConnectionStyle.opacity : 1.0,
+        lastConnectionStyle.startCap || 'none',
+        lastConnectionStyle.endCap || 'none'
     );
     renderCanvas();
     updatePropertiesPanel();
@@ -248,10 +253,27 @@ function drawPatternElement(ctx, pattern, x, y, angle, sizeScale, lineWidth) {
 }
 
 function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
-    const fromX = fromNode.x, fromY = fromNode.y;
-    const toX = toNode.x, toY = toNode.y;
-    ctx.save();
+    // Compute endpoints offset from node centers so caps are visible
+    const cx1 = fromNode.x, cy1 = fromNode.y;
+    const cx2 = toNode.x, cy2 = toNode.y;
+    const dx = cx2 - cx1, dy = cy2 - cy1;
+    const dist = Math.hypot(dx, dy) || 1;
+    const ux = dx / dist, uy = dy / dist;
+
     const baseWidth = mapWidthLevel(conn.lineWidthLevel);
+    const capExtra = (type => {
+        if (!type || type === 'none') return 0;
+        return 12 + Math.round(baseWidth * 1.5);
+    });
+
+    const startOffset = capExtra(conn.startCap);
+    const endOffset = capExtra(conn.endCap);
+
+    const fromX = cx1 + ux * (fromNode.radius + startOffset);
+    const fromY = cy1 + uy * (fromNode.radius + startOffset);
+    const toX = cx2 - ux * (toNode.radius + endOffset);
+    const toY = cy2 - uy * (toNode.radius + endOffset);
+    ctx.save();
     ctx.lineWidth = isSelected ? baseWidth + 4 : baseWidth;
     ctx.strokeStyle = isSelected ? "#ffbc5e" : conn.color;
     ctx.shadowBlur = isSelected ? 4 : 0;
@@ -259,6 +281,10 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
     else if (conn.strokePattern === "rayada") ctx.setLineDash([14, 10]);
     else ctx.setLineDash([]);
 
+    const effectiveAlpha = isSelected ? 1.0 : (conn.opacity !== undefined ? conn.opacity : 1.0);
+    ctx.save();
+    // Apply opacity only to the stroke itself (line), not to icons/patterns/labels/caps
+    ctx.globalAlpha = effectiveAlpha;
     if (conn.strokePattern === "wavy_wide") drawWavyLine(ctx, fromX, fromY, toX, toY, 7, 6);
     else if (conn.strokePattern === "wavy_short") drawWavyLine(ctx, fromX, fromY, toX, toY, 5, 20);
     else if (conn.strokePattern === "zigzag") drawZigzagLine(ctx, fromX, fromY, toX, toY, 10);
@@ -268,12 +294,75 @@ function drawConnectionLine(ctx, fromNode, toNode, conn, isSelected) {
         ctx.lineTo(toX, toY);
         ctx.stroke();
     }
+    ctx.restore();
     
     // Draw pattern along the line
     if (conn.strokePattern === "wavy_wide" || conn.strokePattern === "wavy_short" || conn.strokePattern === "zigzag") {
         drawPatternAlongCurve(ctx, fromX, fromY, toX, toY, conn.pattern, conn.patternCount, isSelected ? "#ffbc5e" : conn.color, baseWidth, conn.patternSize, conn.strokePattern);
     } else {
         drawPatternAlongLine(ctx, fromX, fromY, toX, toY, conn.pattern, conn.patternCount, isSelected ? "#ffbc5e" : conn.color, baseWidth, conn.patternSize);
+    }
+
+    // Draw line caps (do not use the stroke's globalAlpha so caps remain visible)
+    function drawCap(ctx, x, y, angle, type, size, color, lw) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Math.max(1, lw * 0.8);
+        if (type === 'arrow') {
+            const len = Math.max(size * 2, lw * 3);
+            const w = Math.max(25, lw * 5);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-len, -w / 2);
+            ctx.lineTo(-len, w / 2);
+            ctx.closePath();
+            ctx.fill();
+        } else if (type === 'inv_arrow') {
+            const len = Math.max(size * 2, lw * 3);
+            const w = Math.max(25, lw * 5);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(len, -w / 2);
+            ctx.lineTo(len, w / 2);
+            ctx.closePath();
+            ctx.fill();
+        } else if (type === 'square') {
+            const s = Math.max(size * 1.4, 12);
+            ctx.fillRect(-s / 2, -s / 2, s, s);
+        } else if (type === 'cross') {
+            const s = Math.max(size * 1.6, 14);
+            ctx.beginPath();
+            ctx.moveTo(-s / 2, -s / 2);
+            ctx.lineTo(s / 2, s / 2);
+            ctx.moveTo(-s / 2, s / 2);
+            ctx.lineTo(s / 2, -s / 2);
+            ctx.stroke();
+        } else if (type === 'line') {
+            const s = Math.max(size * 1.3, 12);
+            ctx.beginPath();
+            ctx.rotate(Math.PI / 2);
+            ctx.moveTo(-s / 2, 0);
+            ctx.lineTo(s / 2, 0);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    // Determine raw original centers for cap placement direction
+    const ang = Math.atan2(cy2 - cy1, cx2 - cx1);
+    const capSize = 8 + Math.round(baseWidth);
+    if (conn.startCap && conn.startCap !== 'none') {
+        const startCapType = conn.startCap === 'inverted' ? 'inv_arrow' : conn.startCap === 'arrow' ? 'arrow' : conn.startCap;
+        const startOffset = startCapType === 'arrow' || startCapType === 'inv_arrow' ? -10 : -0.1;
+        drawCap(ctx, fromX + ux * startOffset, fromY + uy * startOffset, ang, startCapType, capSize, conn.color, baseWidth);
+    }
+    if (conn.endCap && conn.endCap !== 'none') {
+        const endCapType = conn.endCap === 'inverted' ? 'inv_arrow' : conn.endCap === 'arrow' ? 'arrow' : conn.endCap;
+        const endOffset = endCapType === 'arrow' || endCapType === 'inv_arrow' ? 10 : 0.1;
+        drawCap(ctx, toX + ux * endOffset, toY + uy * endOffset, ang, endCapType, capSize, conn.color, baseWidth);
     }
 
     const midX = (fromX + toX) / 2, midY = (fromY + toY) / 2;

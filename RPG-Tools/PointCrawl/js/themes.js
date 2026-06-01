@@ -68,6 +68,50 @@ const THEMES = {
             externalLabel: { family: "Courier New, monospace", size: 12, color: "#00D9FF", weight: "normal" },
             connectionLabel: { family: "Courier New, monospace", size: 11, color: "#06FFA5", weight: "normal" }
         }
+    },
+    underwater: {
+        name: "Underwater",
+        colors: [
+            "#90CDD0", 
+            "#283A61", 
+            "#00D9FF", 
+            "#C7E4ED", 
+            "#020303", 
+            "#DC0A66", 
+            "#13172C", 
+            "#ffffff", 
+            "#ffffff", 
+            "#ffffff",
+            "#ffffff",
+            "#ffffff" 
+        ],
+        fonts: {
+            innerLabel: { family: "Courier New, monospace", size: 14, color: "#00F5FF", weight: "bold" },
+            externalLabel: { family: "Courier New, monospace", size: 12, color: "#00D9FF", weight: "normal" },
+            connectionLabel: { family: "Courier New, monospace", size: 11, color: "#06FFA5", weight: "normal" }
+        }
+    },
+    pound_of_flesh: {
+        name: "A Pound of Flesh",
+        colors: [
+            "#ff00d4", 
+            "#0a0e3a", 
+            "#ffffff", 
+            "#00D9FF", 
+            "#272727", 
+            "#ffffff", 
+            "#ffffff", 
+            "#ffffff", 
+            "#ffffff", 
+            "#ffffff",
+            "#ffffff",
+            "#ffffff" 
+        ],
+        fonts: {
+            innerLabel: { family: "Courier New, monospace", size: 14, color: "#00F5FF", weight: "bold" },
+            externalLabel: { family: "Courier New, monospace", size: 12, color: "#00D9FF", weight: "normal" },
+            connectionLabel: { family: "Courier New, monospace", size: 11, color: "#06FFA5", weight: "normal" }
+        }
     }
 };
 

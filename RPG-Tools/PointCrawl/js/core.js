@@ -52,7 +52,7 @@ const PORTRAIT_W = 800, PORTRAIT_H = 1131;
 const LANDSCAPE_W = 1131, LANDSCAPE_H = 800;
 const STORAGE_KEY = "pointcrawl_cartographer";
 const iconLibraryPath = "node-icons/";
-const ICON_FOLDERS = ["abstract", "default", "dungeon", "isometric", "modern", "other", "overland", "symbols"];
+const ICON_FOLDERS = ["abstract", "default", "dungeon", "isometric", "modern", "other", "overland", "people", "symbols"];
 const ICON_FILE_MAP = {
     abstract: ["abstract-1.svg"],
     default: [
@@ -106,6 +106,7 @@ const ICON_FILE_MAP = {
     ],
     dungeon: [
         "dungeon-1.svg",
+        "wooden-door.svg",
         "dungeon-102.svg",
         "dungeon-103.svg",
         "dungeon-107.svg",
@@ -124,6 +125,7 @@ const ICON_FILE_MAP = {
         "dungeon-91.svg",
         "dungeon-98.svg",
         "dungeon-99.svg",
+        "plain-padlock.svg",
         "dungeon-spears.svg"
     ],
     isometric: [
@@ -183,7 +185,16 @@ const ICON_FILE_MAP = {
         "modern-sentry-gun.svg",
         "modern-spoutnik.svg",
         "modern-tyre.svg",
-        "modern-wireframe-globe.svg"
+        "modern-wireframe-globe.svg",
+        "shopping-cart.svg",
+        "bed.svg",
+        "tv.svg",
+        "shower.svg",
+        "turbine.svg",
+        "modern-lifesaver.svg",
+        "modern-recycle.svg",
+        "modern-soda-can.svg",
+        "modern-cargo-crane-arm.svg"
     ],
     other: [
         "other-100.svg",
@@ -235,9 +246,13 @@ const ICON_FILE_MAP = {
         "other-knight-banner.svg",
         "other-lightning-tear.svg",
         "other-stone-sphere.svg",
-        "other-target-arrows.svg"
+        "other-target-arrows.svg",
+        "jigsaw-piece.svg",
+        "wooden-chair.svg",
     ],
-    overland: [],
+    terrain: [
+
+    ],
     symbols: [
         "symbols-30.svg",
         "symbols-42.svg",
@@ -252,6 +267,11 @@ const ICON_FILE_MAP = {
         "symbols-plain-arrow.svg",
         "symbols-thrust.svg",
         "symbols-vertical-flip.svg"
+    ],
+    people: [
+        "character.svg",
+        "person.svg",
+        "meditation.svg",
     ]
 };
 let availableNodeIcons = {};

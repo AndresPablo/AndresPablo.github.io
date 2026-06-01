@@ -14,6 +14,7 @@ function saveToLocalStorage() {
         gridUnitsY,
         gridColor,
         gridAlpha,
+        snappingEnabled,
         canvasBgColor,
         theme: exportThemeData()
     };
@@ -92,6 +93,7 @@ function loadFromLocalStorage() {
         gridUnitsY = data.gridUnitsY || 12;
         gridColor = data.gridColor || "#8a8a8a";
         gridAlpha = data.gridAlpha !== undefined ? data.gridAlpha : 0.25;
+        snappingEnabled = data.snappingEnabled !== undefined ? data.snappingEnabled : false;
         canvasBgColor = data.canvasBgColor || "#ffffff";
         lastConnectionStyle = data.lastConnectionStyle || {
             color: "#000000",
@@ -154,6 +156,7 @@ function loadMapFromData(mapData) {
         if (mapData.gridType) gridType = mapData.gridType;
         if (mapData.gridColor) gridColor = mapData.gridColor;
         if (mapData.gridAlpha !== undefined) gridAlpha = mapData.gridAlpha;
+        if (mapData.snappingEnabled) snappingEnabled = mapData.snappingEnabled;
         if (mapData.lastConnectionStyle) lastConnectionStyle = mapData.lastConnectionStyle;
         
         // Load theme

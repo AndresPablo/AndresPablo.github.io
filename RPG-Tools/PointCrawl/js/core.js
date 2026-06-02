@@ -4,6 +4,9 @@ let connections = [];
 let nextNodeId = 1;
 let nextConnId = 1;
 
+let author = "user"
+let source = ""
+
 let selectedNodeId = null;
 let selectedConnectionId = null;
 

@@ -1,12 +1,14 @@
 {
   "name": "Mapa de Ejemplo - Bosque Encantado",
   "author": "Pointcrawl Studio",
+  "source": "",
   "canvasOrientation": "landscape",
   "gridSize": 80,
   "showGrid": true,
   "gridType": "isometric",
   "gridColor": "#808080",
   "gridAlpha": 0.5,
+  "currentThemeName": "fantasy",
   "nodes": [
     {
       "id": 1,

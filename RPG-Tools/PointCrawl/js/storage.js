@@ -156,7 +156,7 @@ function loadMapFromData(mapData) {
         if (mapData.gridType) gridType = mapData.gridType;
         if (mapData.gridColor) gridColor = mapData.gridColor;
         if (mapData.gridAlpha !== undefined) gridAlpha = mapData.gridAlpha;
-        if (mapData.snappingEnabled) snappingEnabled = mapData.snappingEnabled;
+        if (mapData.snappingEnabled !== undefined) snappingEnabled = mapData.snappingEnabled;
         if (mapData.lastConnectionStyle) lastConnectionStyle = mapData.lastConnectionStyle;
         
         // Load theme

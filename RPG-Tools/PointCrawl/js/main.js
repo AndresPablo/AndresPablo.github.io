@@ -673,14 +673,24 @@ document.getElementById('modalExportPdfBtn').addEventListener('click', async () 
 
 document.getElementById('modalExportJsonBtn').addEventListener('click', () => {
     const data = {
-        nodes: nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc })),
-        connections: connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc })),
+        name,
+        author,
+        currentThemeName,
         nextNodeId,
         nextConnId,
         canvasOrientation,
         lastConnectionStyle,
+        cellSize,
         showGrid,
         gridType,
+        gridUnitsX,
+        gridUnitsY,
+        gridColor,
+        gridAlpha,
+        snappingEnabled,
+        canvasBgColor,
+        nodes: nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc })),
+        connections: connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc }))        
     };
     const jsonString = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -711,6 +721,8 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             }
             
             // Cargar los datos
+            author = data.author || "author error";
+            source = data.source || "source error";
             nodes = data.nodes.map(n => ({ ...n, iconImage: null, iconSrc: n.iconSrc, iconColor: n.iconColor || '#ffffff', iconFlipX: n.iconFlipX || false, iconFlipY: n.iconFlipY || false, iconRotation: n.iconRotation !== undefined ? n.iconRotation : 0, innerLabelRotation: n.innerLabelRotation !== undefined ? n.innerLabelRotation : 0, externalLabelRotation: n.externalLabelRotation !== undefined ? n.externalLabelRotation : 0, borderColor: n.borderColor || '#000000', borderWidth: n.borderWidth !== undefined ? n.borderWidth : 0 }));
             connections = data.connections.map(c => ({ ...c, iconImage: null, iconSrc: c.iconSrc, patternSize: c.patternSize || 1.0, opacity: c.opacity !== undefined ? c.opacity : 1.0, startCap: c.startCap || 'none', endCap: c.endCap || 'none' }));
             nextNodeId = data.nextNodeId || 1;
@@ -718,6 +730,9 @@ document.getElementById('jsonFileInput').addEventListener('change', (e) => {
             canvasOrientation = data.canvasOrientation || "landscape";
             showGrid = data.showGrid !== undefined ? data.showGrid : true;
             gridType = data.gridType || "hex";
+            snappingEnabled = data.snappingEnabled || false;
+            currentThemeName = data.currentThemeName || "fantasy";
+            setTheme(currentThemeName);
             lastConnectionStyle = data.lastConnectionStyle || { color: "#000000", strokePattern: "normal", lineWidthLevel: 3, iconShape: "circle", iconFillColor: "#ffffff", text: "1 jornada", pattern: "none", patternCount: 0, patternSize: 1.0, opacity: 1.0, startCap: 'none', endCap: 'none', labelParallel: false, labelSide: "above", labelOffsetDistance: 15, labelBgColor: "#000000aa" };
             lastConnectionStyle.opacity = lastConnectionStyle.opacity !== undefined ? lastConnectionStyle.opacity : 1.0;
             

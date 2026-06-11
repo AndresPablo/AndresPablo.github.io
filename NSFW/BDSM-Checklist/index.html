@@ -245,12 +245,12 @@
                             <div class="col">
                                 <div class="card border-danger mb-3">
                                     <div class="card-header">
-                                        <h5>Médicas</h5>  
+                                        <h5>Salud</h5>  
                                     </div>
                                     <div class="card-body">   
-                                        <label class="form-label" for="enfermedadesUsuario">Enfermedades y Condiciones Médicas</label>
-                                        <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, dolores de articulación, medicamentos, etc."></textarea>
-                                        <small class="text-muted">Obligatorio.</small>                             
+                                        <label class="form-label" for="enfermedadesUsuario">Condiciones Médicas y Sustancias</label>
+                                        <textarea class="form-control" id="enfermedadesUsuario" rows="2" placeholder="Alergias, lesiones, drogas, medicamentos, dolores crónicos, etc..."></textarea>
+                                        <small class="text-muted">Obligatorio. Detallar el protocolo a seguir si hay una emergencia médica específica.</small>                             
                                     </div>
                                 </div>
                             </div>
@@ -460,6 +460,16 @@
                         <div class="actividad-subtitulo-modal" id="modalSubtitulo"><h4>a<span class="badge badge-secondary"></span></h4></div>
                         <!-- <div id="modalDescripcion" class="callout callout-subtle"><p>Texto descriptivo</p></div> -->
                         <div id="modalDescripcion" class=""><p>Texto descriptivo</p></div><br>
+                        <div id="warningBadgesContainerId">
+                            ⚠️¡Cuidado!: 
+                            <span id="vomit" class="badge badge-success">🤮Vómitos</span> 
+                            <span id="asfixia" class="badge badge-warning">⚠️Riesgo de Asfixia</span> 
+                            <span id="riesgoTendones" class="badge badge-warning">💢Daño de tendones</span>
+                            <span id="riesgoSangre" class="badge badge-danger">☠️Riesgo de Sangrado</span>
+                            <span id="riesgoQuemaduras" class="badge badge-danger">🔥 Quemaduras</span>
+                            <span id="riesgoHigiene" class="badge badge-secondary">☣️Práctica insalubre</span>
+                        </div>
+                        <br>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label class="form-label fw-bold">Interés</label>

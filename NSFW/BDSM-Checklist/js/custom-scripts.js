@@ -91,6 +91,7 @@ function transformarDesdeFormatoAnidado(data) {
                     // IMPORTANTE: leer imagenes como array
                     imagenes: Array.isArray(act.imagenes) ? act.imagenes : (act.imagen ? [act.imagen] : []),
                     descripcion: act.descripcion || '',
+                    tags: act.tags,
                     ejemplo_notas: act.ejemplo_notas || '',
                     external_links: Array.isArray(act.external_links) ? act.external_links : [],
                     experiencia: '',
@@ -98,6 +99,7 @@ function transformarDesdeFormatoAnidado(data) {
                     rol: '',
                     notas: ''
                 });
+                
             }
         }
     }
@@ -295,6 +297,9 @@ function cargarItemEnModal(index) {
         }
     }
 
+    // Cargar las tags apropiadas
+    filterBadgesByTags('warningBadgesContainerId', item)
+
     // Cargar valores en los campos editables
     document.getElementById('editExperiencia').value = item.experiencia || '';
     document.getElementById('editInteres').value = item.interes || '';
@@ -366,6 +371,35 @@ function actualizarBotonesInteres(interesValor) {
             btn.classList.add('activo');
         }
     });
+}
+
+function filterBadgesByTags(badgeContainerId, jsonItem) {
+  const container = document.getElementById('warningBadgesContainerId');
+  if (!container) return;
+
+  const tags = jsonItem.tags || [];
+  // Get all badges inside container (elements with class 'badge' or specific selector)
+  const badges = container.querySelectorAll('.badge'); // adjust selector if needed
+
+  let anyMatch = false;
+
+  badges.forEach(badge => {
+    const badgeId = badge.id;
+    if (badgeId && tags.includes(badgeId)) {
+      badge.style.display = 'block';      // show
+      anyMatch = true;
+    } else {
+      badge.style.display = 'none';  // hide
+    }
+  });
+
+  // If no badge matched any tag, hide the entire container
+  if (!anyMatch) {
+    container.style.display = 'none';
+  } else {
+    console.log("Tag detected:", anyMatch);
+    container.style.display = 'block';     // ensure container is visible
+  }
 }
 
 function guardarItemDesdeModal() {
@@ -444,7 +478,7 @@ function exportarExcel() {
         "Apodo": document.getElementById('apodoUsuario').value,
         "Palabra clave": document.getElementById('palabraClaveUsuario').value,
         "Cuidado posterior": document.getElementById('cuidadoPosterior').value,
-        "Energía (0-10)": document.getElementById('energiaSlider').value,
+        "Dominación (0-10)": document.getElementById('energiaSlider').value,
         "Enfermedades": document.getElementById('enfermedadesUsuario').value,
         "Disclaimer1": document.getElementById('checkDisclaimer1').checked,
         "Disclaimer2": document.getElementById('checkDisclaimer2').checked
@@ -488,6 +522,7 @@ function generarHTMLImprimible() {
     const palabraClave = document.getElementById('palabraClaveUsuario').value || "—";
     const cuidadoPosterior = document.getElementById('cuidadoPosterior').value || "—";
     const energia = document.getElementById('energiaSlider') ? document.getElementById('energiaSlider').value : "5";
+    const dolor = document.getElementById('dolorSlider') ? document.getElementById('dolorSlider').value : "5";
     const enf = document.getElementById('enfermedadesUsuario').value || "—";
     const disclaimer1 = document.getElementById('checkDisclaimer1').checked ? 'Aceptado' : 'No';
     const disclaimer2 = document.getElementById('checkDisclaimer2').checked ? 'Aceptado' : 'No';
@@ -664,8 +699,9 @@ function generarHTMLImprimible() {
             <div class="info-usuario">
                 <strong>${escapeHtml(nombre)}</strong> | Edad: ${escapeHtml(edad)} | Pronombres: ${escapeHtml(pronombres)} | Apodo: ${escapeHtml(apodo)}<br>
                 😈 Dominación: ${escapeHtml(energia)} / 10 | 🔑 Palabra de Seguridad: ${escapeHtml(palabraClave)}<br>
-                ❤️‍🩹C Cuidado posterior: ${escapeHtml(cuidadoPosterior)}<br>
-                🛑 Enfermedades/condiciones: ${escapeHtml(enf)}<br>
+                💥 Sensibilidad al dolor: ${escapeHtml(dolor)} / 10<br>
+                💝 Cuidado posterior: ${escapeHtml(cuidadoPosterior)}<br>
+                🚑 Enfermedades/condiciones: ${escapeHtml(enf)}<br>
                 ✅ Disclaimers: ${disclaimer1} / ${disclaimer2}
             </div>
             ${tablasHTML}

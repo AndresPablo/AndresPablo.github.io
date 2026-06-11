@@ -18,6 +18,17 @@ function getIconoInteres(interes) {
     }
 }
 
+function getIconoInteresUnicode(interes) {
+    switch(interes) {
+        case "Odio": return "🚫";
+        case "No me gusta": return "👎";
+        case "Curiosidad": return "❓";
+        case "Me gusta": return "👍";
+        case "Amo": return "❤️";
+        default: return "";
+    }
+}
+
 function getClaseInteres(interes) {
     switch(interes) {
         case "Odio": return "interes-Odio";
@@ -151,7 +162,7 @@ function renderizarTablas() {
             <div class="table-responsive">
                 <table class="table table-hover table-bordered align-middle">
                     <thead class="table-dark">
-                        <tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></tr>
+                        <tr><th></th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th><th></th></tr>
                     </thead>
                     <tbody>
         `;
@@ -414,7 +425,7 @@ function exportarExcel() {
         const itemsFiltrados = items.filter(i => i.categoria === cat.id);
         if (itemsFiltrados.length === 0) continue;
         const data = itemsFiltrados.map(i => ({
-            "Icono": i.emoji,
+            "": i.emoji,
             "Actividad": i.actividad,
             "Descripción": i.descripcion,
             "Experiencia": i.experiencia,
@@ -445,33 +456,31 @@ function exportarExcel() {
 document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
 
 async function exportarPDF() {
-    const pdfContent = document.createElement('div');
-    pdfContent.style.padding = '20px';
-    pdfContent.style.backgroundColor = 'white';
-    pdfContent.style.fontFamily = 'Arial';
-    pdfContent.style.width = '100%';
+    // Crear contenido HTML para impresión
+    const contenido = generarHTMLImprimible();
+    
+    // Abrir nueva ventana para imprimir
+    const ventana = window.open('', '_blank');
+    if (!ventana) {
+        alert('Por favor, permite ventanas emergentes para exportar el PDF.');
+        return;
+    }
+    
+    ventana.document.write(contenido);
+    ventana.document.close();
+    
+    // Esperar a que carguen las imágenes y luego imprimir
+    ventana.onload = () => {
+        setTimeout(() => {
+            ventana.print();
+            // Opcional: cerrar la ventana después de imprimir (el usuario puede cancelar)
+            // ventana.afterPrint = () => ventana.close();
+        }, 500);
+    };
+}
 
-    const style = document.createElement('style');
-    style.textContent = `
-        .interes-Odio { background-color: #f8d7da !important; }
-        .interes-No-me-gusta { background-color: #ffe5b4 !important; }
-        .interes-Curiosidad { background-color: #fff3cd !important; }
-        .interes-Me-gusta { background-color: #d1e7dd !important; }
-        .interes-Amo { background-color: #f8c8e8 !important; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
-        th { background-color: #f2f2f2; }
-        .tabla-pdf th:nth-child(1), .tabla-pdf td:nth-child(1) { width: 60px; }
-        .tabla-pdf th:nth-child(2), .tabla-pdf td:nth-child(2) { width: 25%; }
-        .tabla-pdf th:nth-child(3), .tabla-pdf td:nth-child(3) { width: 100px; }
-        .tabla-pdf th:nth-child(4), .tabla-pdf td:nth-child(4) { width: 150px; }
-        .tabla-pdf th:nth-child(5), .tabla-pdf td:nth-child(5) { width: 80px; }
-        .tabla-pdf th:nth-child(6), .tabla-pdf td:nth-child(6) { width: auto; }
-        .interes-icono-tabla { margin-right: 6px; font-size: 0.9rem; display: inline-block; width: 1.2rem; text-align: center; }
-    `;
-    pdfContent.appendChild(style);
-
-    // Datos del usuario
+function generarHTMLImprimible() {
+    // Obtener datos del usuario
     const nombre = document.getElementById('nombreUsuario').value || "No especificado";
     const edad = document.getElementById('edadUsuario').value || "—";
     const pronombres = document.getElementById('pronombresUsuario').value || "—";
@@ -482,54 +491,188 @@ async function exportarPDF() {
     const enf = document.getElementById('enfermedadesUsuario').value || "—";
     const disclaimer1 = document.getElementById('checkDisclaimer1').checked ? 'Aceptado' : 'No';
     const disclaimer2 = document.getElementById('checkDisclaimer2').checked ? 'Aceptado' : 'No';
-
-    let mainHtml = `<h2>Lista de Actividades</h2>
-    <p><strong>Nombre:</strong> ${nombre} | <strong>Edad:</strong> ${edad} | <strong>Pronombres:</strong> ${pronombres} | <strong>Apodo:</strong> ${apodo} | <strong>Palabra clave:</strong> ${palabraClave}</p>
-    <p><strong>Cuidado posterior:</strong> ${cuidadoPosterior} | <strong>Nivel de energía:</strong> ${energia}/10</p>
-    <p><strong>Enfermedades/condiciones:</strong> ${enf}</p>
-    <p><strong>Disclaimers:</strong> ${disclaimer1} / ${disclaimer2}</p>
-    <hr>`;
-
+    
+    // Construir tablas por categoría
+    let tablasHTML = '';
     for (const cat of categorias) {
         const itemsFiltrados = items.filter(i => i.categoria === cat.id);
-        if (!itemsFiltrados.length) continue;
-        let tabla = `<h3>${cat.display_name}</h3>
-        <table class="tabla-pdf">
-            <thead><tr><th>Icono</th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr></thead>
-            <tbody>`;
+        if (itemsFiltrados.length === 0) continue;
+        
+        let filas = '';
         for (const i of itemsFiltrados) {
-            const clase = getClaseInteres(i.interes);
-            const iconoInteres = getIconoInteres(i.interes);
-            const celdaInteres = iconoInteres ? `<span class="interes-icono-tabla">${iconoInteres}</span> ${i.interes || ''}` : (i.interes || '');
-            tabla += `<tr class="${clase}">
-                        <td>${i.emoji || ''}</td>
-                        <td>${escapeHtml(i.actividad)}</td>
-                        <td>${i.experiencia || ''}</td>
-                        <td>${celdaInteres}</td>
-                        <td>${i.rol || ''}</td>
-                        <td>${i.notas || ''}</td>
-                       </tr>`;
+            const claseFila = getClaseInteres(i.interes);
+            const iconoInteres = getIconoInteresUnicode(i.interes);
+            const celdaInteres = iconoInteres ? `<span class="interes-icono">${iconoInteres}</span> ${i.interes || ''}` : (i.interes || '');
+            
+            filas += `
+                <tr class="${claseFila}">
+                    <td class="emoji">${i.emoji || ''}</td>
+                    <td class="actividad">${escapeHtml(i.actividad)}</td>
+                    <td class="experiencia">${escapeHtml(i.experiencia || '')}</td>
+                    <td class="interes">${celdaInteres}</td>
+                    <td class="rol">${escapeHtml(i.rol || '')}</td>
+                    <td class="notas">${escapeHtml(i.notas || '')}</td>
+                </tr>
+            `;
         }
-        tabla += `</tbody></table>`;
-        mainHtml += tabla;
+        
+        tablasHTML += `
+            <div class="categoria">
+                <h3>${cat.display_name}</h3>
+                <table class="tabla-actividades">
+                    <thead>
+                        <tr><th></th><th>Actividad</th><th>Experiencia</th><th>Interés</th><th>Rol</th><th>Notas</th></tr>
+                    </thead>
+                    <tbody>
+                        ${filas}
+                    </tbody>
+                </table>
+            </div>
+        `;
     }
-
-    pdfContent.innerHTML += mainHtml;
-    document.body.appendChild(pdfContent);
-    try {
-        const canvas = await html2canvas(pdfContent, { scale: 2 });
-        const imgData = canvas.toDataURL('image/png');
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 190;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-        pdf.save(`evento_${new Date().toISOString().slice(0,19)}.pdf`);
-    } catch(e) {
-        console.error(e);
-        alert("Error al generar PDF");
-    }
-    document.body.removeChild(pdfContent);
+    
+    // HTML completo con estilos para impresión
+    return `<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Actividades</title>
+        <style>
+            /* Forzar impresión de colores de fondo */
+            @media print {
+                * {
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+                body {
+                    padding: 0;
+                    margin: 1cm;
+                }
+                h3 {
+                    page-break-after: avoid;
+                }
+                .tabla-actividades tr {
+                    page-break-inside: avoid;
+                }
+                .categoria {
+                    page-break-inside: avoid;
+                }
+            }
+            /* Estilos generales */
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background: white;
+                color: black;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            h3 {
+                font-size: 18px;
+                margin: 25px 0 10px 0;
+                page-break-after: avoid;
+            }
+            .info-usuario {
+                margin-bottom: 30px;
+                font-size: 12px;
+                line-height: 1.4;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 10px;
+            }
+            /* Tablas más compactas y con letra más pequeña */
+            .tabla-actividades {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 11px;
+                margin-bottom: 30px;
+                page-break-inside: avoid;
+            }
+            .tabla-actividades th,
+            .tabla-actividades td {
+                border: 1px solid #aaa;
+                padding: 6px 4px;
+                vertical-align: top;
+                text-align: left;
+            }
+            .tabla-actividades th {
+                background-color: #f0f0f0;
+                font-weight: bold;
+                font-size: 11px;
+            }
+            /* Evitar que se corten las filas entre páginas */
+            .tabla-actividades tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            /* Repetir cabecera en cada página */
+            .tabla-actividades thead {
+                display: table-header-group;
+            }
+            /* Evitar que una categoría se separe del título */
+            .categoria {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            /* Colores de interés (más suaves para impresión) */
+            .interes-Odio { background-color: #eba4a4; }
+            .interes-No-me-gusta { background-color: #f3a25f; }
+            .interes-Curiosidad { background-color: #fae586; }
+            .interes-Me-gusta { background-color: #7ff7b3; }
+            .interes-Amo { background-color: #f37eba; }
+            /* Iconos dentro de la tabla */
+            .interes-icono {
+                display: inline-block;
+                width: 1.2em;
+                text-align: center;
+                margin-right: 4px;
+            }
+            /* Ajustes de ancho de columnas */
+            .tabla-actividades th:nth-child(1), .tabla-actividades td:nth-child(1) { width: 45px; text-align: center; }
+            .tabla-actividades th:nth-child(2), .tabla-actividades td:nth-child(2) { width: 25%; }
+            .tabla-actividades th:nth-child(3), .tabla-actividades td:nth-child(3) { width: 12%; }
+            .tabla-actividades th:nth-child(4), .tabla-actividades td:nth-child(4) { width: 12%; }
+            .tabla-actividades th:nth-child(5), .tabla-actividades td:nth-child(5) { width: 12%; }
+            .tabla-actividades th:nth-child(6), .tabla-actividades td:nth-child(6) { width: auto; }
+            /* Forzar saltos de página suaves */
+            @media print {
+                body {
+                    padding: 0;
+                    margin: 1cm;
+                }
+                h3 {
+                    page-break-after: avoid;
+                }
+                .tabla-actividades tr {
+                    page-break-inside: avoid;
+                }
+                .categoria {
+                    page-break-inside: avoid;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>📋 Lista de Actividades</h2>
+            <div class="info-usuario">
+                <strong>${escapeHtml(nombre)}</strong> | Edad: ${escapeHtml(edad)} | Pronombres: ${escapeHtml(pronombres)} | Apodo: ${escapeHtml(apodo)}<br>
+                😈 Dominación: ${escapeHtml(energia)} / 10 | 🔑 Palabra de Seguridad: ${escapeHtml(palabraClave)}<br>
+                ❤️‍🩹C Cuidado posterior: ${escapeHtml(cuidadoPosterior)}<br>
+                🛑 Enfermedades/condiciones: ${escapeHtml(enf)}<br>
+                ✅ Disclaimers: ${disclaimer1} / ${disclaimer2}
+            </div>
+            ${tablasHTML}
+            <p style="font-size: 9px; text-align: center; margin-top: 40px;">Documento generado el ${new Date().toLocaleString()}</p>
+        </div>
+    </body>
+    </html>`;
 }
 document.getElementById('exportarPdfBtn').addEventListener('click', exportarPDF);
 

@@ -50,6 +50,16 @@ function drawShape(ctx, x, y, radius, shape, bgColor, isSelected, glowEnabled = 
         ctx.lineTo(x, y + size);
         ctx.lineTo(x - size, y);
         ctx.closePath();
+    } else if (shape === "geo") {
+        const pointY = y + radius * 1.3;  // adjust factor for point length
+        // Start at leftmost point of the circle
+        ctx.moveTo(x - radius, y);
+        // Draw the circle arc from left to right through the top (clockwise)
+        ctx.arc(x, y, radius, Math.PI, 0, false);
+        // Line down to the point
+        ctx.lineTo(x, pointY);
+        // Close back to the start
+        ctx.closePath();
     }
     ctx.fillStyle = bgColor;
     ctx.fill();

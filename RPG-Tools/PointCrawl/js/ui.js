@@ -31,6 +31,10 @@ function updatePropertiesPanel() {
                 const scaleValue = (node.scale !== undefined && node.scale !== null) ? node.scale : 1.0;
                 scaleInput.value = scaleValue.toFixed(2);
             }
+            const shapeRadio = document.querySelector(`input[name="shape"][value="${node.shape}"]`);
+            if (shapeRadio) {
+                shapeRadio.checked = true;
+            }
             
             // Update internal label font
             if (!node.innerLabelFont) node.innerLabelFont = getThemeFont('innerLabel');

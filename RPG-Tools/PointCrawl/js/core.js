@@ -606,12 +606,33 @@ function onMouseUp(e) {
 
 // Teclado global
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'Control' || e.metaKey) ctrlPressed = true;
-    if (e.key === 'Delete' || e.key === 'Supr') {
-        if (selectedNodeId !== null) deleteNodeById(selectedNodeId);
-        else if (selectedConnectionId !== null) deleteConnectionById(selectedConnectionId);
-        e.preventDefault();
+    // Track Ctrl key for connection creation
+    if (e.key === 'Control' || e.metaKey) {
+        ctrlPressed = true;
     }
+
+    // Handle Delete/Supr key
+    if (e.key === 'Delete' || e.key === 'Supr') {
+        // 1. Ignore if user is typing in a text field
+        const active = document.activeElement;
+        if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
+            return; // do nothing
+        }
+
+        // 2. Check if something is selected
+        if (selectedNodeId !== null) {
+            if (confirm('¿Eliminar este nodo y todas sus conexiones?')) {
+                deleteNodeById(selectedNodeId);
+                e.preventDefault();
+            }
+        } else if (selectedConnectionId !== null) {
+            if (confirm('¿Eliminar esta conexión?')) {
+                deleteConnectionById(selectedConnectionId);
+                e.preventDefault();
+            }
+        }
+    }
+
     if (e.key === 'Escape') {
         selectedNodeId = null;
         selectedConnectionId = null;
@@ -619,7 +640,8 @@ window.addEventListener('keydown', (e) => {
         renderCanvas();
         updateStatusMessage("Selección cancelada", false);
     }
-    // Prevenir el scroll con Ctrl + rueda
+
+    // Prevent scroll with Ctrl+wheel (optional)
     if (e.key === 'Control') e.preventDefault();
 });
 window.addEventListener('keyup', (e) => { if (e.key === 'Control') ctrlPressed = false; });

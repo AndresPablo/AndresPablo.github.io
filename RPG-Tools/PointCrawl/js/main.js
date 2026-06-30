@@ -51,15 +51,19 @@ function setupEventListeners() {
             renderCanvas(); saveToLocalStorage();
         }
     });
-    document.getElementById('nodeShape')?.addEventListener('change', (e) => {
-        if (selectedNodeId !== null) {
-            const node = nodes.find(n => n.id === selectedNodeId);
-            if (node) {
-                node.shape = e.target.value;
-                node.radius = getRadiusFromScale(node.shape, node.scale, currentCellSize);
+    document.querySelectorAll('input[name="shape"]').forEach(radio => {
+        radio.addEventListener('change', function(e) {
+            if (selectedNodeId !== null && this.checked) {
+                const node = nodes.find(n => n.id === selectedNodeId);
+                if (node) {
+                    node.shape = this.value;
+                    // Recalcular radio si es necesario (depende de la forma)
+                    node.radius = getRadiusFromScale(node.shape, node.scale, currentCellSize);
+                    renderCanvas();
+                    saveToLocalStorage();
+                }
             }
-            renderCanvas(); saveToLocalStorage();
-        }
+        });
     });
     document.getElementById('innerText')?.addEventListener('change', (e) => {
         if (selectedNodeId !== null) {

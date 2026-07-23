@@ -19,15 +19,32 @@ footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: gray; }
 .interes-Amo { background-color: #df83c0 !important; }
 
 /* Imagen modal */
-.img-preview-modal { max-width: 100%; max-height: 180px; border-radius: 12px; object-fit: cover; }
-.img-carrousel-modal { }
 .actividad-titulo-modal { font-size: 1.5rem; font-weight: bold; margin-bottom: .3rem; }
 .actividad-subtitulo-modal { font-size: 1rem; font-weight:normal; text-decoration: wavy; margin-bottom: 2rem; }
 
+/* Para el contenedor del carrusel */
 #carruselActividad {
     border-radius: 12px;
     overflow: hidden;
+    background-color: #1a1a2e;
 }
+
+/* Para las imágenes del carrusel */
+.img-carrousel-modal {
+    width: 100%;
+    height: 356px;          /* Altura fija */
+    object-fit: contain;    /* Mantiene proporción, no recorta */
+    background-color: #1a1a2e;
+}
+
+/* Para imágenes en el modal */
+.img-preview-modal {
+    width: 100%;
+    height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
 #carruselActividad .carousel-inner {
     border-radius: 12px;
 }
@@ -37,10 +54,49 @@ footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: gray; }
     border-radius: 50%;
     padding: 5px;
 }
-.img-preview-modal {
-    max-height: 200px;
-    object-fit: cover;
-    width: 100%;
+.gif-container {
+    position: relative;
+}
+.gif-play-pause {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+.gif-play-pause:hover {
+    opacity: 1;
+}
+
+/* Estilos para los indicadores del carrusel */
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.carousel-indicators button {
+    width: 30px;
+    height: 3px;
+    background-color: rgba(255,255,255,0.6);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.carousel-indicators button.active {
+    background-color: #0d6efd;
+    height: 5px;
+}
+
+.carousel-indicators button:hover {
+    background-color: rgba(255,255,255,0.9);
 }
 
 /* Fondo más oscuro */

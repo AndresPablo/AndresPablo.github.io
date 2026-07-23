@@ -258,47 +258,17 @@ function cargarItemEnModal(index) {
     const descElem = document.getElementById('modalDescripcion');
     if (descElem) descElem.innerText = item.descripcion || '';
 
-    // --- Generar carrusel ---
-    const carruselInner = document.getElementById('carruselInner');
-    if (!carruselInner) {
-        console.error("No se encontró el elemento #carruselInner en el DOM");
-        return;
-    }
-
+    // --- Generar carrusel USANDO LA FUNCIÓN generarCarrusel ---
     const imagenes = item.imagenes || [];
     console.log("Imágenes a cargar:", imagenes);
+    
+    // Llamar a la función generarCarrusel
+    generarCarrusel(imagenes, 'carruselInner');
 
-    if (imagenes.length === 0) {
-        carruselInner.innerHTML = `<div class="carousel-item active">
-            <img src="${DEFAULT_IMG}" class="d-block w-100" alt="Sin imagen" style="border-radius: 12px;">
-        </div>`;
-    } else {
-        let slidesHtml = '';
-        imagenes.forEach((imgUrl, idx) => {
-            const activeClass = idx === 0 ? 'active' : '';
-            slidesHtml += `
-                <div class="carousel-item ${activeClass}">
-                    <img src="${imgUrl}" class="d-block w-100" alt="Imagen ${idx+1}" style="border-radius: 12px; object-fit: cover; max-height: 300px;"
-                         onerror="this.onerror=null; this.src='${DEFAULT_IMG}'">
-                </div>
-            `;
-        });
-        carruselInner.innerHTML = slidesHtml;
+    // Cargar las tags apropiadas (si tienes esta función)
+    if (typeof filterBadgesByTags === 'function') {
+        filterBadgesByTags('warningBadgesContainerId', item);
     }
-
-    // Reiniciar el carrusel (para que empiece desde la primera)
-    const carouselElement = document.getElementById('carruselActividad');
-    if (carouselElement && window.bootstrap) {
-        try {
-            const bsCarousel = bootstrap.Carousel.getOrCreateInstance(carouselElement);
-            bsCarousel.to(0);
-        } catch(e) {
-            console.warn("No se pudo reiniciar el carrusel", e);
-        }
-    }
-
-    // Cargar las tags apropiadas
-    filterBadgesByTags('warningBadgesContainerId', item)
 
     // Cargar valores en los campos editables
     document.getElementById('editExperiencia').value = item.experiencia || '';
@@ -332,36 +302,86 @@ function cargarItemEnModal(index) {
 function generarCarrusel(imagenes, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
     if (!imagenes || imagenes.length === 0) {
-        container.innerHTML = `<img src="${DEFAULT_IMG}" class="d-block w-100 img-preview-modal" alt="Imagen por defecto">`;
+        container.innerHTML = `<div class="carousel-item active">
+            <img src="${DEFAULT_IMG}" class="d-block w-100 img-carrousel-modal" alt="Imagen por defecto">
+        </div>`;
         return;
     }
+
     let itemsHtml = '';
+    let indicatorsHtml = '';
+    
     imagenes.forEach((imgUrl, idx) => {
         const activeClass = idx === 0 ? 'active' : '';
-        itemsHtml += `
-            <div class="carousel-item ${activeClass}">
-                <img src="${imgUrl}" class="d-block w-100 img-preview-modal" alt="Imagen ${idx+1}" onerror="this.src='${DEFAULT_IMG}'">
-            </div>
+        const isGif = imgUrl.toLowerCase().endsWith('.gif');
+        
+        // Generar indicador
+        indicatorsHtml += `
+            <button type="button" data-bs-target="#carruselActividad" data-bs-slide-to="${idx}" 
+                    class="${activeClass}" aria-label="Slide ${idx+1}"></button>
         `;
+        
+        // Generar slide
+        if (isGif) {
+            itemsHtml += `
+                <div class="carousel-item ${activeClass}">
+                    <div class="gif-container position-relative">
+                        <img src="${DEFAULT_IMG}" data-gif-src="${imgUrl}" class="d-block w-100 img-carrousel-modal gif-img" alt="GIF">
+                        <button class="gif-play-pause btn btn-primary btn-sm position-absolute" style="bottom: 10px; right: 10px; z-index: 10;">▶️ Play</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            itemsHtml += `
+                <div class="carousel-item ${activeClass}">
+                    <img src="${imgUrl}" class="d-block w-100 img-carrousel-modal" alt="Imagen ${idx+1}" onerror="this.src='${DEFAULT_IMG}'">
+                </div>
+            `;
+        }
     });
-    container.innerHTML = `
-        <div id="carruselActividad" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                ${itemsHtml}
-            </div>
-            ${imagenes.length > 1 ? `
-            <button class="carousel-control-prev" type="button" data-bs-target="#carruselActividad" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carruselActividad" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-            </button>
-            ` : ''}
-        </div>
-    `;
+
+    // Poblamos el carousel-inner existente
+    container.innerHTML = itemsHtml;
+
+    // Poblamos los indicadores si existen
+    const indicatorsContainer = document.querySelector('#carruselActividad .carousel-indicators');
+    if (indicatorsContainer) {
+        indicatorsContainer.innerHTML = indicatorsHtml;
+    }
+
+    // Reinicializamos el carousel después de cambiar el contenido
+    const carouselElement = document.getElementById('carruselActividad');
+    if (carouselElement) {
+        // Destruir instancia anterior si existe
+        const carousel = bootstrap.Carousel.getInstance(carouselElement);
+        if (carousel) {
+            carousel.dispose();
+        }
+        // Crear nueva instancia
+        new bootstrap.Carousel(carouselElement, {
+            ride: false
+        });
+    }
+
+    // Eventos para GIFs
+    document.querySelectorAll('.gif-play-pause').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const containerDiv = this.closest('.gif-container');
+            const img = containerDiv.querySelector('.gif-img');
+            const gifSrc = img.getAttribute('data-gif-src');
+
+            if (img.src === DEFAULT_IMG) {
+                img.src = gifSrc;
+                this.textContent = '⏸️ Pause';
+            } else {
+                img.src = DEFAULT_IMG;
+                this.textContent = '▶️ Play';
+            }
+        });
+    });
 }
 
 function actualizarBotonesInteres(interesValor) {

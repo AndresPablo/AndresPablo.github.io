@@ -824,7 +824,7 @@
           {
             "name": "Bondage Completo / Inmovilización total",
             "emoji": "🚫",
-            "imagenes": ["https://www.klinikbondage.com/cdn/shop/files/pranger-bdsm-fessel-haende-fuesse-schwarz-verwendung.jpg?v=1756813916"],
+            "imagenes": ["https://cdn.shoplightspeed.com/shops/627913/files/73096437/spread-eagle.jpg","https://www.klinikbondage.com/cdn/shop/files/pranger-bdsm-fessel-haende-fuesse-schwarz-verwendung.jpg?v=1756813916"],
             "descripcion": "Lorem ipsum...",
             "ejemplo_notas": "(sin notas)",
             "warnings": [
@@ -835,8 +835,12 @@
             ],
             "external_links": [
               {
-                "texto_visible": "30 posturas BDSM",
+                "texto_visible": "30 posturas BDSM - Español",
                 "url": "https://www.menshealth.com/es/sexo-relaciones-pareja/a37786139/30-posturas-bdsm-para-un-sexo-mas-salvaje/"
+              },
+              {
+                "texto_visible": "20 posturas BDSM - Inglés",
+                "url": "https://www.bondesque.com/blogs/bondesque-blog/top-20-bdsm-bondage-positions/"
               }
             ]
           },
@@ -2051,6 +2055,25 @@
             ]
           },
           {
+            "name": "Arneses",
+            "emoji": "",
+            "imagenes": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4uAH0xUUsnhJS6ycolUpIgFgtr9DEfxQXzzaolYc1RyyKdVzKia7poEIi&s=10", "https://img.staticdj.com/1fbaa25e2a3313f4fe240333b72f13a9_750x.jpeg"],
+            "descripcion": "Lorem ipsum...",
+            "ejemplo_notas": "(sin notas)",
+            "warnings": [
+              "0"
+            ],
+            "tags": [
+              ""
+            ],
+            "external_links": [
+              {
+                "texto_visible": "#Test_Link#",
+                "url": ""
+              }
+            ]
+          },
+          {
             "name": "Tacones",
             "emoji": "👠",
             "imagenes": [
@@ -2206,10 +2229,10 @@
           },
           {
             "name": "Botas",
-            "emoji": "",
+            "emoji": "🥾",
             "imagenes": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPg6THoW4QuRkzyus0zHHRPMMozzNyHo3Tyiuk7IxtgA&s",
                           "https://64.media.tumblr.com/8893298c9a4b07ffa783c75da8f958a6/7528515469396850-f0/s1280x1920/29fe80e5807c0c4a639801c520288b30d1ba6cb3.jpg"],
-            "descripcion": "Lorem ipsum...",
+            "descripcion": "Erotización por la estética de las botas, o ser aplasteade por ellas.",
             "ejemplo_notas": "(sin notas)",
             "warnings": [
               "0"
@@ -2224,25 +2247,7 @@
               }
             ]
           },
-          {
-            "name": "Arneses",
-            "emoji": "",
-            "imagenes": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4uAH0xUUsnhJS6ycolUpIgFgtr9DEfxQXzzaolYc1RyyKdVzKia7poEIi&s=10", "https://img.staticdj.com/1fbaa25e2a3313f4fe240333b72f13a9_750x.jpeg"],
-            "descripcion": "Lorem ipsum...",
-            "ejemplo_notas": "(sin notas)",
-            "warnings": [
-              "0"
-            ],
-            "tags": [
-              ""
-            ],
-            "external_links": [
-              {
-                "texto_visible": "#Test_Link#",
-                "url": ""
-              }
-            ]
-          },
+          
           {
             "name": "Lorem Ipsum",
             "emoji": "",

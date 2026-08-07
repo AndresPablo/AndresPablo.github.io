@@ -22,20 +22,51 @@
     <!-- NAVBAR SUPERIOR -->
     <nav class="navbar navbar-dark bg-dark fixed-top shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="bi bi-compass-fill"></i> Crawl Cartographer</a>
-            <div class="d-flex">
-                <button class="btn btn-secondary me-2" id="newNodeNavBtn"><i class="bi bi-plus-circle"></i> Nuevo
-                    nodo</button>
-                <button class="btn btn-secondary me-2" id="duplicateNodeNavBtn"><i class="bi bi-files"></i>
-                    Duplicar</button>
-                <button class="btn btn-danger me-2" id="resetNavBtn"><i class="bi bi-trash3"></i> Reset</button>
-                <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#exportModal"><i
-                        class="bi bi-download"></i> Exportar</button>
-                <button class="btn btn-success me-2" id="importJsonBtn"><i class="bi bi-upload"></i>
-                    Importar</button>
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal"><i
-                        class="bi bi-gear"></i> Configuración</button>
-            </div>
+            <a class="navbar-brand me-3" href="#"><i class="bi bi-compass-fill"></i> Crawl Cartographer</a>
+            <ul class="navbar-nav flex-row flex-wrap gap-2 topbar-menu">
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle btn btn-link text-light px-2 py-1" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-file-earmark"></i> Archivo
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item" type="button" id="importJsonBtn"><i class="bi bi-upload"></i> Importar</button></li>
+                        <li><button class="dropdown-item" type="button" id="exportMenuBtn" data-bs-toggle="modal" data-bs-target="#exportModal"><i class="bi bi-download"></i> Exportar</button></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><button class="dropdown-item text-danger" type="button" id="resetNavBtn"><i class="bi bi-trash3"></i> Reset</button></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle btn btn-link text-light px-2 py-1" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-pencil-square"></i> Edición
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item" type="button" id="newNodeNavBtn"><i class="bi bi-plus-circle"></i> Nuevo nodo</button></li>
+                        <li><button class="dropdown-item" type="button" id="duplicateNodeNavBtn"><i class="bi bi-files"></i> Duplicar</button></li>
+                        <li><button class="dropdown-item" type="button" id="deleteSelectionNavBtn"><i class="bi bi-trash"></i> Borrar</button></li>
+                        <li><button class="dropdown-item" type="button" id="clonePropsNavBtn"><i class="bi bi-copy"></i> Clonar propiedades</button></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle btn btn-link text-light px-2 py-1" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-square"></i> Canvas
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item" type="button" id="themeMenuBtn"><i class="bi bi-palette"></i> Tema</button></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle btn btn-link text-light px-2 py-1" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-gear"></i> Opciones
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><button class="dropdown-item" type="button" id="settingsMenuBtn"><i class="bi bi-sliders"></i> Abrir configuración</button></li>
+                    </ul>
+                </li>
+            </ul>
             <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
         </div>
     </nav>

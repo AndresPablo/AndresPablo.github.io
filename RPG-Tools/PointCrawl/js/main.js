@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ------------------------- INICIALIZACIÓN DE BOTONES DE NAVBAR -------------------------
-document.getElementById('newNodeNavBtn').addEventListener('click', () => {
+function createNewNodeFromToolbar() {
     let x = 100 + Math.random() * (canvas.width - 200);
     let y = 100 + Math.random() * (canvas.height - 200);
     const newNode = addNodeRaw(x, y, "#000000", "circle", 1.0, "", "bottom", "#ffffffaa", "");
@@ -935,9 +935,81 @@ document.getElementById('newNodeNavBtn').addEventListener('click', () => {
     updatePropertiesPanel();
     saveToLocalStorage();
     updateStatusMessage("Nodo añadido", false);
-});
+}
+
+function cloneSelectedNodeProperties() {
+    if (!selectedNodeId) {
+        updateStatusMessage("Selecciona un nodo para clonar sus propiedades", true);
+        return;
+    }
+
+    const original = nodes.find(n => n.id === selectedNodeId);
+    if (!original) return;
+
+    const newX = Math.min(canvas.width - getNodeRadius(original) - 5, original.x + 40);
+    const newY = Math.min(canvas.height - getNodeRadius(original) - 5, original.y + 40);
+    const newNode = addNodeRaw(newX, newY, original.bgColor, original.shape, original.scale, "", original.labelPosition, original.labelBgColor, "", original.borderColor || '#000000', original.borderWidth !== undefined ? original.borderWidth : 0);
+
+    newNode.iconColor = original.iconColor || '#ffffff';
+    if (original.innerLabelFont) newNode.innerLabelFont = { ...original.innerLabelFont };
+    if (original.externalLabelFont) newNode.externalLabelFont = { ...original.externalLabelFont };
+    newNode.glowEnabled = original.glowEnabled || false;
+    newNode.glowColor = original.glowColor || '#ffff00';
+    newNode.glowSize = original.glowSize || 10;
+    newNode.iconFlipX = original.iconFlipX || false;
+    newNode.iconFlipY = original.iconFlipY || false;
+    newNode.iconRotation = original.iconRotation !== undefined ? original.iconRotation : 0;
+    newNode.innerLabelRotation = original.innerLabelRotation !== undefined ? original.innerLabelRotation : 0;
+    newNode.externalLabelRotation = original.externalLabelRotation !== undefined ? original.externalLabelRotation : 0;
+
+    if (original.iconSrc) loadImageForNode(newNode, original.iconSrc);
+
+    renderCanvas();
+    selectedNodeId = newNode.id;
+    selectedConnectionId = null;
+    updatePropertiesPanel();
+    saveToLocalStorage();
+    updateStatusMessage("Propiedades aplicadas a un nuevo nodo", false);
+}
+
+function deleteCurrentSelection() {
+    if (selectedNodeId) {
+        deleteNodeById(selectedNodeId);
+        return;
+    }
+    if (selectedConnectionId) {
+        deleteConnectionById(selectedConnectionId);
+        return;
+    }
+    updateStatusMessage("No hay selección para borrar", true);
+}
+
+function openSettingsModal(targetSection = null) {
+    const modal = new bootstrap.Modal(document.getElementById('settingsModal'));
+    modal.show();
+
+    if (targetSection === 'theme') {
+        setTimeout(() => {
+            const themeSelect = document.getElementById('themeSelect');
+            if (themeSelect) themeSelect.focus();
+        }, 250);
+    }
+}
+
+document.getElementById('newNodeNavBtn').addEventListener('click', createNewNodeFromToolbar);
 document.getElementById('duplicateNodeNavBtn').addEventListener('click', () => duplicateSelectedNode());
+document.getElementById('deleteSelectionNavBtn').addEventListener('click', deleteCurrentSelection);
+document.getElementById('clonePropsNavBtn').addEventListener('click', cloneSelectedNodeProperties);
 document.getElementById('resetNavBtn').addEventListener('click', () => resetFullMap());
+document.getElementById('importJsonBtn').addEventListener('click', () => {
+    document.getElementById('jsonFileInput').click();
+});
+document.getElementById('exportMenuBtn').addEventListener('click', () => {
+    const exportModal = new bootstrap.Modal(document.getElementById('exportModal'));
+    exportModal.show();
+});
+document.getElementById('themeMenuBtn').addEventListener('click', () => openSettingsModal('theme'));
+document.getElementById('settingsMenuBtn').addEventListener('click', () => openSettingsModal());
 
 
 // ------------------------- INITIALIZATION -------------------------

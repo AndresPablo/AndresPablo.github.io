@@ -65,6 +65,54 @@ function guardarEnLocalStorage() {
     localStorage.setItem('eventoActividades', JSON.stringify(dataToStore));
 }
 
+function mergearDatosPersistidos(itemsBase, categoriasBase, itemsPersistidos, categoriasPersistidas) {
+    const itemsBaseFinal = Array.isArray(itemsBase) ? itemsBase : [];
+    const itemsPersistidosFinal = Array.isArray(itemsPersistidos) ? itemsPersistidos : [];
+    const categoriasBaseFinal = Array.isArray(categoriasBase) ? categoriasBase : [];
+    const categoriasPersistidasFinal = Array.isArray(categoriasPersistidas) ? categoriasPersistidas : [];
+
+    const mapaPersistido = new Map();
+    itemsPersistidosFinal.forEach(item => {
+        const clave = `${String(item.categoria || '').trim().toLowerCase()}::${String(item.actividad || '').trim().toLowerCase()}`;
+        mapaPersistido.set(clave, item);
+    });
+
+    const itemsCombinados = itemsBaseFinal.map(itemBase => {
+        const clave = `${String(itemBase.categoria || '').trim().toLowerCase()}::${String(itemBase.actividad || '').trim().toLowerCase()}`;
+        const itemPersistido = mapaPersistido.get(clave);
+
+        if (!itemPersistido) return itemBase;
+
+        return {
+            ...itemBase,
+            experiencia: itemPersistido.experiencia ?? itemBase.experiencia ?? '',
+            interes: itemPersistido.interes ?? itemBase.interes ?? '',
+            rol: itemPersistido.rol ?? itemBase.rol ?? '',
+            notas: itemPersistido.notas ?? itemBase.notas ?? ''
+        };
+    });
+
+    itemsPersistidosFinal.forEach(itemPersistido => {
+        const clavePersistido = `${String(itemPersistido.categoria || '').trim().toLowerCase()}::${String(itemPersistido.actividad || '').trim().toLowerCase()}`;
+        const existeEnBase = itemsBaseFinal.some(itemBase => {
+            const claveBase = `${String(itemBase.categoria || '').trim().toLowerCase()}::${String(itemBase.actividad || '').trim().toLowerCase()}`;
+            return claveBase === clavePersistido;
+        });
+
+        if (!existeEnBase) {
+            itemsCombinados.push({
+                ...itemPersistido,
+                id: itemsCombinados.length + 1
+            });
+        }
+    });
+
+    return {
+        items: itemsCombinados,
+        categorias: categoriasBaseFinal.length ? categoriasBaseFinal : categoriasPersistidasFinal
+    };
+}
+
 // Transforma el formato anidado (categorías con items) a los arrays planos
 function transformarDesdeFormatoAnidado(data) {
     categorias = [];
@@ -108,34 +156,42 @@ function transformarDesdeFormatoAnidado(data) {
 
 // Cargar datos (desde localStorage o data.json)
 async function cargarDatosIniciales() {
+    let itemsBase = [];
+    let categoriasBase = [];
+
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        transformarDesdeFormatoAnidado(data);
+        itemsBase = items.map(item => ({ ...item }));
+        categoriasBase = categorias.map(cat => ({ ...cat }));
+    } catch(e) {
+        console.error('Error cargando data.json', e);
+    }
+
     const stored = localStorage.getItem('eventoActividades');
     if (stored) {
         try {
             const data = JSON.parse(stored);
-            if (data.items && data.categorias) {
-                items = data.items;
-                categorias = data.categorias;
-            } else {
-                // formato antiguo o incorrecto, lo ignoramos y recargamos
-                throw new Error('Formato inválido');
-            }
+            const resultado = mergearDatosPersistidos(
+                itemsBase,
+                categoriasBase,
+                Array.isArray(data.items) ? data.items : [],
+                Array.isArray(data.categorias) ? data.categorias : []
+            );
+            items = resultado.items;
+            categorias = resultado.categorias;
         } catch(e) {
-            items = [];
-            categorias = [];
+            items = itemsBase;
+            categorias = categoriasBase;
         }
     } else {
-        try {
-            const response = await fetch('data.json');
-            const data = await response.json();
-            transformarDesdeFormatoAnidado(data);
-            guardarEnLocalStorage();
-        } catch(e) {
-            console.error('Error cargando data.json', e);
-            items = [];
-            categorias = [];
-        }
+        items = itemsBase;
+        categorias = categoriasBase;
     }
+
     reasignarIds();
+    guardarEnLocalStorage();
     renderizarTablas();
 }
 
@@ -472,12 +528,25 @@ document.querySelectorAll('.interes-boton').forEach(btn => {
 });
 
 // ======================== EXPORTACIONES ========================
+function sanitizarNombreHoja(nombre, fallback = 'Hoja') {
+    const base = String(nombre || fallback)
+        .replace(/[\\/:*?"[\]]/g, ' ')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .slice(0, 31);
+
+    return base || fallback;
+}
+
 function exportarExcel() {
     const wb = XLSX.utils.book_new();
+    const nombresUsados = new Set();
+
     // Una hoja por categoría
     for (const cat of categorias) {
         const itemsFiltrados = items.filter(i => i.categoria === cat.id);
         if (itemsFiltrados.length === 0) continue;
+
         const data = itemsFiltrados.map(i => ({
             "": i.emoji,
             "Actividad": i.actividad,
@@ -488,8 +557,21 @@ function exportarExcel() {
             "Notas": i.notas,
             "Ejemplo Notas": i.ejemplo_notas
         }));
+
+        let nombreHoja = sanitizarNombreHoja(cat.display_name, `Categoria_${cat.id}`);
+        if (nombresUsados.has(nombreHoja)) {
+            let contador = 2;
+            let nombreAlternativo = `${nombreHoja} (${contador})`;
+            while (nombresUsados.has(nombreAlternativo)) {
+                contador += 1;
+                nombreAlternativo = `${nombreHoja} (${contador})`;
+            }
+            nombreHoja = nombreAlternativo.slice(0, 31);
+        }
+        nombresUsados.add(nombreHoja);
+
         const ws = XLSX.utils.json_to_sheet(data);
-        XLSX.utils.book_append_sheet(wb, ws, cat.display_name.slice(0, 31));
+        XLSX.utils.book_append_sheet(wb, ws, nombreHoja);
     }
     const usuarioData = [{
         "Nombre": document.getElementById('nombreUsuario').value,
@@ -505,7 +587,7 @@ function exportarExcel() {
     }];
     const wsUser = XLSX.utils.json_to_sheet(usuarioData);
     XLSX.utils.book_append_sheet(wb, wsUser, "Info_Usuario");
-    XLSX.writeFile(wb, `evento_actividades_${new Date().toISOString().slice(0,19)}.xlsx`);
+    XLSX.writeFile(wb, `evento_actividades.xlsx`);
 }
 document.getElementById('exportarExcelBtn').addEventListener('click', exportarExcel);
 
